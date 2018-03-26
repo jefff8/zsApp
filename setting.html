@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+	</head>
+
+	<body>
+		<div class="mui-content">
+		    <form class="mui-input-group">				
+				<ul id="listUl" class="mui-table-view mui-table-view-chevron">
+					<li class="mui-table-view-divider">账户信息</li>
+					<li class="mui-table-view-cell">						
+						<a id="wdzh" class="mui-navigate-right">
+						个人信息
+						</a>
+					</li>
+					<li class="mui-table-view-divider">登录设置</li>
+					<li class="mui-table-view-cell">
+						自动登录
+						<div id="autoLogin" class="mui-switch">
+							<div class="mui-switch-handle"></div>
+						</div>
+					</li>
+					<li class="mui-table-view-divider">升级设置</li>
+					<li class="mui-table-view-cell ">
+						当前版本：<span id="version"></span>
+					</li>
+					<li class="mui-table-view-cell ">
+						自动侦测升级
+						<div id="zdzcsj" class="mui-switch">
+							<div class="mui-switch-handle"></div>
+						</div>
+					</li>
+					<li id="jcxbb" class="mui-table-view-cell">
+						检查新版本(下载)						
+					</li>
+					<li class="mui-table-view-divider">&nbsp;</li>
+					<li class="mui-table-view-cell" style="text-align: center;">
+						<a id='exit'>退出</a>
+					</li>
+				</ul>
+			</form>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+	</body>
+
+</html>

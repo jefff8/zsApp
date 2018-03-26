@@ -1,0 +1,28 @@
+{
+	"main.html": {
+		"refer": [
+			"setting.html"
+		]
+	},
+	"login.html": {
+		"refer": [
+			"main.html",
+			"index.html"
+		]
+	},
+	"index.html": {
+		"resources": [
+			"homepage.html"
+		],
+		"refer": [
+			"homepage.html",
+			"setting.html",
+			"todo.html"
+		]
+	},
+	"homepage.html": {
+		"refer": [
+			"my_project/project_list.html"
+		]
+	}
+}
