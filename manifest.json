@@ -277,6 +277,30 @@
 				"priority": 0
 			},
 			"homepage.html": {
+				"resources": [
+					"images/商业建筑.png"
+				],
+				"refer": [
+					"my_project/project_list.html",
+					"statistics.html"
+				],
+				"priority": 0
+			},
+			"todo.html": {
+				"resources": [],
+				"refer": [
+					"search_ok.html"
+				],
+				"priority": 0
+			},
+			"my_project/project_list.html": {
+				"resources": [],
+				"refer": [
+					"my_project/project_index.html"
+				],
+				"priority": 0
+			},
+			"my_project/project_index.html": {
 				"resources": [],
 				"refer": [
 					"my_project/project_list.html"

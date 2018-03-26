@@ -22,6 +22,25 @@
 	},
 	"homepage.html": {
 		"refer": [
+			"my_project/project_list.html",
+			"statistics.html"
+		],
+		"resources": [
+			"images/商业建筑.png"
+		]
+	},
+	"todo.html": {
+		"refer": [
+			"search_ok.html"
+		]
+	},
+	"my_project/project_list.html": {
+		"refer": [
+			"my_project/project_index.html"
+		]
+	},
+	"my_project/project_index.html": {
+		"refer": [
 			"my_project/project_list.html"
 		]
 	}
