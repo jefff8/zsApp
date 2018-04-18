@@ -303,7 +303,42 @@
 			"my_project/project_index.html": {
 				"resources": [],
 				"refer": [
-					"my_project/project_list.html"
+					"my_project/project_list.html",
+					"my_project/project_form_list.html",
+					"my_project/project_form_select.html"
+				],
+				"priority": 0
+			},
+			"my_project/project_form_list.html": {
+				"resources": [],
+				"refer": [
+					"my_project/project_index.html",
+					"my_project/detail/form_list.html"
+				],
+				"priority": 0
+			},
+			"my_project/detail/form_list.html": {
+				"resources": [],
+				"refer": [
+					"my_project/project_form_list.html",
+					"my_project/detail/form_signIn.html"
+				],
+				"priority": 0
+			},
+			"my_project/detail/form_signIn.html": {
+				"resources": [
+					"excel_demo/moban.htm",
+					"excel_demo/moban.html"
+				],
+				"refer": [
+					"my_project/detail/form_list.html"
+				],
+				"priority": 0
+			},
+			"my_project/project_form_select.html": {
+				"resources": [],
+				"refer": [
+					"my_project/project_index.html"
 				],
 				"priority": 0
 			}

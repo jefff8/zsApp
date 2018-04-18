@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+        <title></title>
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <!--标准mui.css-->
+        <link rel="stylesheet" href="../../css/mui.min.css">
+        <link rel="stylesheet" href="../../fonts/iconfont.css">
+    </head>
+    <body>
+        <header class="mui-bar mui-bar-nav">
+            <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left "></a>
+            <h1 class="mui-title">竣工验收备案资料</h1>
+        </header>
+        <div class="mui-content">
+            <!--竣工验收备案-->
+            <a href="form_signIn.html">
+                <div class="mui-card">
+                    <div class="mui-card-header mui-card-media">
+                        <img src="../../images/form.png" width="34px" height="34px" />
+                        <div class="mui-media-body">
+                            <span>表单名称</span>
+                            <p>部位及日期</p>
+                        </div>
+                    </div>
+                    <div class="mui-card-footer">
+                        <a class="mui-card-link">已批复:3</a>
+                        <a class="mui-card-link">待批复:5</a>
+                        <a class="mui-card-link">已驳回:5</a>
+                        <a class="mui-card-link">已逾期:5</a>
+                    </div>
+                </div>
+            </a>
+            <!--施工前期准备资料-->
+            <a href="#">
+                <div class="mui-card">
+                    <div class="mui-card-header mui-card-media">
+                        <img src="../../images/form.png" width="34px" height="34px" />
+                        <div class="mui-media-body">
+                            <span>表单名称</span>
+                            <p>部位及日期</p>
+                        </div>
+                    </div>
+                    <div class="mui-card-footer">
+                        <a class="mui-card-link">已批复:3</a>
+                        <a class="mui-card-link">待批复:5</a>
+                        <a class="mui-card-link">已驳回:5</a>
+                        <a class="mui-card-link">已逾期:5</a>
+                    </div>
+                </div>
+            </a>
+            <!--施工过程管理资料-->
+            <a href="#">
+                <div class="mui-card">
+                    <div class="mui-card-header mui-card-media">
+                        <img src="../../images/form.png" width="34px" height="34px" />
+                        <div class="mui-media-body">
+                            <span>表单名称</span>
+                            <p>部位及日期</p>
+                        </div>
+                    </div>
+                    <div class="mui-card-footer">
+                        <a class="mui-card-link">已批复:3</a>
+                        <a class="mui-card-link">待批复:5</a>
+                        <a class="mui-card-link">已驳回:5</a>
+                        <a class="mui-card-link">已逾期:5</a>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <script src="../..//js/mui.min.js"></script>
+        <script type="text/javascript">
+            mui.init();
+            mui.plusReady(function(){
+               var back = document.getElementById("back");
+               back.addEventListener('tap',function(){
+                   mui.openWindow({
+                       
+                   })
+               });
+            });
+        </script>
+    </body>
+</html>
