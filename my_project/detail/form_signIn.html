@@ -10,7 +10,7 @@
 
 	<body>
 	    <header class="mui-bar mui-bar-nav">
-            <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left "></a>
+            <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left " id='back'></a>
             <h1 class="mui-title">表单名称</h1>
         </header>
         
@@ -25,6 +25,16 @@
                     bottom:'0px'//默认为0px，可不定义；
                   }
                 }]
+			});
+			mui.plusReady(function(){
+				var back = document.getElementById("back");
+//				back.addEventListener('tap',function(){
+//					var win = plus.webview.getWebviewById('moban.html'); 
+//					win.hide('auto');
+//					var target=plus.webview.getWebviewById('../my_project/detail/form_list.html');
+//					target.reload(true);
+//					mui.back();
+//				});
 			});
 		</script>
 	</body>

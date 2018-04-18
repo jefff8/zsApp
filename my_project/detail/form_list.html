@@ -17,8 +17,8 @@
         </header>
         <div class="mui-content">
             <!--竣工验收备案-->
-            <a href="form_signIn.html">
-                <div class="mui-card">
+            <!--<a href="form_signIn.html">-->
+                <div class="mui-card" id="openform"> 
                     <div class="mui-card-header mui-card-media">
                         <img src="../../images/form.png" width="34px" height="34px" />
                         <div class="mui-media-body">
@@ -33,7 +33,7 @@
                         <a class="mui-card-link">已逾期:5</a>
                     </div>
                 </div>
-            </a>
+            <!--</a>-->
             <!--施工前期准备资料-->
             <a href="#">
                 <div class="mui-card">
@@ -75,12 +75,12 @@
         <script type="text/javascript">
             mui.init();
             mui.plusReady(function(){
-               var back = document.getElementById("back");
-               back.addEventListener('tap',function(){
-                   mui.openWindow({
-                       
-                   })
-               });
+            	var openform = document.getElementById("openform");
+            	openform.addEventListener('tap',function(){
+            		mui.openWindow({
+            			url:'form_signIn.html'
+            		})
+            	})
             });
         </script>
     </body>
