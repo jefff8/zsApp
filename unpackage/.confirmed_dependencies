@@ -43,7 +43,8 @@
 		"refer": [
 			"my_project/project_list.html",
 			"my_project/project_form_list.html",
-			"my_project/project_form_select.html"
+			"my_project/project_form_select.html",
+			"my_project/project_form_count.html"
 		]
 	},
 	"my_project/project_form_list.html": {
@@ -66,12 +67,30 @@
 		"refer": [
 			"excel_demo/moban.htm",
 			"my_project/detail/form_list.html",
-			"excel_demo/moban.html"
+			"excel_demo/moban.html",
+			"my_project/detail/form_check.html",
+			"my_project/detail/form_mes.html"
 		]
 	},
 	"my_project/project_form_select.html": {
 		"refer": [
 			"my_project/project_index.html"
+		]
+	},
+	"my_project/project_form_count.html": {
+		"refer": [
+			"my_project/project_index.html"
+		]
+	},
+	"my_project/detail/form_mes.html": {
+		"resources": [
+			"my_project/detail/form_mesa.html",
+			"excel_demo/moban.htm"
+		],
+		"refer": [
+			"my_project/detail/form_mesa.html",
+			"my_project/detail/form_mesb.html",
+			"excel_demo/moban.htm"
 		]
 	}
 }

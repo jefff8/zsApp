@@ -1,7 +1,10 @@
 <xml xmlns:o="urn:schemas-microsoft-com:office:office">
- <o:MainFile HRef="../moban.html"/>
- <o:File HRef="moban_13056_image001.png" PublicationID="moban_13056"/>
- <o:File HRef="moban_13056_image002.png" PublicationID="moban_13056"/>
- <o:File HRef="moban_13056_image003.png" PublicationID="moban_13056"/>
+ <o:MainFile HRef="../moban.htm"/>
+ <o:File HRef="stylesheet.css"/>
+ <!--<o:File HRef="tabstrip.htm"/>-->
+ <o:File HRef="sheet001.htm"/>
+ <o:File HRef="image001.png"/>
+ <o:File HRef="image002.png"/>
+ <o:File HRef="image003.png"/>
  <o:File HRef="filelist.xml"/>
 </xml>

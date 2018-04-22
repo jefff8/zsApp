@@ -6,36 +6,226 @@
 		<title></title>
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../css/icons-extra.css" rel="stylesheet" type="text/css" />
+		<style>
+		    footer {
+                position: fixed;
+                width: 100%;
+                height: 50px;
+                min-height: 50px;
+                border-top: solid 1px #bbb;
+                left: 0px;
+                bottom: 0px;
+                overflow: hidden;
+                padding: 0px 50px;
+                background-color: #fafafa;
+            }
+            .footer-left {
+                position: absolute;
+                width: 50px;
+                height: 50px;
+                left: 0px;
+                bottom: 0px;
+                text-align: center;
+                vertical-align: middle;
+                line-height: 100%;
+                padding: 12px 4px;
+            }
+            /*.footer-right {
+                position: absolute;
+                width: 50px;
+                height: 50px;
+                right: 0px;
+                bottom: 0px;
+                text-align: center;
+                vertical-align: middle;
+                line-height: 100%;
+                padding: 12px 5px;
+                display: inline-block;
+            }*/
+            .footer-right-page {
+                position: absolute;
+                width: 45px;
+                height: 50px;
+                right: 15px;
+                bottom: 3px;
+                text-align: center;
+                vertical-align: middle;
+                line-height: 100%;
+                padding: 12px 5px;
+                display: inline-block;
+            }
+            .footer-right-post {
+                position: absolute;
+                width: 50px;
+                height: 35px;
+                /*top: 2px;*/
+                right: 6px;
+                bottom: 8px;
+                text-align: center;
+                vertical-align: middle;
+                line-height: 100%;
+                padding: 12px 5px;
+                display: inline-block;
+            }
+            .footer-center {
+                height: 100%;
+                padding: 5px 0px;
+            }
+            .footer-center [class*=input] {
+                width: 94%;
+                height: 100%;
+                border-radius: 5px;
+            }
+            .footer-center .input-text {
+                background: #fff;
+                border: solid 1px #ddd;
+                padding: 10px !important;
+                font-size: 16px !important;
+                line-height: 18px !important;
+                font-family: verdana !important;
+                overflow: hidden;
+            }
+            .footer-center .input-sound {
+                background-color: #eee;
+            }
+            footer .mui-icon {
+                color: #000;
+            }
+            footer .mui-icon:active {
+                color: #007AFF !important;
+            }
+            footer .mui-icon-paperplane:before {
+                content: "发送";
+            }
+            footer .mui-icon-paperplane {
+                /*-webkit-transform: rotateZ(45deg);
+                transform: rotateZ(45deg);*/
+                
+                font-size: 16px;
+                word-break: keep-all;
+                line-height: 100%;
+                padding-top: 6px;
+                color: rgba(0, 135, 250, 1);
+            }
+		</style>
 	</head>
 
 	<body>
 	    <header class="mui-bar mui-bar-nav">
             <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left " id='back'></a>
-            <h1 class="mui-title">表单名称</h1>
+            <a class="mui-icon mui-icon-trash mui-pull-right" style="color: red;" id="delForm"></a>
+            <h1 class="mui-title">表单名称审批</h1>
         </header>
-        
+        <footer>
+            <!--手写输入切换-->
+            <div class="footer-left">
+                <img id='msg-change' src="../../images/SignIn.png" width="20px" height="20px" />
+            </div>
+            <!--签名框-->
+            <div class="footer-center">
+                <textarea id='msg-text' type="text" class='input-text'></textarea>
+            </div>
+            <!--查看流程和签名效果-->
+            <label for="" class="footer-right">
+                <img id="msg-check" class="footer-right-page" src="../../images/CheckOut.png" width="20px" height="20px" />
+                <button type="button" class="mui-btn mui-btn-success footer-right-post" id="postMes" style="display: none;">提交</button>
+                <!--<button type="button" class="mui-btn mui-btn-success footer-right-post" id="postMes">提交</button>-->
+            </label>
+        </footer>
 		<script src="../../js/mui.min.js"></script>
 		<script type="text/javascript">
-			mui.init({
-			    subpages:[{
-                  url:'../../excel_demo/moban.html',
-                  id:'moban.html',
-                  styles:{
-                    top:'45px',//mui标题栏默认高度为45px；
-                    bottom:'0px'//默认为0px，可不定义；
-                  }
-                }]
-			});
-			mui.plusReady(function(){
-				var back = document.getElementById("back");
-//				back.addEventListener('tap',function(){
-//					var win = plus.webview.getWebviewById('moban.html'); 
-//					win.hide('auto');
-//					var target=plus.webview.getWebviewById('../my_project/detail/form_list.html');
-//					target.reload(true);
-//					mui.back();
-//				});
-			});
+    		(function($, doc) {	
+    			$.init({
+    			    swipeBack:false,
+    			    statusBarBackground: '#f7f7f7',
+    			    subpages:[{
+                        url:'../../excel_demo/moban.htm',
+                        id:'moban.html',
+                        styles:{
+                            top:'45px',//mui标题栏默认高度为45px；
+                            bottom:'51px',//默认为0px，可不定义；
+                            width:'143%'
+                      }
+                    }]
+    			});
+    			$.plusReady(function(){
+    			    var ui = {
+                        footer: doc.querySelector('footer'),
+                        footerRight: doc.querySelector('.footer-right'),
+                        footerLeft: doc.querySelector('.footer-left'),
+                        btnMsgType: doc.querySelector('#msg-type'),
+                        boxMsgText: doc.querySelector('#msg-text'),
+                        boxMsgSound: doc.querySelector('#msg-sound'),
+                        btnMsgCheck: doc.querySelector('#msg-check'),
+                        boxSoundAlert: doc.querySelector('#sound-alert'),
+                        postMes: doc.querySelector('#postMes'),
+                        delForm: doc.querySelector('#delForm'),
+                    };
+                    //检测，显示提交按钮
+                    ui.boxMsgText.addEventListener('input',function() {
+                        ui.postMes.style.display = 'block';
+                        ui.btnMsgCheck.style.display = 'none';
+                    })
+                    //提交信息之后
+                    ui.postMes.addEventListener('tap',function() {
+                        alert(ui.boxMsgText.value);
+                        ui.postMes.style.display = 'none';
+                        ui.btnMsgCheck.style.display = 'block';
+                        ui.boxMsgText.value = '';
+                    })
+                    //显示键盘
+                    var showKeyboard = function() {
+                        if ($.os.ios) {
+                            var webView = plus.webview.currentWebview().nativeInstanceObject();
+                            webView.plusCallMethod({
+                                "setKeyboardDisplayRequiresUserAction": false
+                            });
+                        } else {
+                            var Context = plus.android.importClass("android.content.Context");
+                            var InputMethodManager = plus.android.importClass("android.view.inputmethod.InputMethodManager");
+                            var main = plus.android.runtimeMainActivity();
+                            var imm = main.getSystemService(Context.INPUT_METHOD_SERVICE);
+                            imm.toggleSoftInput(0, InputMethodManager.SHOW_FORCED);
+                            //var view = ((ViewGroup)main.findViewById(android.R.id.content)).getChildAt(0);
+                            imm.showSoftInput(main.getWindow().getDecorView(), InputMethodManager.SHOW_IMPLICIT);
+                            //alert("ll");
+                        }
+                    };
+                    //驳回
+                    ui.delForm.addEventListener('tap',function(e) {
+                        var delFormMes = confirm('是否驳回此表单');
+                        if(delFormMes){
+                            e.detail.gesture.preventDefault(); //修复iOS 8.x平台存在的bug，使用plus.nativeUI.prompt会造成输入法闪一下又没了
+                            var btnArray = ['取消', '确定'];
+                            mui.prompt('请输入审批意见：', '或驳回原因', '建筑文件审批系统', btnArray, function(e) {
+                                if (e.index == 1) {
+                                    alert('审批意见:' + e.value);
+                                } 
+                            });
+                        }
+                    });
+                    //打开详情
+                    ui.btnMsgCheck.addEventListener('tap',function() {
+                        mui.openWindow({
+                            url: 'form_mes.html',
+                            id: 'form_mes.html',
+                            styles: {
+                              
+                            }
+                        });
+                    })
+    			});
+    			//解决返回问题
+                var back = document.getElementById("back");
+                back.addEventListener('tap',function(){
+                    var win = plus.webview.getWebviewById('moban.html'); 
+                    win.hide('auto');
+                    var target=plus.webview.getWebviewById('form_list.html');
+                    target.reload(true);
+                    $.back();
+                });
+    		}(mui, document));
 		</script>
 	</body>
 

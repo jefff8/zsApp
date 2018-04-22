@@ -3,7 +3,7 @@ mui.init();
 var subpages = ['homepage.html', 'todo.html', 'setting.html'];
 var subpage_style = {
 	top: '45px',
-bottom: '51px'
+    bottom: '51px'
 };
 
 var aniShow = {};
