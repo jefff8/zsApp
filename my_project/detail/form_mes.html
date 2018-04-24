@@ -37,13 +37,16 @@
         <script type="text/javascript" charset="utf-8">
              //mui初始化
             mui.init();
-            var subpages = ['../../excel_demo/moban.htm', 'form_mesa.html'];
+            var subpages = ['../../excel_demo/formtest.html', 'form_mesa.html'];
 //          if (subpages.url == 'form_mesa.html') {
             	var subpage_style = {
                     top: '45px',
                     bottom: '51px',
                     width: '143%'
                 };
+                var extras = {
+                	blowUp:'1'
+                }
 //          } else{
 //          	var subpage_style = {
 //                  top: '45px',
@@ -58,7 +61,7 @@
                 var self = plus.webview.currentWebview();
                 for (var i = 0; i < 2; i++) {
                     var temp = {};
-                    var sub = plus.webview.create(subpages[i], subpages[i], subpage_style);
+                    var sub = plus.webview.create(subpages[i], subpages[i], subpage_style,extras);
                     if (i > 0) {
                         sub.hide();
                     }else{
