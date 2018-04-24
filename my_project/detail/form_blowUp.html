@@ -26,9 +26,9 @@
         <script type="text/javascript" charset="utf-8">
              //mui初始化
             mui.init();
-            var subpages = '../../excel_demo/moban.htm';
+            var subpages = '../../excel_demo/formtest.html';
         	var subpage_style = {
-                top: '45px'
+                top: '45px' 
             };
              //创建子页面，首个选项卡页面显示，其它均隐藏；
             mui.plusReady(function() {
@@ -37,7 +37,7 @@
                 var extras={
                 	blowUp:'1'
                 };
-                var sub = plus.webview.create(subpages,'moban',subpage_style,extras);
+                var sub = plus.webview.create(subpages,'formtest',subpage_style,extras);
                 self.append(sub);
             });
         </script>
