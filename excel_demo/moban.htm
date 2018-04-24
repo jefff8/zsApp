@@ -13,7 +13,21 @@ xmlns="http://www.w3.org/TR/REC-html40">
 <link id="shLink" href="moban.files/sheet001.htm">
 
 <link id="shLink">
-
+<script language="JavaScript">
+window.onload = function(){
+    //获取iframe的window对象
+    var x = document.getElementById("myFrame");
+    var y = (x.frSheet.contentWindow || x.frSheet.contentDocument);
+    if(x.frSheet.document){
+        y=x.frSheet.document;
+    }
+    var xx = y.getElementsByClassName('xl127');
+    xx[0].innerHTML = '000';
+    //通过获取到的window对象操作HTML元素，这和普通页面一样
+//  var xx = y.getElementsByClassName('xl127');
+//  xx[0].innerHTML = '000';
+}
+</script>
 <script language="JavaScript">
 
  var c_lTabs=1;
@@ -312,7 +326,7 @@ function fnSetActiveSheet(iSh)
 </xml><![endif]-->
 </head>
 
-<frameset rows="*,39" border=0 width=0 frameborder=no framespacing=0>
+<frameset id="myFrame" rows="*,39" border=0 width=0 frameborder=no framespacing=0>
  <frame src="moban.files/sheet001.htm" name="frSheet">
  <frame src="moban.files/tabstrip.htm" name="frTabs" marginwidth=0 marginheight=0>
  <noframes>
