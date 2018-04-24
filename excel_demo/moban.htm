@@ -22,14 +22,10 @@ xmlns="http://www.w3.org/TR/REC-html40">
 		var flag = self.blowUp;
 		//判断是否放大
 		if(flag){
-			document.getElementsByTagName('meta')[4].content = 'width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no';
+			document.getElementsByTagName('meta')[4].content = 'width=device-width, initial-scale=1,maximum-scale=1,user-scalable=yes';
 		}
-		var x = document.getElementById("myFrame");
-	    var y = (x.frSheet.contentWindow || x.frSheet.contentDocument);
-	    if(x.frSheet.document){
-	        y=x.frSheet.document;
-	    }
-	    var xx = y.getElementsByClassName('xl127');
+	    var myframe = parent.window.frames["frSheet"].document;
+	    var xx = myframe.getElementsByClassName('xl127');
 	    xx[0].innerHTML = '000';
 	})
 </script>
