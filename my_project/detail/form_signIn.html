@@ -108,6 +108,9 @@
                 padding-top: 6px;
                 color: rgba(0, 135, 250, 1);
             }
+            #blowUp{
+            	margin-right: 5px;
+            }
 		</style>
 	</head>
 
@@ -115,6 +118,7 @@
 	    <header class="mui-bar mui-bar-nav">
             <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left " id='back'></a>
             <a class="mui-icon mui-icon-trash mui-pull-right" style="color: red;" id="delForm"></a>
+            <a class="mui-icon mui-icon-search mui-pull-right"  id="blowUp" ></a>
             <h1 class="mui-title">表单名称审批</h1>
         </header>
         <footer>
@@ -161,6 +165,7 @@
                         boxSoundAlert: doc.querySelector('#sound-alert'),
                         postMes: doc.querySelector('#postMes'),
                         delForm: doc.querySelector('#delForm'),
+                        blowUp:doc.querySelector('#blowUp')
                     };
                     //检测，显示提交按钮
                     ui.boxMsgText.addEventListener('input',function() {
@@ -192,6 +197,12 @@
                             //alert("ll");
                         }
                     };
+                    //放大
+                    ui.blowUp.addEventListener('tap',function(){
+                    	$.openWindow({
+                    		url:'form_blowUp.html'
+                    	})
+                    })
                     //驳回
                     ui.delForm.addEventListener('tap',function(e) {
                         var delFormMes = confirm('是否驳回此表单');

@@ -8,25 +8,30 @@ xmlns="http://www.w3.org/TR/REC-html40">
 <meta http-equiv=Content-Type content="text/html; charset=utf-8">
 <meta name=ProgId content=Excel.Sheet>
 <meta name=Generator content="Microsoft Excel 14">
+<meta name="viewport" content="">
 <link rel=File-List href="moban.files/filelist.xml">
 <![if !supportTabStrip]>
 <link id="shLink" href="moban.files/sheet001.htm">
 
 <link id="shLink">
+
+<script src="../js/mui.min.js"></script>
 <script language="JavaScript">
-window.onload = function(){
-    //获取iframe的window对象
-    var x = document.getElementById("myFrame");
-    var y = (x.frSheet.contentWindow || x.frSheet.contentDocument);
-    if(x.frSheet.document){
-        y=x.frSheet.document;
-    }
-    var xx = y.getElementsByClassName('xl127');
-    xx[0].innerHTML = '000';
-    //通过获取到的window对象操作HTML元素，这和普通页面一样
-//  var xx = y.getElementsByClassName('xl127');
-//  xx[0].innerHTML = '000';
-}
+	mui.plusReady(function(){
+		var self = plus.webview.currentWebview();
+		var flag = self.blowUp;
+		//判断是否放大
+		if(flag){
+			document.getElementsByTagName('meta')[4].content = 'width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no';
+		}
+		var x = document.getElementById("myFrame");
+	    var y = (x.frSheet.contentWindow || x.frSheet.contentDocument);
+	    if(x.frSheet.document){
+	        y=x.frSheet.document;
+	    }
+	    var xx = y.getElementsByClassName('xl127');
+	    xx[0].innerHTML = '000';
+	})
 </script>
 <script language="JavaScript">
 
