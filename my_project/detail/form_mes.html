@@ -24,7 +24,7 @@
         </header>
         
         <nav class="mui-bar mui-bar-tab">
-            <a id="defaultTab" class="mui-tab-item mui-active" href="../../excel_demo/moban.htm">
+            <a id="defaultTab" class="mui-tab-item mui-active" href="../../excel_demo/formtest.html">
                 <span class="mui-icon mui-icon-compose"></span>
                 <span class="mui-tab-label">签名预览</span>
             </a>
@@ -38,21 +38,12 @@
              //mui初始化
             mui.init();
             var subpages = ['../../excel_demo/formtest.html', 'form_mesa.html'];
-//          if (subpages.url == 'form_mesa.html') {
-            	var subpage_style = {
-                    top: '45px',
-                    bottom: '51px',
-                    width: '143%'
-                };
-                var extras = {
-                	blowUp:'1'
-                }
-//          } else{
-//          	var subpage_style = {
-//                  top: '45px',
-//                  bottom: '51px',
-//              };
-//          }
+        	var subpage_style = {
+                top: '45px',
+                bottom: '51px',
+                width: '143%',
+                scalable:true
+            };
             
             var aniShow = {};
             
@@ -61,7 +52,7 @@
                 var self = plus.webview.currentWebview();
                 for (var i = 0; i < 2; i++) {
                     var temp = {};
-                    var sub = plus.webview.create(subpages[i], subpages[i], subpage_style,extras);
+                    var sub = plus.webview.create(subpages[i], subpages[i], subpage_style);
                     if (i > 0) {
                         sub.hide();
                     }else{
@@ -80,10 +71,10 @@
 //              target.reload(true);
 //              $.back();
 //          });
-             //当前激活选项
+            //当前激活选项
             var activeTab = subpages[0];
             var title = document.getElementById("title");
-             //选项卡点击事件
+            //选项卡点击事件
             mui('.mui-bar-tab').on('tap', 'a', function(e) {
                 var targetTab = this.getAttribute('href');
                 if (targetTab == activeTab) {

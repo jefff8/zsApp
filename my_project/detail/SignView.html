@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../../css/mui.min.css">
+		<link rel="stylesheet" href="../../css/my_css.css">
+		<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap.min.css">
+	</head>
+	<body>
+		<div class="mui-content">
+			<div class="container">
+				<!--<div class="row" hidden="hidden">
+					<div class="col-xs-12">
+						<div class="js-signature"></div>
+					</div>
+				</div>-->
+				<div class="row">
+					<div class="col-xs-12">
+						<br />
+						<div class="js-signature" style="" data-width="500" data-height="300" data-border="1px solid black"  data-auto-fit="true" id="signIng"></div>
+							<p hidden="hidden">
+								<button  class="btn btn-default">清除</button>&nbsp;
+								<button id="CheckPic" class="btn btn-default">查看</button>&nbsp;
+								<button id="saveBtn" class="btn btn-default" disabled="disabled">确定</button>
+							</p>
+						<div id="signature">
+							<p>
+								<em>手机签名中......</em>
+							</p>
+							<!--过去一步的图像-->
+							<img id="imgPass" />
+							<!--现在的图像-->
+							<img id="imgNow" />
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--底部-->
+		<nav class="mui-bar mui-bar-tab ">
+            <a class="mui-tab-item" href="#Popover_0">颜色</a>
+            <a class="mui-tab-item" href="#Popover_1">粗细</a>
+            <a class="mui-tab-item" id="Popover_2">撤销</a>
+            <a class="mui-tab-item" id="Popover_3">清屏</a>
+            <a class="mui-tab-item" id="Popover_4" disabled="disabled">提交</a>
+        </nav>
+        <!--颜色控制-->
+        <div id="Popover_0" class="mui-popover mui-bar-popover">
+            <div class="mui-popover-arrow"></div>
+            <ul class="mui-table-view">
+                <form id="group">
+                    <li class="mui-table-view-cell " id="#000000"><a href="#"><div><label>黑</label><div style="float: right;background-color: #000000;width: 20px;height: 20px;"></div></div></a></li>
+                    <li class="mui-table-view-cell mui-active" id="#FF0000"><a href="#"><div><label>红</label><div style="float: right;background-color: #FF0000;width: 20px;height: 20px;"></div></div></a></li>
+                    <li class="mui-table-view-cell" id="#0000FF"><a href="#"><div><label>蓝</label><div style="float: right;background-color: #0000FF;width: 20px;height: 20px;"></div></div></a></li>
+                    <li class="mui-table-view-cell" id="#00FF00"><a href="#"><div><label>绿</label><div style="float: right;background-color: #00FF00;width: 20px;height: 20px;"></div></div></a></li>
+                </form>
+            </ul>
+        </div>
+        <!--粗细控制-->
+        <div id="Popover_1" class="mui-popover mui-bar-popover">
+            <div class="mui-popover-arrow"></div>
+            <ul class="mui-table-view">
+                <form id="group1">
+                    <li class="mui-table-view-cell mui-active" id="1"><a href="#"><div><label>1</label><div class="signIn-width" style="float: right;"></div></div></a></li>
+                    <li class="mui-table-view-cell" id="3"><a href="#"><div><label>3</label><div class="signIn-width" style="float: right;"></div></div></a></li>
+                    <li class="mui-table-view-cell" id="5"><a href="#"><div><label>5</label><div class="signIn-width" style="float: right;"></div></div></a></li>
+                    <li class="mui-table-view-cell" id="7"><a href="#"><div><label>7</label><div class="signIn-width" style="float: right;"></div></div></a></li>
+                    <li class="mui-table-view-cell" id="9"><a href="#"><div><label>9</label><div class="signIn-width" style="float: right;"></div></div></a></li>
+                </form>
+            </ul>
+        </div>
+	</body>
+	<script src="../../js/mui.min.js"></script>
+	<!--<script src="js/service.js" ></script>-->
+	<script src="../../js/signature/jquery-1.11.0.min.js"></script>
+	<!--<script src="../../js/signature/jq-signature.min.js"></script>-->
+	<script type="text/javascript">
+		mui.init({
+		    release:true//默认为false，不监听
+		});
+		//区域滚动,需手动初始化scroll控件
+		mui('.mui-scroll-wrapper').scroll({
+			deceleration: 0.0005 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
+		});		
+		//获取线条属性
+        lineColor = $('#Popover_0 .mui-active').attr('id');
+        lineWidth = $('#Popover_1 .mui-active').attr('id');
+        //重新加载文件
+        $.getScript('../../js/signature/jq-signature.min.js');
+		mui.plusReady(function() {
+            var Popover_0= document.getElementById("Popover_0");
+            var Popover_1= document.getElementById("Popover_1");
+            var Popover_2= document.getElementById("Popover_2");
+            var Popover_3= document.getElementById("Popover_3");
+            var Popover_4= document.getElementById("Popover_4");
+            var signIng= document.getElementById("signIng");
+            
+            //选择画笔颜色
+            $('#Popover_0 .mui-table-view-cell').on('tap',function(e) {
+                $('#Popover_0 .mui-active').removeClass("mui-active");
+                $(this).addClass("mui-active");
+                lineColor=$(this).attr('id');
+                $.getScript('../../js/signature/jq-signature.min.js');
+                
+            });
+            //选择画笔粗细
+            $('#Popover_1 .mui-table-view-cell').on('tap',function(e) {
+                $('#Popover_1 .mui-active').removeClass("mui-active");
+                $(this).addClass("mui-active");
+                alert($(this).attr('id'));
+                lineWidth=$(this).attr('id');
+                $.getScript('../../js/signature/jq-signature.min.js');
+            })
+            
+            
+            
+            //点击清屏
+            Popover_3.addEventListener('tap',function (){
+                clearCanvas();
+            });
+            
+            //点击撤销
+                //检测画布改变
+//          $('.js-signature').eq(0).on('jq.signature.changed', function() {
+//              var dataNow = $('.js-signature').eq(0).jqSignature('getDataURL');
+//              //获取旧的图像数据
+//              var dataPass = $('#imgNow').attr('src');
+//              //将上一次保存的图像放到pass
+//              $('#imgPass').attr('src', dataPass);
+//              //将新的图像放到now
+//              $('#imgNow').attr('src', dataNow);
+                
+//              var Aim = document.getElementsByTagName('canvas');
+//              var AimCanvas=Aim[0].getContext("2d");
+//              var dataNow = AimCanvas.getImageData(0,0,500,300);
+//              //获取旧的图像数据
+//              var dataPass = $('#imgNow').attr('src');
+////              //将上一次保存的图像放到pass
+//              $('#imgPass').attr('src', dataPass);
+////              //将新的图像放到now
+//              $('#imgNow').attr('src', dataNow);
+//          });
+                //【撤销】按钮监控
+//          Popover_2.addEventListener('tap',function (){
+//              //获取目标画布
+//              var Aim = document.getElementsByTagName('canvas');
+//              var AimCanvas=Aim[0].getContext("2d");
+//              //获取图像
+//              var dataPass = $('#imgPass').attr('src');
+//              var dataNow = $('#imgNow').attr('src');
+//              //将新的图像放在旧图像显示区，新图像放在新图像显示区
+//              $('#imgPass').attr('src',dataNow);
+//              $('#imgNow').attr('src',dataPass);
+//              //将旧图像在画布重现
+//              AimCanvas.drawImage(dataPass,0,0);
+//          });
+//          Popover_2.addEventListener('tap',function (){
+//              //获取目标画布
+//              var Aim = document.getElementsByTagName('canvas');
+//              var AimCanvas=Aim[0].getContext("2d");
+//              //获取图像
+//              var dataPass = $('#imgPass').attr('src');
+//              var dataNow = $('#imgNow').attr('src');
+//              //将新的图像放在旧图像显示区，新图像放在新图像显示区
+//              $('#imgPass').attr('src',dataNow);
+//              $('#imgNow').attr('src',dataPass);
+//              //将旧图像在画布重现
+//              AimCanvas.putImageData(dataPass,0,0);
+//          });
+            
+            
+            
+			//签名保存
+			Popover_4.addEventListener('tap',function(){
+				$('#signature').html('<p><em>签名正在保存，请稍后</em></p>');
+				var dataUrl = $('.js-signature').eq(0).jqSignature('getDataURL');
+//				var img = $('<img>').attr('src', dataUrl);
+				$('#signature').append($('<p>').text('您的签名已经成功提交'));
+//				$('#signature').append(img);
+			});
+			
+			if ($('.js-signature').length) {
+				$('.js-signature').jqSignature();
+			}
+			
+		});
+    	//清屏
+    	function clearCanvas() {
+			$('#signature').html('<p><em>已执行清屏操作</em></p>');
+			$('.js-signature').eq(0).jqSignature('clearCanvas');
+			$('#saveBtn').attr('disabled', true);
+		}
+	</script>
+</html>

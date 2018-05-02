@@ -62,14 +62,21 @@
 	"my_project/detail/form_signIn.html": {
 		"resources": [
 			"excel_demo/moban.htm",
-			"excel_demo/moban.html"
+			"excel_demo/moban.html",
+			"excel_demo/formtest.html",
+			"my_project/detail/SignView.html"
 		],
 		"refer": [
 			"excel_demo/moban.htm",
 			"my_project/detail/form_list.html",
 			"excel_demo/moban.html",
 			"my_project/detail/form_check.html",
-			"my_project/detail/form_mes.html"
+			"my_project/detail/form_mes.html",
+			"excel_demo/formtest.html",
+			"my_project/detail/form_blowUp.html",
+			"my_project/detail/SignView.html",
+			"my_project/detail/tabbar-with-submenus.html",
+			"my_project/detail/signature.html"
 		]
 	},
 	"my_project/project_form_select.html": {
@@ -85,12 +92,22 @@
 	"my_project/detail/form_mes.html": {
 		"resources": [
 			"my_project/detail/form_mesa.html",
-			"excel_demo/moban.htm"
+			"excel_demo/moban.htm",
+			"excel_demo/formtest.html"
 		],
 		"refer": [
 			"my_project/detail/form_mesa.html",
 			"my_project/detail/form_mesb.html",
-			"excel_demo/moban.htm"
+			"excel_demo/moban.htm",
+			"excel_demo/formtest.html"
+		]
+	},
+	"my_project/detail/form_blowUp.html": {
+		"resources": [
+			"excel_demo/formtest.html"
+		],
+		"refer": [
+			"excel_demo/formtest.html"
 		]
 	}
 }

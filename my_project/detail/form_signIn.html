@@ -108,9 +108,6 @@
                 padding-top: 6px;
                 color: rgba(0, 135, 250, 1);
             }
-            #blowUp{
-            	margin-right: 5px;
-            }
 		</style>
 	</head>
 
@@ -118,41 +115,62 @@
 	    <header class="mui-bar mui-bar-nav">
             <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left " id='back'></a>
             <a class="mui-icon mui-icon-trash mui-pull-right" style="color: red;" id="delForm"></a>
-            <a class="mui-icon mui-icon-search mui-pull-right"  id="blowUp" ></a>
             <h1 class="mui-title">表单名称审批</h1>
         </header>
         <footer>
             <!--手写输入切换-->
             <div class="footer-left">
-                <img id='msg-change' src="../../images/SignIn.png" width="20px" height="20px" />
+                <img id="msg-change" src="../../images/SignIn.png" width="20px" height="20px" />
             </div>
-            <!--签名框-->
+            <!--输入框-->
             <div class="footer-center">
                 <textarea id='msg-text' type="text" class='input-text'></textarea>
             </div>
-            <!--查看流程和签名效果-->
+            <!--查看/发送-->
             <label for="" class="footer-right">
                 <img id="msg-check" class="footer-right-page" src="../../images/CheckOut.png" width="20px" height="20px" />
                 <button type="button" class="mui-btn mui-btn-success footer-right-post" id="postMes" style="display: none;">提交</button>
-                <!--<button type="button" class="mui-btn mui-btn-success footer-right-post" id="postMes">提交</button>-->
             </label>
         </footer>
 		<script src="../../js/mui.min.js"></script>
 		<script type="text/javascript">
-    		(function($, doc) {	
-    			$.init({
-    			    swipeBack:false,
-    			    statusBarBackground: '#f7f7f7',
-    			    subpages:[{
-                        url:'../../excel_demo/formtest.html',
-                        id:'moban.html',
+    		(function($, doc) {
+//  			$.init({
+//  			    swipeBack:false,
+//  			    statusBarBackground: '#f7f7f7',
+//  			    subpages:[{
+//                      url:'../../excel_demo/formtest.html',
+//                      id:'moban.html',
+//                      styles:{
+//                          top:'45px',//mui标题栏默认高度为45px；
+//                          bottom:'51px',//默认为0px，可不定义；
+//                          width:'143%',
+//                          scalable:true
+//                    }
+//                  }]
+//  			});
+
+                $.init({
+                    swipeBack:false,
+                    statusBarBackground: '#f7f7f7',
+                    subpages:[{
+                        url:'SignView.html',
+                        id:'SignView.html',
                         styles:{
                             top:'45px',//mui标题栏默认高度为45px；
                             bottom:'51px',//默认为0px，可不定义；
-                            width:'143%'
                       }
                     }]
-    			});
+                });
+//  			mui.init();
+    			var subpages = ['../../excel_demo/formtest.html', 'form_mesa.html'];
+                var subpage_style = {
+                    top: '45px',
+                    bottom: '51px',
+                    width: '143%'
+                };
+                var aniShow = {};
+                
     			$.plusReady(function(){
     			    var ui = {
                         footer: doc.querySelector('footer'),
@@ -162,17 +180,17 @@
                         boxMsgText: doc.querySelector('#msg-text'),
                         boxMsgSound: doc.querySelector('#msg-sound'),
                         btnMsgCheck: doc.querySelector('#msg-check'),
+                        btnMsgChange: doc.querySelector('#msg-change'),
                         boxSoundAlert: doc.querySelector('#sound-alert'),
                         postMes: doc.querySelector('#postMes'),
-                        delForm: doc.querySelector('#delForm'),
-                        blowUp:doc.querySelector('#blowUp')
+                        delForm: doc.querySelector('#delForm')
                     };
-                    //检测，显示提交按钮
+                    //检测，显示提交按钮【键盘输入】
                     ui.boxMsgText.addEventListener('input',function() {
                         ui.postMes.style.display = 'block';
                         ui.btnMsgCheck.style.display = 'none';
                     })
-                    //提交信息之后
+                    //提交信息之后【键盘输入】
                     ui.postMes.addEventListener('tap',function() {
                         alert(ui.boxMsgText.value);
                         ui.postMes.style.display = 'none';
@@ -197,12 +215,6 @@
                             //alert("ll");
                         }
                     };
-                    //放大
-                    ui.blowUp.addEventListener('tap',function(){
-                    	$.openWindow({
-                    		url:'form_blowUp.html'
-                    	})
-                    })
                     //驳回
                     ui.delForm.addEventListener('tap',function(e) {
                         var delFormMes = confirm('是否驳回此表单');
@@ -226,16 +238,78 @@
                             }
                         });
                     })
+                    //表格和签名的切换
+                    ui.btnMsgChange.addEventListener('tap',function() {
+                        if(ui.boxMsgText.disabled == 'disabled'){
+                            ui.boxMsgText.disabled = ''
+                        }else{
+                            ui.boxMsgText.disabled = 'disabled';
+                        }
+                    })
+                    
+                    //创建子页面，首个选项卡页面显示，其它均隐藏；
+//                  var self = plus.webview.currentWebview();
+//                  for (var i = 0; i < 1; i++) {
+//                      var temp = {};
+//                      var sub = plus.webview.create(subpages[i], subpages[i], subpage_style);
+//                      if (i > 0) {
+//                          sub.hide();
+//                      }else{
+//                          temp[subpages[i]] = "true";
+//                          mui.extend(aniShow,temp);
+//                      }
+//                      self.append(sub);
+//                  }
+                    //当前激活选项
+                    var activeTab = subpages[0];
+                    var title = document.getElementById("title");
+                    //选项卡点击事件
+                    mui('.mui-bar-tab').on('tap', 'a', function(e) {
+                        var targetTab = this.getAttribute('href');
+                        if (targetTab == activeTab) {
+                            return;
+                        }
+                        //更换标题
+//                      title.innerHTML = this.querySelector('.mui-tab-label').innerHTML;
+                        //显示目标选项卡
+                        //若为iOS平台或非首次显示，则直接显示
+                        if(mui.os.ios||aniShow[targetTab]){
+                            plus.webview.show(targetTab);
+                        }else{
+                            //否则，使用fade-in动画，且保存变量
+                            var temp = {};
+                            temp[targetTab] = "true";
+                            mui.extend(aniShow,temp);
+                            plus.webview.show(targetTab,"fade-in",300);
+                        }
+                        //隐藏当前;
+                        plus.webview.hide(activeTab);
+                        //更改当前活跃的选项卡
+                        activeTab = targetTab;
+                    });
+                     //自定义事件，模拟点击“首页选项卡”
+                    document.addEventListener('gohome', function() {
+                        var defaultTab = document.getElementById("defaultTab");
+                        //模拟首页点击
+                        mui.trigger(defaultTab, 'tap');
+                        //切换选项卡高亮
+                        var current = document.querySelector(".mui-bar-tab>.mui-tab-item.mui-active");
+                        if (defaultTab !== current) {
+                            current.classList.remove('mui-active');
+                            defaultTab.classList.add('mui-active');
+                        }
+                    });
     			});
+    			
     			//解决返回问题
-                var back = document.getElementById("back");
-                back.addEventListener('tap',function(){
-                    var win = plus.webview.getWebviewById('moban.html'); 
-                    win.hide('auto');
-                    var target=plus.webview.getWebviewById('my_project/project_list.html');
-                    target.reload(true);
-                    $.back();
-                });
+//              var back = document.getElementById("back");
+//              back.addEventListener('tap',function(){
+//                  var win = plus.webview.getWebviewById('moban.html'); 
+//                  win.hide('auto');
+//                  var target=plus.webview.getWebviewById('my_project/project_list.html');
+//                  target.reload(true);
+//                  $.back();
+//              });
     		}(mui, document));
 		</script>
 	</body>
