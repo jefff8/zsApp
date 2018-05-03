@@ -6,11 +6,66 @@
 		<link rel="stylesheet" href="../css/mui.min.css">
 	</head>
 	<body>
+	    <header class="mui-bar mui-bar-nav">
+            <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left "></a>
+            <h1 class="mui-title">同欣科技大厦A区项目-文档答复</h1>
+        </header>
+        <div class="mui-content">
+            <!--甲方通知单-->
+            <div class="mui-card link" id="openform"> 
+                <div class="mui-card-header mui-card-media">
+                    <img src="../images/files.png" width="34px" height="34px" />
+                    <div class="mui-media-body">
+                        <span>文档名称</span>
+                        <p>备注</p>
+                    </div>
+                </div>
+                <div class="mui-card-footer">
+                    <a class="mui-card-link">合计3份文档</a>
+                </div>
+            </div>
+            <!--施工报审单-->
+            <div class="mui-card" id="openform"> 
+                <div class="mui-card-header mui-card-media">
+                    <img src="../images/files.png" width="34px" height="34px" />
+                    <div class="mui-media-body">
+                        <span>文档名称</span>
+                        <p>备注</p>
+                    </div>
+                </div>
+                <div class="mui-card-footer">
+                    <a class="mui-card-link">合计1份文档</a>
+                </div>
+            </div>
+            <!--合同台账-->
+            <div class="mui-card" id="openform"> 
+                <div class="mui-card-header mui-card-media">
+                    <img src="../images/files.png" width="34px" height="34px" />
+                    <div class="mui-media-body">
+                        <span>文档名称</span>
+                        <p>备注</p>
+                    </div>
+                </div>
+                <div class="mui-card-footer">
+                    <a class="mui-card-link">合计5份文档</a>
+                </div>
+            </div>
+        </div>
 		<script src="../js/mui.min.js"></script>
-		<script src="../js/tabbar.js"></script>
-		<script src="../js/.js"></script>
+		<script src="../js/signature/jquery-1.11.0.min.js"></script>
 		<script type="text/javascript">
-			mui.init();
+			(function($,doc){
+			    mui.init();
+			    $.plusReady(function() {
+			        var link = document.getElementsByClassName("link");
+			        link[0].addEventListener('tap',function(){
+			            $.openWindow({
+			                url:'detail/doc_list.html',
+                            id:'detail/doc_list.html'
+			            })
+			        })
+			    })
+			}(mui,document));
 		</script>
 	</body>
 </html>

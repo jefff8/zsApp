@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+        <title></title>
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <!--标准mui.css-->
+        <link rel="stylesheet" href="../../css/mui.min.css">
+        <style>
+            .mui-plus .plus{
+                display: inline;
+            }
+            
+            .plus{
+                display: none;
+            }
+            
+            #topPopover {
+                position: fixed;
+                top: 16px;
+                right: 6px;
+            }
+            #topPopover .mui-popover-arrow {
+                left: auto;
+                right: 6px;
+            }
+            p {
+                text-indent: 22px;
+            }
+            span.mui-icon {
+                font-size: 14px;
+                color: #007aff;
+                margin-left: -15px;
+                padding-right: 10px;
+            }
+            .mui-popover {
+                height: 80px;
+            }
+            .mui-content {
+                padding: 10px;
+            }
+        </style>
+    </head>
+    <body>
+        <header class="mui-bar mui-bar-nav">
+            <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left "></a>
+            <a id="menu" class="mui-action-menu mui-icon mui-icon-bars mui-pull-right" href="#topPopover"></a>
+            <h1 class="mui-title">同欣科技大厦A区项目-文档名称</h1>
+        </header>
+        <div class="mui-content">
+            <!--竣工验收备案-->
+            <div class="mui-card" id="openform"> 
+                <div class="mui-card-header mui-card-media">
+                    <img src="../../images/form.png" width="34px" height="34px" />
+                    <div class="mui-media-body">
+                        <span>表单名称</span>
+                        <p>部位及日期</p>
+                    </div>
+                </div>
+                <div class="mui-card-footer">
+                    <a class="mui-card-link">已批复:3</a>
+                    <a class="mui-card-link">待批复:5</a>
+                    <a class="mui-card-link">已驳回:5</a>
+                    <a class="mui-card-link">已逾期:5</a>
+                </div>
+            </div>
+            <!--施工前期准备资料-->
+            <div class="mui-card">
+                <div class="mui-card-header mui-card-media">
+                    <img src="../../images/form.png" width="34px" height="34px" />
+                    <div class="mui-media-body">
+                        <span>表单名称</span>
+                        <p>部位及日期</p>
+                    </div>
+                </div>
+                <div class="mui-card-footer">
+                    <a class="mui-card-link">已批复:3</a>
+                    <a class="mui-card-link">待批复:5</a>
+                    <a class="mui-card-link">已驳回:5</a>
+                    <a class="mui-card-link">已逾期:5</a>
+                </div>
+            </div>
+            <!--施工过程管理资料-->
+            <div class="mui-card">
+                <div class="mui-card-header mui-card-media">
+                    <img src="../../images/form.png" width="34px" height="34px" />
+                    <div class="mui-media-body">
+                        <span>表单名称</span>
+                        <p>部位及日期</p>
+                    </div>
+                </div>
+                <div class="mui-card-footer">
+                    <a class="mui-card-link">已批复:3</a>
+                    <a class="mui-card-link">待批复:5</a>
+                    <a class="mui-card-link">已驳回:5</a>
+                    <a class="mui-card-link">已逾期:5</a>
+                </div>
+            </div>
+        </div>
+        <!--右上角菜单-->
+        <div id="topPopover" class="mui-popover">
+            <div class="mui-popover-arrow"></div>
+            <div class="mui-scroll-wrapper">
+                <div class="mui-scroll">
+                    <ul class="mui-table-view">
+                        <li class="mui-table-view-cell" id="SignIn">签批</li>
+                        <li class="mui-table-view-cell" id="GiveUp">废止</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <script src="../..//js/mui.min.js"></script>
+        <script type="text/javascript">
+            mui.init();
+            mui.plusReady(function(){
+                //点击打开表单详情
+                var openform = document.getElementById("openform");
+                openform.addEventListener('tap',function(){
+                    mui.openWindow({
+                        url:'form_mes.html'
+                    })
+                })
+                //点击打开文档签批
+                var SignIn = document.getElementById("SignIn");
+                SignIn.addEventListener('tap',function() {
+                    mui.openWindow({
+                        url:'doc_signIn.html'
+                    })
+                })
+                //点击进行文档废止
+                var GiveUp = document.getElementById("GiveUp");
+                GiveUp.addEventListener('tap',function() {
+                    if(confirm('是否要对此文档进行废止操作')){
+                        alert('文档成功废止');
+                    }
+                })
+            });
+        </script>
+    </body>
+</html>

@@ -1,16 +1,153 @@
 <!DOCTYPE html>
 <html>
 	<head>
+	    <meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<title>表单签批-统计</title>
 		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" type="text/css" href="../css/mui.picker.min.css" />
+        <style>
+            html,
+            body,
+            .mui-content {
+                height: 0px;
+                margin: 0px;
+                background-color: #efeff4;
+            }
+            h5.mui-content-padded {
+                margin-left: 3px;
+                margin-top: 20px !important;
+            }
+            h5.mui-content-padded:first-child {
+                margin-top: 12px !important;
+            }
+            .mui-btn {
+                font-size: 16px;
+                padding: 8px;
+                margin: 3px;
+            }
+            .ui-alert {
+                text-align: center;
+                padding: 20px 10px;
+                font-size: 16px;
+            }
+            * {
+                -webkit-touch-callout: none;
+                -webkit-user-select: none;
+            }
+            .chart {
+                height: 200px;
+                margin: 0px;
+                padding: 0px;
+            }
+            h5 {
+                margin-top: 30px;
+                font-weight: bold;
+            }
+            h5:first-child {
+                margin-top: 15px;
+            }
+        </style>
 	</head>
 	<body>
+	    <header class="mui-bar mui-bar-nav">
+            <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left "></a>
+            <h1 class="mui-title">同欣科技大厦A区项目-表单统计</h1>
+        </header>
+        <div class="mui-content">
+            <div class="mui-content-padded">
+                <div class="mui-input-row">
+                    <label>签批开始时间</label>
+                    <input class="TimeBgn" type="text" placeholder="点击按钮选择时间" readonly="readonly">
+                </div>
+                <button data-options='{"type":"date"}' class="btn mui-btn mui-btn-block" id="TimeBgn">选择签批开始时间</button>
+                <div class="mui-input-row">
+                    <label>签批结束时间</label>
+                    <input class="TimeEnd" type="text" placeholder="点击按钮选择时间" readonly="readonly">
+                </div>
+                <button data-options='{"type":"date"}' class="btn mui-btn mui-btn-block" id="TimeEnd">选择签批结束时间</button>
+                <div style="float: right;"><button>统计</button></div>
+            </div>
+            <br /><br />
+            <div class="mui-content-padded">
+                <div class="chart" id="pieChart"></div>
+            </div>
+            <br />
+            <hr />
+            <div>
+                <div class="mui-input-row">
+                    <label><button>查看签批表单</button></label>
+                    <input type="text" value="签批表单：57份" readonly="readonly">
+                </div>
+                <div class="mui-input-row">
+                    <label><button>查看驳回表单</button></label>
+                    <input type="text" value="驳回表单：1份" readonly="readonly">
+                </div>
+                <div class="mui-input-row">
+                    <label><button>查看逾期表单</button></label>
+                    <input type="text" value="逾期表单：13份" readonly="readonly">
+                </div>
+                <div class="mui-input-row">
+                    <label><button>查看归集表单</button></label>
+                    <input type="text" value="归集表单：51份" readonly="readonly">
+                </div>
+            </div>
+        </div>
 		<script src="../js/mui.min.js"></script>
-		<script src="../js/tabbar.js"></script>
-		<script src="../js/.js"></script>
+		<script src="../js/mui.picker.min.js"></script><!--日期选择-->
+		<script src="../libs/echarts-all.js"></script><!--饼状图-->
 		<script type="text/javascript">
-			mui.init();
+			(function($) {
+                $.init();
+                var btns = $('.btn');
+                btns.each(function(i, btn) {
+                    btn.addEventListener('tap', function() {
+                        var optionsJson = this.getAttribute('data-options') || '{}';
+                        var options = JSON.parse(optionsJson);
+                        var id = this.getAttribute('id');
+                        var picker = new $.DtPicker(options);
+                        picker.show(function(rs) {
+//                          alert(id);
+                            var result = document.getElementsByClassName(id);
+                            result[0].value = rs.text;
+                            picker.dispose();
+                        });
+                    }, false);
+                });
+            })(mui);
 		</script>
+		<!--这是mui集成百度ECharts的图表示例，ECharts的详细用法及 API 请参考其官方网站: http://echarts.baidu.com-->
+		<script>
+            var getOption = function(chartType) {
+                var chartOption =  {
+                    calculable: false,
+                    series: [{
+                        name: '访问来源',
+                        type: 'pie',
+                        radius: '65%',
+                        center: ['50%', '50%'],
+                        data: [{
+                            value: 335,
+                            name: '驳回'
+                        }, {
+                            value: 310,
+                            name: '逾期'
+                        }, {
+                            value: 234,
+                            name: '归集'
+                        },{
+                            value: 1548,
+                            name: '签批'
+                        }]
+                    }]
+                } ;
+                return chartOption;
+            };
+            var byId = function(id) {
+                return document.getElementById(id);
+            };
+            var pieChart = echarts.init(byId('pieChart'));
+            pieChart.setOption(getOption('pie'));
+        </script>
 	</body>
 </html>

@@ -1,17 +1,124 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-		<title>文档签批-统计</title>
-		<link rel="stylesheet" href="../css/mui.min.css">
-	</head>
-	<body>
-		<script src="../js/mui.min.js"></script>
-		<script src="../js/tabbar.js"></script>
-		<script src="../js/.js"></script>
-		<script type="text/javascript">
-			mui.init();
-		</script>
-	</body>
-	
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+        <title>表单签批-统计</title>
+        <link rel="stylesheet" href="../css/mui.min.css">
+        <link rel="stylesheet" type="text/css" href="../css/mui.picker.min.css" />
+        <style>
+            html,
+            body,
+            .mui-content {
+                height: 0px;
+                margin: 0px;
+                background-color: #efeff4;
+            }
+            h5.mui-content-padded {
+                margin-left: 3px;
+                margin-top: 20px !important;
+            }
+            h5.mui-content-padded:first-child {
+                margin-top: 12px !important;
+            }
+            .mui-btn {
+                font-size: 16px;
+                padding: 8px;
+                margin: 3px;
+            }
+            .ui-alert {
+                text-align: center;
+                padding: 20px 10px;
+                font-size: 16px;
+            }
+            * {
+                -webkit-touch-callout: none;
+                -webkit-user-select: none;
+            }
+        </style>
+    </head>
+    <body>
+        <header class="mui-bar mui-bar-nav">
+            <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left "></a>
+            <h1 class="mui-title">同欣科技大厦A区项目-文档统计</h1>
+        </header>
+        <div class="mui-content">
+            <div class="mui-content-padded">
+                <div class="mui-input-row">
+                    <label>签批开始时间</label>
+                    <input class="TimeBgn" type="text" placeholder="点击按钮选择时间" readonly="readonly">
+                </div>
+                <button data-options='{"type":"date"}' class="btn mui-btn mui-btn-block" id="TimeBgn">选择签批开始时间</button>
+                <div class="mui-input-row">
+                    <label>签批结束时间</label>
+                    <input class="TimeEnd" type="text" placeholder="点击按钮选择时间" readonly="readonly">
+                </div>
+                <button data-options='{"type":"date"}' class="btn mui-btn mui-btn-block" id="TimeEnd">选择签批结束时间</button>
+                <div style="float: right;"><button>统计</button></div>
+            </div>
+            <br /><br />
+            <div>
+                <div class="mui-card">
+                    <div class="mui-card-header">归档状态统计</div>
+                    <div class="mui-card-content">
+                        <div class="mui-card-content-inner">
+                            <div class="mui-input-row">
+                                <label><button>查看待办文件</button></label>
+                                <input type="text" value="待办文件：57份" readonly="readonly">
+                            </div>
+                            <div class="mui-input-row">
+                                <label><button>查看逾期文件</button></label>
+                                <input type="text" value="逾期文件：1份" readonly="readonly">
+                            </div>
+                            <div class="mui-input-row">
+                                <label><button>查看废止文件</button></label>
+                                <input type="text" value="废止文件：13份" readonly="readonly">
+                            </div>
+                            <div class="mui-input-row">
+                                <label><button>查看归档文件</button></label>
+                                <input type="text" value="归档文件：51份" readonly="readonly">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mui-card">
+                    <div class="mui-card-header">管理状态统计</div>
+                    <div class="mui-card-content">
+                        <div class="mui-card-content-inner">
+                            <div class="mui-input-row">
+                                <label><button>查看重要文件</button></label>
+                                <input type="text" value="重要文件：57份" readonly="readonly">
+                            </div>
+                            <div class="mui-input-row">
+                                <label><button>查看紧急文件</button></label>
+                                <input type="text" value="紧急文件：1份" readonly="readonly">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="../js/mui.min.js"></script>
+        <script src="../js/mui.picker.min.js"></script><!--日期选择-->
+        <script type="text/javascript">
+            (function($) {
+                $.init();
+                var btns = $('.btn');
+                btns.each(function(i, btn) {
+                    btn.addEventListener('tap', function() {
+                        var optionsJson = this.getAttribute('data-options') || '{}';
+                        var options = JSON.parse(optionsJson);
+                        var id = this.getAttribute('id');
+                        var picker = new $.DtPicker(options);
+                        picker.show(function(rs) {
+//                          alert(id);
+                            var result = document.getElementsByClassName(id);
+                            result[0].value = rs.text;
+                            picker.dispose();
+                        });
+                    }, false);
+                });
+            })(mui);
+        </script>
+    </body>
 </html>

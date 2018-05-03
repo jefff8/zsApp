@@ -44,19 +44,24 @@
 			"my_project/project_list.html",
 			"my_project/project_form_list.html",
 			"my_project/project_form_select.html",
-			"my_project/project_form_count.html"
+			"my_project/project_form_count.html",
+			"my_project/project_document_list.html",
+			"my_project/project_document_count.html",
+			"my_project/project_document_select.html"
 		]
 	},
 	"my_project/project_form_list.html": {
 		"refer": [
 			"my_project/project_index.html",
-			"my_project/detail/form_list.html"
+			"my_project/detail/form_list.html",
+			"my_project/project_form_select.html"
 		]
 	},
 	"my_project/detail/form_list.html": {
 		"refer": [
 			"my_project/project_form_list.html",
-			"my_project/detail/form_signIn.html"
+			"my_project/detail/form_signIn.html",
+			"my_project/project_document_list.html"
 		]
 	},
 	"my_project/detail/form_signIn.html": {
@@ -81,12 +86,28 @@
 	},
 	"my_project/project_form_select.html": {
 		"refer": [
-			"my_project/project_index.html"
+			"my_project/project_index.html",
+			"my_project/project_form_list.html",
+			"my_project/project_form_count.html",
+			"my_project/project_document_list.html",
+			"my_project/detail/form_sel01.html",
+			"my_project/detail/form_sel02.html",
+			"my_project/detail/form_sel03.html",
+			"my_project/detail/form_sel04.html",
+			"my_project/pro-form-subpage-1.html",
+			"my_project/pro-form-subpage-3.html",
+			"my_project/pro-form-subpage-2.html",
+			"my_project/pro-form-subpage-4.html"
+		],
+		"resources": [
+			"my_project/detail/form_sel01.html",
+			"my_project/pro-form-subpage-1.html"
 		]
 	},
 	"my_project/project_form_count.html": {
 		"refer": [
-			"my_project/project_index.html"
+			"my_project/project_index.html",
+			"my_project/project_form_select.html"
 		]
 	},
 	"my_project/detail/form_mes.html": {
@@ -108,6 +129,69 @@
 		],
 		"refer": [
 			"excel_demo/formtest.html"
+		]
+	},
+	"my_project/project_document_list.html": {
+		"refer": [
+			"my_project/project_form_select.html",
+			"my_project/project_index.html",
+			"my_project/detail/form_list.html",
+			"my_project/detail/doc_list.html",
+			"my_project/detail/doc_mes.html"
+		]
+	},
+	"my_project/project_document_select.html": {
+		"refer": [
+			"my_project/project_index.html",
+			"my_project/pro-doc-subpage-1.html",
+			"my_project/pro-doc-subpage-4.html",
+			"my_project/pro-doc-subpage-2.html",
+			"my_project/pro-doc-subpage-3.html"
+		],
+		"resources": [
+			"my_project/pro-doc-subpage-1.html"
+		]
+	},
+	"my_project/project_document_count.html": {
+		"refer": [
+			"my_project/project_index.html"
+		]
+	},
+	"my_project/pro-form-subpage-1.html": {
+		"refer": [
+			"my_project/detail/form_list.html"
+		]
+	},
+	"my_project/detail/doc_list.html": {
+		"resources": [
+			"excel_demo/formtest.html"
+		],
+		"refer": [
+			"my_project/detail/form_mesa.html",
+			"excel_demo/formtest.html",
+			"my_project/project_document_list.html",
+			"my_project/detail/form_signIn.html",
+			"my_project/detail/doc_signIn.html",
+			"my_project/detail/form_mes.html"
+		]
+	},
+	"my_project/detail/doc_mes.html": {
+		"resources": [
+			"excel_demo/formtest.html"
+		],
+		"refer": [
+			"my_project/detail/form_mesa.html",
+			"excel_demo/formtest.html"
+		]
+	},
+	"my_project/detail/doc_signIn.html": {
+		"resources": [
+			"my_project/detail/SignView.html"
+		],
+		"refer": [
+			"my_project/detail/SignView.html",
+			"my_project/detail/form_mes.html",
+			"my_project/detail/doc_mes.html"
 		]
 	}
 }
