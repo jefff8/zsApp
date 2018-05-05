@@ -31,18 +31,6 @@
                 line-height: 100%;
                 padding: 12px 4px;
             }
-            /*.footer-right {
-                position: absolute;
-                width: 50px;
-                height: 50px;
-                right: 0px;
-                bottom: 0px;
-                text-align: center;
-                vertical-align: middle;
-                line-height: 100%;
-                padding: 12px 5px;
-                display: inline-block;
-            }*/
             .footer-right-page {
                 position: absolute;
                 width: 45px;
@@ -99,9 +87,6 @@
                 content: "发送";
             }
             footer .mui-icon-paperplane {
-                /*-webkit-transform: rotateZ(45deg);
-                transform: rotateZ(45deg);*/
-                
                 font-size: 16px;
                 word-break: keep-all;
                 line-height: 100%;
@@ -120,7 +105,8 @@
         <footer>
             <!--手写输入切换-->
             <div class="footer-left">
-                <img id="msg-change" src="../../images/SignIn.png" width="20px" height="20px" />
+                <a href="SignView.html"><img src="../../images/SignIn.png" width="20px" height="20px" /></a>
+                <a href="../../excel_demo/formtest.html"><img src="../../images/keyboard.png" width="20px" height="20px" style="display: none;"/></a>
             </div>
             <!--输入框-->
             <div class="footer-center">
@@ -163,12 +149,7 @@
                     }]
                 });
 //  			mui.init();
-    			var subpages = ['../../excel_demo/formtest.html', 'form_mesa.html'];
-                var subpage_style = {
-                    top: '45px',
-                    bottom: '51px',
-                    width: '143%'
-                };
+    			var subpages = ['../../excel_demo/formtest.html', 'SignView.html'];
                 var aniShow = {};
                 
     			$.plusReady(function(){
@@ -180,7 +161,6 @@
                         boxMsgText: doc.querySelector('#msg-text'),
                         boxMsgSound: doc.querySelector('#msg-sound'),
                         btnMsgCheck: doc.querySelector('#msg-check'),
-                        btnMsgChange: doc.querySelector('#msg-change'),
                         boxSoundAlert: doc.querySelector('#sound-alert'),
                         postMes: doc.querySelector('#postMes'),
                         delForm: doc.querySelector('#delForm')
@@ -239,38 +219,51 @@
                         });
                     })
                     //表格和签名的切换
-                    ui.btnMsgChange.addEventListener('tap',function() {
-                        if(ui.boxMsgText.disabled == 'disabled'){
-                            ui.boxMsgText.disabled = ''
-                        }else{
-                            ui.boxMsgText.disabled = 'disabled';
-                        }
-                    })
+//                  ui.btnMsgChange.addEventListener('tap',function() {
+//                      if(ui.boxMsgText.disabled == 'disabled'){
+//                          ui.boxMsgText.disabled = false;
+//                      }else{
+//                          ui.boxMsgText.disabled = 'disabled';
+//                      }
+//                  })
                     
                     //创建子页面，首个选项卡页面显示，其它均隐藏；
-//                  var self = plus.webview.currentWebview();
-//                  for (var i = 0; i < 1; i++) {
-//                      var temp = {};
-//                      var sub = plus.webview.create(subpages[i], subpages[i], subpage_style);
-//                      if (i > 0) {
-//                          sub.hide();
-//                      }else{
-//                          temp[subpages[i]] = "true";
-//                          mui.extend(aniShow,temp);
-//                      }
-//                      self.append(sub);
-//                  }
+                    var self = plus.webview.currentWebview();
+                    for (var i = 0; i < 1; i++) {
+                        var temp = {};
+                        if(i==0){
+                            var subpage_style = {
+                                top: '45px',
+                                bottom: '51px',
+                                width: '143%'
+                            };
+                        }
+                        if(i==1){
+                            var subpage_style = {
+                                top: '45px',
+                                bottom: '51px',
+                            };
+                        }
+                        var sub = plus.webview.create(subpages[i], subpages[i], subpage_style);
+                        if (i > 0) {
+                            sub.hide();
+                        }else{
+                            temp[subpages[i]] = "true";
+                            mui.extend(aniShow,temp);
+                        }
+                        self.append(sub);
+                    }
                     //当前激活选项
                     var activeTab = subpages[0];
-                    var title = document.getElementById("title");
+//                  var title = document.getElementById("title");
                     //选项卡点击事件
-                    mui('.mui-bar-tab').on('tap', 'a', function(e) {
+                    mui('.footer-left').on('tap','a',function(e) {
+//                      
                         var targetTab = this.getAttribute('href');
                         if (targetTab == activeTab) {
                             return;
                         }
-                        //更换标题
-//                      title.innerHTML = this.querySelector('.mui-tab-label').innerHTML;
+                        alert(activeTab+'//'+targetTab);
                         //显示目标选项卡
                         //若为iOS平台或非首次显示，则直接显示
                         if(mui.os.ios||aniShow[targetTab]){
@@ -287,29 +280,7 @@
                         //更改当前活跃的选项卡
                         activeTab = targetTab;
                     });
-                     //自定义事件，模拟点击“首页选项卡”
-                    document.addEventListener('gohome', function() {
-                        var defaultTab = document.getElementById("defaultTab");
-                        //模拟首页点击
-                        mui.trigger(defaultTab, 'tap');
-                        //切换选项卡高亮
-                        var current = document.querySelector(".mui-bar-tab>.mui-tab-item.mui-active");
-                        if (defaultTab !== current) {
-                            current.classList.remove('mui-active');
-                            defaultTab.classList.add('mui-active');
-                        }
-                    });
     			});
-    			
-    			//解决返回问题
-//              var back = document.getElementById("back");
-//              back.addEventListener('tap',function(){
-//                  var win = plus.webview.getWebviewById('moban.html'); 
-//                  win.hide('auto');
-//                  var target=plus.webview.getWebviewById('my_project/project_list.html');
-//                  target.reload(true);
-//                  $.back();
-//              });
     		}(mui, document));
 		</script>
 	</body>

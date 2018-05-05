@@ -1,323 +1,151 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-
 	<head>
-		<meta charset="UTF-8">
+		<meta charset="utf-8">
 		<title></title>
-		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-		<link href="../../css/mui.min.css" rel="stylesheet" />
-		<link href="../../css/my_css.css" rel="stylesheet">
-		<style>
-            .mui-bar-popover {
-                width: 30%;
-            }
-            .mui-control-content {              
-                bottom: 0px;    
-            }
-            .mui-preview-image.mui-fullscreen {
-                position: fixed;
-                z-index: 20;
-                background-color: #FFFFFF;
-            }
-            .mui-preview-header,
-            .mui-preview-footer {
-                position: absolute;
-                width: 100%;
-                left: 0;
-                z-index: 10;
-            }
-            .mui-preview-header {
-                height: 44px;
-                top: 0;
-            }
-            .mui-preview-footer {
-                height: 50px;
-                bottom: 0px;
-            }
-            .mui-preview-header .mui-preview-indicator {
-                display: block;
-                line-height: 25px;
-                color: #fff;
-                text-align: center;
-                margin: 15px auto 4;
-                width: 70px;
-                background-color: rgba(0, 0, 0, 0.4);
-                border-radius: 12px;
-                font-size: 16px;
-            }
-            .mui-preview-image {
-                display: none;
-                -webkit-animation-duration: 0.5s;
-                animation-duration: 0.5s;
-                -webkit-animation-fill-mode: both;
-                animation-fill-mode: both;
-            }
-            .mui-preview-image.mui-preview-in {
-                -webkit-animation-name: fadeIn;
-                animation-name: fadeIn;
-            }
-            .mui-preview-image.mui-preview-out {
-                background: none;
-                -webkit-animation-name: fadeOut;
-                animation-name: fadeOut;
-            }
-            .mui-preview-image.mui-preview-out .mui-preview-header,
-            .mui-preview-image.mui-preview-out .mui-preview-footer {
-                display: none;
-            }
-            .mui-zoom-scroller {
-                position: absolute;
-                display: -webkit-box;
-                display: -webkit-flex;
-                display: flex;
-                -webkit-box-align: center;
-                -webkit-align-items: center;
-                align-items: center;
-                -webkit-box-pack: center;
-                -webkit-justify-content: center;
-                justify-content: center;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                top: 0;
-                width: 100%;
-                height: 100%;
-                margin: 0;
-                -webkit-backface-visibility: hidden;
-            }
-            .mui-zoom {
-                -webkit-transform-style: preserve-3d;
-                transform-style: preserve-3d;
-            }
-            .mui-slider .mui-slider-group .mui-slider-item img {
-                width: auto;
-                height: auto;
-                max-width: 100%;
-                max-height: 100%;
-            }
-            .mui-android-4-1 .mui-slider .mui-slider-group .mui-slider-item img {
-                width: 100%;
-            }
-            .mui-android-4-1 .mui-slider.mui-preview-image .mui-slider-group .mui-slider-item {
-                display: inline-table;
-            }
-            .mui-android-4-1 .mui-slider.mui-preview-image .mui-zoom-scroller img {
-                display: table-cell;
-                vertical-align: middle;
-            }
-            .mui-preview-loading {
-                position: absolute;
-                width: 100%;
-                height: 100%;
-                top: 0;
-                left: 0;
-                display: none;
-            }
-            .mui-preview-loading.mui-active {
-                display: block;
-            }
-            .mui-preview-loading .mui-spinner-white {
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                margin-left: -25px;
-                margin-top: -25px;
-                height: 50px;
-                width: 50px;
-            }
-            .mui-preview-image img.mui-transitioning {
-                -webkit-transition: -webkit-transform 0.5s ease, opacity 0.5s ease;
-                transition: transform 0.5s ease, opacity 0.5s ease;
-            }
-            @-webkit-keyframes fadeIn {
-                0% {
-                    opacity: 0;
-                }
-                100% {
-                    opacity: 1;
-                }
-            }
-            @keyframes fadeIn {
-                0% {
-                    opacity: 0;
-                }
-                100% {
-                    opacity: 1;
-                }
-            }
-            @-webkit-keyframes fadeOut {
-                0% {
-                    opacity: 1;
-                }
-                100% {
-                    opacity: 0;
-                }
-            }
-            @keyframes fadeOut {
-                0% {
-                    opacity: 1;
-                }
-                100% {
-                    opacity: 0;
-                }
-            }
-            p img {
-                max-width: 100%;
-                height: auto;
-                margin-bottom: 30px;
-                border:1px solid #007AFF;
-            }
-            p{
-                font-size: 1em;
-            }
-		</style>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../../css/mui.min.css">
+		<link rel="stylesheet" href="../../css/my_css.css">
+		<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap.min.css">
 	</head>
-
 	<body>
-	    <div class="mui-content">          
-            <div class="container">
-                <div class="row" hidden="hidden">
-                    <div class="col-xs-12">
-                        <div class="js-signature"></div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-12">
-                        <br />
-                        <div class="js-signature" data-width="600" data-height="200" data-border="1px solid black" data-line-color="#000000" data-auto-fit="true"></div>
-                            <p>
-                                <button id="clearBtn" class="btn btn-default" onclick="clearCanvas();">清除</button>&nbsp;
-                                <button id="checkPic" class="btn btn-default">查看</button>&nbsp;
-                                <button id="saveBtn" class="btn btn-default" disabled>确定</button>
-                            </p>
-                        <div id="signature">
-                            <p>
-                                <em>你的签名预览</em>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-	    <nav class="mui-bar mui-bar-tab ">
+		<div class="mui-content">
+			<div class="container">
+				<div class="row">
+					<div class="col-xs-12">
+						<br />
+						<div class="js-signature" style="" data-width="500" data-height="300" data-border="1px solid black"  data-auto-fit="true"></div>
+						<div id="signature">
+							<p>
+								<em>手机签名中......</em>
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--底部-->
+		<nav class="mui-bar mui-bar-tab ">
             <a class="mui-tab-item" href="#Popover_0">颜色</a>
             <a class="mui-tab-item" href="#Popover_1">粗细</a>
             <a class="mui-tab-item" id="Popover_2">撤销</a>
             <a class="mui-tab-item" id="Popover_3">清屏</a>
-            <a class="mui-tab-item" id="Popover_4">提交</a>
+            <a class="mui-tab-item" id="Popover_4" disabled="disabled">提交</a>
         </nav>
         <!--颜色控制-->
-	    <div id="Popover_0" class="mui-popover mui-bar-popover">
+        <div id="Popover_0" class="mui-popover mui-bar-popover">
             <div class="mui-popover-arrow"></div>
             <ul class="mui-table-view">
-                <li class="mui-table-view-cell"><a href="#"><div><input name="radio1" type="radio" checked="checked">&nbsp;&nbsp;<label>黑</label><div class="signIn-color" style="float: right;background-color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div></div></a></li>
-                <li class="mui-table-view-cell"><a href="#"><div><input name="radio1" type="radio">&nbsp;&nbsp;<label>红</label><div class="signIn-color" style="float: right;background-color: #FF0000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div></div></a></li>
-                <li class="mui-table-view-cell"><a href="#"><div><input name="radio1" type="radio">&nbsp;&nbsp;<label>蓝</label><div class="signIn-color" style="float: right;background-color: #0000FF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div></div></a></li>
-                <li class="mui-table-view-cell"><a href="#"><div><input name="radio1" type="radio">&nbsp;&nbsp;<label>绿</label><div class="signIn-color" style="float: right;background-color: #00FF00;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div></div></a></li>
+                <form id="group">
+                    <li class="mui-table-view-cell mui-active" data-line-color="#000000"><a href="#"><div><label>黑</label><div style="float: right;background-color: #000000;width: 20px;height: 20px;"></div></div></a></li>
+                    <li class="mui-table-view-cell" data-line-color="#FF0000"><a href="#"><div><label>红</label><div style="float: right;background-color: #FF0000;width: 20px;height: 20px;"></div></div></a></li>
+                    <li class="mui-table-view-cell" data-line-color="#0000FF"><a href="#"><div><label>蓝</label><div style="float: right;background-color: #0000FF;width: 20px;height: 20px;"></div></div></a></li>
+                    <li class="mui-table-view-cell" data-line-color="#00FF00"><a href="#"><div><label>绿</label><div style="float: right;background-color: #00FF00;width: 20px;height: 20px;"></div></div></a></li>
+                </form>
             </ul>
         </div>
         <!--粗细控制-->
         <div id="Popover_1" class="mui-popover mui-bar-popover">
             <div class="mui-popover-arrow"></div>
             <ul class="mui-table-view">
-                <li class="mui-table-view-cell"><a href="#"><div><input name="radio1" type="radio" checked="checked">&nbsp;&nbsp;<label>10</label><div class="signIn-width" style="float: right;font-size: 10px;">—</div></div></a></li>
-                <li class="mui-table-view-cell"><a href="#"><div><input name="radio1" type="radio">&nbsp;&nbsp;<label>14</label><div class="signIn-width" style="float: right;font-size: 14px;">—</div></div></a></li>
-                <li class="mui-table-view-cell"><a href="#"><div><input name="radio1" type="radio">&nbsp;&nbsp;<label>18</label><div class="signIn-width" style="float: right;font-size: 18px;">—</div></div></a></li>
-                <li class="mui-table-view-cell"><a href="#"><div><input name="radio1" type="radio">&nbsp;&nbsp;<label>22</label><div class="signIn-width" style="float: right;font-size: 22px;">—</div></div></a></li>
-                <li class="mui-table-view-cell"><a href="#"><div><input name="radio1" type="radio">&nbsp;&nbsp;<label>26</label><div class="signIn-width" style="float: right;font-size: 26px;">—</div></div></a></li>
-                <li class="mui-table-view-cell"><a href="#"><div><input name="radio1" type="radio">&nbsp;&nbsp;<label>30</label><div class="signIn-width" style="float: right;font-size: 30px;">—</div></div></a></li>
+                <form id="group1">
+                    <li class="mui-table-view-cell mui-active" data-line-width="1"><a href="#"><div><label>1</label><div class="signIn-width" style="float: right;"></div></div></a></li>
+                    <li class="mui-table-view-cell" data-line-width="3"><a href="#"><div><label>3</label><div class="signIn-width" style="float: right;"></div></div></a></li>
+                    <li class="mui-table-view-cell" data-line-width="5"><a href="#"><div><label>5</label><div class="signIn-width" style="float: right;"></div></div></a></li>
+                    <li class="mui-table-view-cell" data-line-width="7"><a href="#"><div><label>7</label><div class="signIn-width" style="float: right;"></div></div></a></li>
+                    <li class="mui-table-view-cell" data-line-width="9"><a href="#"><div><label>9</label><div class="signIn-width" style="float: right;"></div></div></a></li>
+                </form>
             </ul>
         </div>
+	</body>
+	<script src="../../js/mui.min.js"></script>
+	<script src="../../js/signature/jquery-1.11.0.min.js"></script>
+	<script src="../../js/signature/jq-signature.min.js"></script>
+	<script type="text/javascript">
+		mui.init({
+		    release:true//默认为false，不监听
+		});
+		//区域滚动,需手动初始化scroll控件
+		mui('.mui-scroll-wrapper').scroll({
+			deceleration: 0.0005 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
+		});		
+		//设置线条属性
+        lineColor = $('#Popover_0 .mui-active').data('line-color');
+        lineWidth = $('#Popover_1 .mui-active').data('line-width');
+        //定义图片变量
+    	var imgData = [];
+    	var i=0;
         
-		<script src="../../js/mui.min.js"></script>
-		<script src="../../js/signature/jquery-1.11.0.min.js"></script>
-        <script src="../../js/signature/jq-signature.min.js"></script>
-		<script type="text/javascript">
-		    (function($,doc){
-    			$.init();
-    			//区域滚动,需手动初始化scroll控件
-                mui('.mui-scroll-wrapper').scroll({
-                    deceleration: 0.0005 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
-                }); 
-    			$.plusReady(function() {
-    			    var ui = {
-                        btnPopover_0: doc.querySelector('Popover_0'),
-                        btnPopover_1: doc.querySelector('Popover_1'),
-                        btnPopover_2: doc.querySelector('Popover_2'),
-                        btnPopover_3: doc.querySelector('Popover_3'),
-                        btnPopover_4: doc.querySelector('Popover_4'),
-                        
-                    };
-                    //获取传值
-                    var self = plus.webview.currentWebview();           
-                    var mobile = self.mobile;
-                    //签名查看
-                    var CheckPic = document.getElementById("CheckPic");
-                    CheckPic.addEventListener('tap',function(){
-                        $('#signature').empty();
-                        var dataUrl = $('.js-signature').eq(1).jqSignature('getDataURL');
-                        var img = $('<img>').attr('src', dataUrl);
-                        $('#signature').append($('<p>').text("这是你的签名:"));
-                        $('#signature').append(img);
-                    });
-                    //签名保存
-                    var saveBtn = document.getElementById("saveBtn");
-                    saveBtn.addEventListener('tap',function(){
-                        $('#signature').empty();
-                        var dataUrl = $('.js-signature').eq(1).jqSignature('getDataURL');
-                        var img = $('<img>').attr('src', dataUrl);
-                        $('#signature').append($('<p>').text("这是你的签名:"));
-                        $('#signature').append(img);
-                        //异步保存
-//                      mui.ajax(url+'signature.php',{
-//                          data:{
-//                              flag:"save",
-//                              img:dataUrl
-//                          },
-//                          type:'post',
-//                          timeout:10000,
-//                          success:function(data){
-//                              //保存成功
-//                              if(data){
-//      //                          alert(data);
-//                                  mui.openWindow({
-//                                      url:'ShowSign.html',
-//                                      id:'ShowSign.html',
-//                                      extras:{
-//                                          PicId:data
-//                                      },
-//                                      waiting:{
-//                                        autoShow:true,//自动显示等待框，默认为true
-//                                        title:'正在加载...'//等待对话框上显示的提示内容
-//                                      }
-//                                  });
-//                              }
-//                              //保存不成功
-//                              else{
-//                                  alert('保存失败');
-//                              }
-//                          },
-//                          error:function(xhr,type,errorThrown){
-//                              alert('ajax错误'+type+'---'+errorThrown);
-//                          }
-//                      });
-                    });
-                    if ($('.js-signature').length) {
-                        $('.js-signature').jqSignature();
-                    }
-                    
-                    $('.js-signature').eq(1).on('jq.signature.changed', function() {
-                        $('#saveBtn').attr('disabled', false);
-                    });
-    			})
-    			function clearCanvas() {
-                    $('#signature').html('<p><em>你的签名在点击“保存”后显示</em></p>');
-                    $('.js-signature').eq(1).jqSignature('clearCanvas');
-                    $('#saveBtn').attr('disabled', true);
-                }
+		mui.plusReady(function() {
+            //签名保存
+            $('#signIng').on('change',function(){
+                alert('ok');
+            });
+            //选择画笔颜色
+            $('#Popover_0 .mui-table-view-cell').on('tap',function(e) {
+                $('#Popover_0 .mui-active').removeClass("mui-active");
+                $(this).addClass("mui-active");
+                lineColor = $('#Popover_0 .mui-active').data('line-color');
+            });
+            //选择画笔粗细
+            $('#Popover_1 .mui-table-view-cell').on('tap',function(e) {
+                $('#Popover_1 .mui-active').removeClass("mui-active");
+                $(this).addClass("mui-active");
+                lineWidth = $('#Popover_1 .mui-active').data('line-width');
+            })
+            
+            //点击撤销
+                //检测画布改变
+            $('.js-signature').eq(0).on('jq.signature.changed', function() {
+                canvas_copy();
+            });
+                //点击撤销按钮
+            $('#Popover_2').on('tap',function (){
+//              alert('ok');
+                canvas_paste();
+                $('#signature').html($('<p>').text('撤销成功'));
+            });
+            
+            //执行清屏
+            $('#Popover_3').on('tap',function (){
+                $('.js-signature').eq(0).jqSignature('clearCanvas');
+                $('#signature').html('<p><em>已执行清屏操作</em></p>');
+            });
+            
+			//签名保存
+			$('#Popover_4').on('tap',function(){
+				$('#signature').html('<p><em>签名正在保存，请稍后</em></p>');
+				var dataUrl = $('.js-signature').eq(0).jqSignature('getDataURL');
+				var img = $('<img>').attr('src', dataUrl);
+				$('#signature').html($('<p>').text('您的签名已经成功提交'));
+				$('#signature').append(img);
 			});
 			
-		</script>
-	</body>
-
+			if ($('.js-signature').length) {
+				$('.js-signature').jqSignature();
+			}
+			
+		});
+    	//保存上一步图像
+        function canvas_copy(){
+            var c = document.getElementsByTagName("canvas");
+            var context = c[0].getContext('2d');
+            var width = context.canvas.width;
+            var height = context.canvas.height;
+            i++;
+            imgData[i] = context.getImageData(0, 0, width, height);
+        }
+        //将土巷仔画布呈现
+        function canvas_paste(){
+            i--;
+            if(i>0){
+                var c = document.getElementsByTagName("canvas");
+                var context = c[0].getContext('2d');
+                context.putImageData(imgData[i],0,0);
+                return;
+            }
+        }
+	</script>
 </html>

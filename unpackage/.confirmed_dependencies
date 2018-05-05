@@ -193,5 +193,10 @@
 			"my_project/detail/form_mes.html",
 			"my_project/detail/doc_mes.html"
 		]
+	},
+	"my_project/detail/SignView.html": {
+		"refer": [
+			"my_project/detail/form_signIn.html"
+		]
 	}
 }
