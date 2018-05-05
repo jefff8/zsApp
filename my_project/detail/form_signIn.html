@@ -105,8 +105,8 @@
         <footer>
             <!--手写输入切换-->
             <div class="footer-left">
-                <a href="SignView.html"><img src="../../images/SignIn.png" width="20px" height="20px" /></a>
-                <a href="../../excel_demo/formtest.html"><img src="../../images/keyboard.png" width="20px" height="20px" style="display: none;"/></a>
+            	<a href="../../excel_demo/formtest.html" class="mui-tab-item mui-active" ><img src="../../images/keyboard.png" width="20px" height="20px" style="display: none;"/></a>
+                <a href="SignView.html" class="mui-tab-item "><img src="../../images/SignIn.png" width="20px" height="20px" /></a>
             </div>
             <!--输入框-->
             <div class="footer-center">
@@ -136,19 +136,19 @@
 //                  }]
 //  			});
 
-                $.init({
-                    swipeBack:false,
-                    statusBarBackground: '#f7f7f7',
-                    subpages:[{
-                        url:'SignView.html',
-                        id:'SignView.html',
-                        styles:{
-                            top:'45px',//mui标题栏默认高度为45px；
-                            bottom:'51px',//默认为0px，可不定义；
-                      }
-                    }]
-                });
-//  			mui.init();
+//              $.init({
+//                  swipeBack:false,
+//                  statusBarBackground: '#f7f7f7',
+//                  subpages:[{
+//                      url:'SignView.html',
+//                      id:'SignView.html',
+//                      styles:{
+//                          top:'45px',//mui标题栏默认高度为45px；
+//                          bottom:'51px',//默认为0px，可不定义；
+//                    }
+//                  }]
+//              });
+    			mui.init();
     			var subpages = ['../../excel_demo/formtest.html', 'SignView.html'];
                 var aniShow = {};
                 
@@ -229,7 +229,7 @@
                     
                     //创建子页面，首个选项卡页面显示，其它均隐藏；
                     var self = plus.webview.currentWebview();
-                    for (var i = 0; i < 1; i++) {
+                    for (var i = 0; i < 2; i++) {
                         var temp = {};
                         if(i==0){
                             var subpage_style = {
@@ -237,11 +237,10 @@
                                 bottom: '51px',
                                 width: '143%'
                             };
-                        }
-                        if(i==1){
+                        }else{
                             var subpage_style = {
                                 top: '45px',
-                                bottom: '51px',
+                                bottom: '51px'
                             };
                         }
                         var sub = plus.webview.create(subpages[i], subpages[i], subpage_style);
@@ -258,12 +257,11 @@
 //                  var title = document.getElementById("title");
                     //选项卡点击事件
                     mui('.footer-left').on('tap','a',function(e) {
-//                      
                         var targetTab = this.getAttribute('href');
+//                      alert(activeTab+'//'+targetTab);
                         if (targetTab == activeTab) {
                             return;
                         }
-                        alert(activeTab+'//'+targetTab);
                         //显示目标选项卡
                         //若为iOS平台或非首次显示，则直接显示
                         if(mui.os.ios||aniShow[targetTab]){
