@@ -24,7 +24,7 @@
         </header>
         
         <nav class="mui-bar mui-bar-tab">
-            <a id="defaultTab" class="mui-tab-item mui-active" href="../../excel_demo/formtest.html">
+            <a id="defaultTab" class="mui-tab-item mui-active" href="../../excel_form/formtest.html">
                 <span class="mui-icon mui-icon-compose"></span>
                 <span class="mui-tab-label">签名预览</span>
             </a>
@@ -37,14 +37,7 @@
         <script type="text/javascript" charset="utf-8">
              //mui初始化
             mui.init();
-            var subpages = ['../../excel_demo/formtest.html', 'form_mesa.html'];
-        	var subpage_style = {
-                top: '45px',
-                bottom: '51px',
-                width: '143%',
-                scalable:true
-            };
-            
+            var subpages = ['../../excel_form/formtest.html', 'form_mesa.html'];
             var aniShow = {};
             
              //创建子页面，首个选项卡页面显示，其它均隐藏；
@@ -52,6 +45,20 @@
                 var self = plus.webview.currentWebview();
                 for (var i = 0; i < 2; i++) {
                     var temp = {};
+                    if(i==0){
+                        var subpage_style = {
+                            top: '45px',
+                            bottom: '51px',
+                            width: '143%',
+                            scalable:true
+                        };
+                    }else{
+                        var subpage_style = {
+                            top: '45px',
+                            bottom: '51px',
+                            width: '140%',
+                        };
+                    }
                     var sub = plus.webview.create(subpages[i], subpages[i], subpage_style);
                     if (i > 0) {
                         sub.hide();
@@ -61,16 +68,14 @@
                     }
                     self.append(sub);
                 }
+//              var imgData = self.imgData;
+//              if(imgData){
+//                  var view=plus.webview.getWebviewById("formtest.html");
+//                  mui.fire(view,'ShowImg',{
+//                      imgData:imgData
+//                  })
+//              }
             });
-            //解决返回问题
-//          var back = document.getElementById("back");
-//          back.addEventListener('tap',function(){
-//              var win = plus.webview.getWebviewById('moban.html'); 
-//              win.hide('auto');
-//              var target=plus.webview.getWebviewById('form_signIn.html');
-//              target.reload(true);
-//              $.back();
-//          });
             //当前激活选项
             var activeTab = subpages[0];
             var title = document.getElementById("title");

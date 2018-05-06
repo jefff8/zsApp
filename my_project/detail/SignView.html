@@ -9,8 +9,100 @@
 		<link rel="stylesheet" href="../../css/mui.min.css">
 		<link rel="stylesheet" href="../../css/my_css.css">
 		<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap.min.css">
+		<style>
+            footer {
+                position: fixed;
+                width: 100%;
+                height: 50px;
+                min-height: 50px;
+                border-top: solid 1px #bbb;
+                left: 0px;
+                bottom: 51px;
+                overflow: hidden;
+                padding: 0px 50px;
+                background-color: #fafafa;
+            }
+            .footer-left {
+                position: absolute;
+                width: 50px;
+                height: 50px;
+                left: 0px;
+                bottom: 0px;
+                text-align: center;
+                vertical-align: middle;
+                line-height: 100%;
+                padding: 12px 4px;
+            }
+            .footer-right-page {
+                position: absolute;
+                width: 45px;
+                height: 50px;
+                right: 15px;
+                bottom: 3px;
+                text-align: center;
+                vertical-align: middle;
+                line-height: 100%;
+                padding: 12px 5px;
+                display: inline-block;
+            }
+            .footer-right-post {
+                position: absolute;
+                width: 50px;
+                height: 35px;
+                /*top: 2px;*/
+                right: 6px;
+                bottom: 8px;
+                text-align: center;
+                vertical-align: middle;
+                line-height: 100%;
+                padding: 12px 5px;
+                display: inline-block;
+            }
+            .footer-center {
+                height: 100%;
+                padding: 5px 0px;
+            }
+            .footer-center [class*=input] {
+                width: 94%;
+                height: 100%;
+                border-radius: 5px;
+            }
+            .footer-center .input-text {
+                background: #fff;
+                border: solid 1px #ddd;
+                padding: 10px !important;
+                font-size: 16px !important;
+                line-height: 18px !important;
+                font-family: verdana !important;
+                overflow: hidden;
+            }
+            .footer-center .input-sound {
+                background-color: #eee;
+            }
+            footer .mui-icon {
+                color: #000;
+            }
+            footer .mui-icon:active {
+                color: #007AFF !important;
+            }
+            footer .mui-icon-paperplane:before {
+                content: "发送";
+            }
+            footer .mui-icon-paperplane {
+                font-size: 16px;
+                word-break: keep-all;
+                line-height: 100%;
+                padding-top: 6px;
+                color: rgba(0, 135, 250, 1);
+            }
+        </style>
 	</head>
 	<body>
+	    <header class="mui-bar mui-bar-nav">
+            <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left " id='back'></a>
+            <a class="mui-icon mui-icon-trash mui-pull-right" style="color: red;" id="delForm"></a>
+            <h1 class="mui-title">表单名称审批</h1>
+        </header>
 		<div class="mui-content">
 			<div class="container">
 				<div class="row">
@@ -28,11 +120,12 @@
 		</div>
 		<!--底部-->
 		<nav class="mui-bar mui-bar-tab ">
+		    <a class="mui-tab-item" id="Popover">键盘输入</a>
             <a class="mui-tab-item" href="#Popover_0">颜色</a>
             <a class="mui-tab-item" href="#Popover_1">粗细</a>
             <a class="mui-tab-item" id="Popover_2">撤销</a>
             <a class="mui-tab-item" id="Popover_3">清屏</a>
-            <a class="mui-tab-item" id="Popover_4" disabled="disabled">提交</a>
+            <a class="mui-tab-item" id="Popover_4">提交</a>
         </nav>
         <!--颜色控制-->
         <div id="Popover_0" class="mui-popover mui-bar-popover">
@@ -78,6 +171,12 @@
     	var imgData = [0,1];
         
 		mui.plusReady(function() {
+		    var self = plus.webview.currentWebview();
+		    var fatherPage = self.fatherPage;
+		    //点击键盘输入，返回上个页面
+		    $('#Popover').on('tap',function() {
+		        mui.back();
+		    })
             //签名保存
             $('#signIng').on('change',function(){
                 alert('ok');
@@ -125,14 +224,25 @@
                 $('#signature').html('<p><em>已执行清屏操作</em></p>');
             });
             
-			//签名保存
-			$('#Popover_4').on('tap',function(){
-				$('#signature').html('<p><em>签名正在保存，请稍后</em></p>');
-				var dataUrl = $('.js-signature').eq(0).jqSignature('getDataURL');
-				var img = $('<img>').attr('src', dataUrl);
-				$('#signature').html($('<p>').text('您的签名已经成功提交'));
-				$('#signature').append(img);
-			});
+			//提交签名
+            $('#Popover_4').on('tap',function() {
+                //页面变化
+                var dataUrl = $('.js-signature').eq(0).jqSignature('getDataURL');
+                //返回值
+                var dataUrl = $('.js-signature').eq(0).jqSignature('getDataURL');
+                var view=plus.webview.getWebviewById(fatherPage);//注意id是上个页面的ID
+                mui.fire(view,'doit',{
+                    imgData:dataUrl//返回值【签名数据流】
+                });
+                $('#signature').html('<p><em>签名正在保存，请稍后</em></p>');
+                $('#signature').html($('<p>').text('您的签名已经成功提交'));
+                //解决返回问题
+                var win = plus.webview.getWebviewById('SignView.html'); 
+                win.hide('auto');
+                var target=plus.webview.getWebviewById(fatherPage);
+                target.reload(true);
+                mui.back();
+            })
 			
 			if ($('.js-signature').length) {
 				$('.js-signature').jqSignature();
@@ -154,16 +264,19 @@
             var c = document.getElementsByTagName("canvas");
             var context = c[0].getContext('2d');
             $('.js-signature').eq(0).jqSignature('clearCanvas');
-            if(i==0){
-                context.putImageData(imgData[1],0,0);
-                i=1;
-                return;
-            }
-            if(i==1){
-                context.putImageData(imgData[0],0,0);
-                i=0;
-                return;
+            if(imgData[0].data){
+                if(i==0){
+                    context.putImageData(imgData[1],0,0);
+                    i=1;
+                    return;
+                }
+                if(i==1){
+                    context.putImageData(imgData[0],0,0);
+                    i=0;
+                    return;
+                }
             }
         }
+        
 	</script>
 </html>

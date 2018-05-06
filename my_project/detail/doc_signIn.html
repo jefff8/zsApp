@@ -1,14 +1,14 @@
 <!doctype html>
 <html>
 
-	<head>
-		<meta charset="UTF-8">
-		<title></title>
-		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-		<link href="../../css/mui.min.css" rel="stylesheet" />
-		<link href="../../css/icons-extra.css" rel="stylesheet" type="text/css" />
-		<style>
-		    footer {
+    <head>
+        <meta charset="UTF-8">
+        <title></title>
+        <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+        <link href="../../css/mui.min.css" rel="stylesheet" />
+        <link href="../../css/icons-extra.css" rel="stylesheet" type="text/css" />
+        <style>
+            footer {
                 position: fixed;
                 width: 100%;
                 height: 50px;
@@ -31,18 +31,6 @@
                 line-height: 100%;
                 padding: 12px 4px;
             }
-            /*.footer-right {
-                position: absolute;
-                width: 50px;
-                height: 50px;
-                right: 0px;
-                bottom: 0px;
-                text-align: center;
-                vertical-align: middle;
-                line-height: 100%;
-                padding: 12px 5px;
-                display: inline-block;
-            }*/
             .footer-right-page {
                 position: absolute;
                 width: 45px;
@@ -99,20 +87,17 @@
                 content: "发送";
             }
             footer .mui-icon-paperplane {
-                /*-webkit-transform: rotateZ(45deg);
-                transform: rotateZ(45deg);*/
-                
                 font-size: 16px;
                 word-break: keep-all;
                 line-height: 100%;
                 padding-top: 6px;
                 color: rgba(0, 135, 250, 1);
             }
-		</style>
-	</head>
+        </style>
+    </head>
 
-	<body>
-	    <header class="mui-bar mui-bar-nav">
+    <body>
+        <header class="mui-bar mui-bar-nav">
             <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left " id='back'></a>
             <a class="mui-icon mui-icon-trash mui-pull-right" style="color: red;" id="delForm"></a>
             <h1 class="mui-title">文档名称审批</h1>
@@ -120,7 +105,8 @@
         <footer>
             <!--手写输入切换-->
             <div class="footer-left">
-                <img id="msg-change" src="../../images/SignIn.png" width="20px" height="20px" />
+                <!--<a href="../../excel_form/formtest.html" class="mui-tab-item mui-active" ><img src="../../images/keyboard.png" width="20px" height="20px" style="display: none;"/></a>-->
+                <img src="../../images/SignIn.png" width="20px" height="20px" id="SignIn" />
             </div>
             <!--输入框-->
             <div class="footer-center">
@@ -132,47 +118,27 @@
                 <button type="button" class="mui-btn mui-btn-success footer-right-post" id="postMes" style="display: none;">提交</button>
             </label>
         </footer>
-		<script src="../../js/mui.min.js"></script>
-		<script type="text/javascript">
-    		(function($, doc) {
-//  			$.init({
-//  			    swipeBack:false,
-//  			    statusBarBackground: '#f7f7f7',
-//  			    subpages:[{
-//                      url:'../../excel_demo/formtest.html',
-//                      id:'moban.html',
-//                      styles:{
-//                          top:'45px',//mui标题栏默认高度为45px；
-//                          bottom:'51px',//默认为0px，可不定义；
-//                          width:'143%',
-//                          scalable:true
-//                    }
-//                  }]
-//  			});
-
-                $.init({
+        <script src="../../js/mui.min.js"></script>
+        <script type="text/javascript">
+            (function($, doc) {
+                mui.init({
                     swipeBack:false,
                     statusBarBackground: '#f7f7f7',
                     subpages:[{
-                        url:'SignView.html',
-                        id:'SignView.html',
+                        url:'../../excel_form/formtest.html',
+                        id:'formtest.html',
                         styles:{
                             top:'45px',//mui标题栏默认高度为45px；
                             bottom:'51px',//默认为0px，可不定义；
-                      }
+                            width:'143%',
+                            scalable:true
+                        }
                     }]
                 });
-//  			mui.init();
-    			var subpages = ['../../excel_demo/formtest.html', 'form_mesa.html'];
-                var subpage_style = {
-                    top: '45px',
-                    bottom: '51px',
-                    width: '143%'
-                };
-                var aniShow = {};
                 
-    			$.plusReady(function(){
-    			    var ui = {
+                mui.plusReady(function(){
+                    var val='';
+                    var ui = {
                         footer: doc.querySelector('footer'),
                         footerRight: doc.querySelector('.footer-right'),
                         footerLeft: doc.querySelector('.footer-left'),
@@ -180,10 +146,10 @@
                         boxMsgText: doc.querySelector('#msg-text'),
                         boxMsgSound: doc.querySelector('#msg-sound'),
                         btnMsgCheck: doc.querySelector('#msg-check'),
-                        btnMsgChange: doc.querySelector('#msg-change'),
                         boxSoundAlert: doc.querySelector('#sound-alert'),
                         postMes: doc.querySelector('#postMes'),
-                        delForm: doc.querySelector('#delForm')
+                        delForm: doc.querySelector('#delForm'),
+                        SignIn: doc.querySelector('#SignIn')
                     };
                     //检测，显示提交按钮【键盘输入】
                     ui.boxMsgText.addEventListener('input',function() {
@@ -210,9 +176,7 @@
                             var main = plus.android.runtimeMainActivity();
                             var imm = main.getSystemService(Context.INPUT_METHOD_SERVICE);
                             imm.toggleSoftInput(0, InputMethodManager.SHOW_FORCED);
-                            //var view = ((ViewGroup)main.findViewById(android.R.id.content)).getChildAt(0);
                             imm.showSoftInput(main.getWindow().getDecorView(), InputMethodManager.SHOW_IMPLICIT);
-                            //alert("ll");
                         }
                     };
                     //驳回
@@ -234,84 +198,35 @@
                             url: 'doc_mes.html',
                             id: 'doc_mes.html',
                             styles: {
-                              
+                                
+                            },
+                            extras: {
+                                imgData : val
                             }
                         });
-                    })
-                    //表格和签名的切换
-                    ui.btnMsgChange.addEventListener('tap',function() {
-                        if(ui.boxMsgText.disabled == 'disabled'){
-                            ui.boxMsgText.disabled = ''
-                        }else{
-                            ui.boxMsgText.disabled = 'disabled';
-                        }
-                    })
-                    
-                    //创建子页面，首个选项卡页面显示，其它均隐藏；
-//                  var self = plus.webview.currentWebview();
-//                  for (var i = 0; i < 1; i++) {
-//                      var temp = {};
-//                      var sub = plus.webview.create(subpages[i], subpages[i], subpage_style);
-//                      if (i > 0) {
-//                          sub.hide();
-//                      }else{
-//                          temp[subpages[i]] = "true";
-//                          mui.extend(aniShow,temp);
-//                      }
-//                      self.append(sub);
-//                  }
-                    //当前激活选项
-                    var activeTab = subpages[0];
-                    var title = document.getElementById("title");
-                    //选项卡点击事件
-                    mui('.mui-bar-tab').on('tap', 'a', function(e) {
-                        var targetTab = this.getAttribute('href');
-                        if (targetTab == activeTab) {
-                            return;
-                        }
-                        //更换标题
-//                      title.innerHTML = this.querySelector('.mui-tab-label').innerHTML;
-                        //显示目标选项卡
-                        //若为iOS平台或非首次显示，则直接显示
-                        if(mui.os.ios||aniShow[targetTab]){
-                            plus.webview.show(targetTab);
-                        }else{
-                            //否则，使用fade-in动画，且保存变量
-                            var temp = {};
-                            temp[targetTab] = "true";
-                            mui.extend(aniShow,temp);
-                            plus.webview.show(targetTab,"fade-in",300);
-                        }
-                        //隐藏当前;
-                        plus.webview.hide(activeTab);
-                        //更改当前活跃的选项卡
-                        activeTab = targetTab;
                     });
-                     //自定义事件，模拟点击“首页选项卡”
-                    document.addEventListener('gohome', function() {
-                        var defaultTab = document.getElementById("defaultTab");
-                        //模拟首页点击
-                        mui.trigger(defaultTab, 'tap');
-                        //切换选项卡高亮
-                        var current = document.querySelector(".mui-bar-tab>.mui-tab-item.mui-active");
-                        if (defaultTab !== current) {
-                            current.classList.remove('mui-active');
-                            defaultTab.classList.add('mui-active');
-                        }
-                    });
-    			});
-    			
-    			//解决返回问题
-//              var back = document.getElementById("back");
-//              back.addEventListener('tap',function(){
-//                  var win = plus.webview.getWebviewById('moban.html'); 
-//                  win.hide('auto');
-//                  var target=plus.webview.getWebviewById('my_project/project_list.html');
-//                  target.reload(true);
-//                  $.back();
-//              });
-    		}(mui, document));
-		</script>
-	</body>
+                    //打开签名页面
+                    ui.SignIn.addEventListener('tap',function() {
+                        mui.openWindow({
+                            url:'SignView.html',
+                            id:'SignView.html',
+                            extras: {
+                                fatherPage : 'doc_signIn.html'
+                            }
+                        })
+                    })
+                    //返回回来要执行的方法   
+                    function getReturnData(e){
+                        val=e.detail.imgData;
+                        var view=plus.webview.getWebviewById("formtest.html");
+                        mui.fire(view,'ShowImg',{
+                            imgData:val
+                        });
+                    }
+                    window.addEventListener('doit',getReturnData);
+                });
+            }(mui, document));
+        </script>
+    </body>
 
 </html>
