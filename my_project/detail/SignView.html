@@ -187,6 +187,7 @@
                 $(this).addClass("mui-active");
                 lineColor = $('#Popover_0 .mui-active').data('line-color');
                 saveStu();
+                mui("#Popover_0").popover("toggle"); 
             });
             //选择画笔粗细
             $('#Popover_1 .mui-table-view-cell').on('tap',function(e) {
@@ -194,6 +195,7 @@
                 $(this).addClass("mui-active");
                 lineWidth = $('#Popover_1 .mui-active').data('line-width');
                 saveStu();
+                mui("#Popover_1").popover("toggle");
             })
             //保存已存在
             function saveStu(){
