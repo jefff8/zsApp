@@ -7,95 +7,19 @@
         <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
         <link href="../../css/mui.min.css" rel="stylesheet" />
         <link href="../../css/icons-extra.css" rel="stylesheet" type="text/css" />
-        <style>
-            footer {
-                position: fixed;
-                width: 100%;
-                height: 50px;
-                min-height: 50px;
-                border-top: solid 1px #bbb;
-                left: 0px;
-                bottom: 0px;
-                overflow: hidden;
-                padding: 0px 50px;
-                background-color: #fafafa;
-            }
-            .footer-left {
-                position: absolute;
-                width: 50px;
-                height: 50px;
-                left: 0px;
-                bottom: 0px;
-                text-align: center;
-                vertical-align: middle;
-                line-height: 100%;
-                padding: 12px 4px;
-            }
-            .footer-right-page {
-                position: absolute;
-                width: 45px;
-                height: 50px;
-                right: 15px;
-                bottom: 3px;
-                text-align: center;
-                vertical-align: middle;
-                line-height: 100%;
-                padding: 12px 5px;
-                display: inline-block;
-            }
-            .footer-right-post {
-                position: absolute;
-                width: 50px;
-                height: 35px;
-                /*top: 2px;*/
-                right: 6px;
-                bottom: 8px;
-                text-align: center;
-                vertical-align: middle;
-                line-height: 100%;
-                padding: 12px 5px;
-                display: inline-block;
-            }
-            .footer-center {
-                height: 100%;
-                padding: 5px 0px;
-            }
-            .footer-center [class*=input] {
-                width: 94%;
-                height: 100%;
-                border-radius: 5px;
-            }
-            .footer-center .input-text {
-                background: #fff;
-                border: solid 1px #ddd;
-                padding: 10px !important;
-                font-size: 16px !important;
-                line-height: 18px !important;
-                font-family: verdana !important;
-                overflow: hidden;
-            }
-            .footer-center .input-sound {
-                background-color: #eee;
-            }
-            footer .mui-icon {
-                color: #000;
-            }
-            footer .mui-icon:active {
-                color: #007AFF !important;
-            }
-            footer .mui-icon-paperplane:before {
-                content: "发送";
-            }
-            footer .mui-icon-paperplane {
-                font-size: 16px;
-                word-break: keep-all;
-                line-height: 100%;
-                padding-top: 6px;
-                color: rgba(0, 135, 250, 1);
-            }
-        </style>
+        <!--self-->
+        <link href="../../css/PageSignIn.css" rel="stylesheet" />
+        <!--script-->
+        <script src="../../js/mui.min.js"></script>
+        <script src="../../js/jquery-1.11.0.min.js"></script>
     </head>
-
+    <div class="mui-content">
+        <div class="page" style="display:block;">
+            <div class="pinch-zoom" style="height: 300px;width: 200px;">
+                <img id="PicShow" src="" />
+            </div>
+        </div>
+    </div>
     <body>
         <header class="mui-bar mui-bar-nav">
             <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left " id='back'></a>
@@ -110,7 +34,13 @@
             </div>
             <!--输入框-->
             <div class="footer-center">
-                <textarea id='msg-text' type="text" class='input-text'></textarea>
+                <input id='msg-text' type="text" class='input-text' list='SignElse'>
+                <datalist id="SignElse">
+                    <option>备注1</option>
+                    <option>备注2</option>
+                    <option>备注3</option>
+                    <option>备注4</option>
+                </datalist>
             </div>
             <!--查看/发送-->
             <label for="" class="footer-right">
@@ -118,22 +48,12 @@
                 <button type="button" class="mui-btn mui-btn-success footer-right-post" id="postMes" style="display: none;">提交</button>
             </label>
         </footer>
-        <script src="../../js/mui.min.js"></script>
+        <script src="../../js/pinchzoom.js"></script>
         <script type="text/javascript">
             (function($, doc) {
                 mui.init({
                     swipeBack:false,
                     statusBarBackground: '#f7f7f7',
-                    subpages:[{
-                        url:'../../excel_form/formtest.html',
-                        id:'formtest.html',
-                        styles:{
-                            top:'45px',//mui标题栏默认高度为45px；
-                            bottom:'51px',//默认为0px，可不定义；
-                            width:'143%',
-                            scalable:true
-                        }
-                    }]
                 });
                 
                 mui.plusReady(function(){
@@ -226,6 +146,17 @@
                     window.addEventListener('doit',getReturnData);
                 });
             }(mui, document));
+            //JQ
+            $(function () {
+                $('div.pinch-zoom').each(function () {
+                    new RTP.PinchZoom($(this), {});
+                });
+//              sessionStorage.setItem('filePic','data:image/png;base64,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');
+                
+                sessionStorage.setItem('filePic','form.png');
+                var filePic = sessionStorage.getItem('filePic');
+                $('#PicShow').attr('src',filePic);
+            })
         </script>
     </body>
 

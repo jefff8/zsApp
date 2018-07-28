@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        <link rel="stylesheet" href="../../css/mui.min.css">
+        <!--self-->
+        <link href="../../css/PageSignIn.css" rel="stylesheet" />
+        <style>
+            div img {
+                max-width: 100%;
+                height: auto;
+            }
+            #background {
+                z-index: -1 !important;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="mui-content">
+            <div>
+                <img id="background" src="form.png" />
+                <img id="targetObj" src="" style="position:relative;transform-origin:center;" />
+            </div><!--../../images/gdsz.png-->
+            <!--<ul>
+                <li><span>left：</span><span id="left">0</span></li>
+                <li><span>top：</span><span id="top">0</span></li>
+                <li><span>scale：</span><span id="scale">1</span></li>
+                <li><span>rotate：</span><span id="rotate">0</span></li>
+            </ul>
+            <div>
+                <input type="button" value="保存并刷新" onclick="save()" />
+                <input type="button" value="重置" onclick="reset()" />
+            </div>-->
+        </div>
+        <script src="../../js/mui.min.js"></script>
+        <script type="text/javascript" src="../../js/touch.min.js"></script>
+        <script type="text/javascript" src="../../js/cat.touchjs.js"></script>
+        <script src="../../js/jquery-1.11.0.min.js"></script>
+        <script type="text/javascript" charset="utf-8">
+            //mui初始化
+            mui.init();
+            //创建子页面，首个选项卡页面显示，其它均隐藏；
+            mui.plusReady(function() {
+                
+            });
+//          $(function() {
+//              //显示图片
+//              var signData = localStorage.getItem('SignPic');
+////              alert(signData);
+//              $('#targetObj').attr('src',signData);
+//              //初始化设置
+//              cat.touchjs.init($('#targetObj'), function () {
+//                  var left = 0;
+//                  var top = 0;
+//                  var scale = 1;
+//                  var rotate = 0;
+//                  
+//                  $('#left').text(left);
+//                  $('#top').text(top);
+//                  $('#scale').text(scale);
+//                  $('#rotate').text(rotate);
+//                  $('#targetObj').css({
+//                      left: left,
+//                      top: top,
+//                      'transform': 'scale(' + scale + ') rotate(' + rotate + 'deg)',
+//                      '-webkit-transform': 'scale(' + scale + ') rotate(' + rotate + 'deg)'
+//                  });
+//              });
+//              //初始化拖动手势（不需要就注释掉）
+//              cat.touchjs.drag($('#targetObj'), function (left, top) {
+//                  $('#left').text(left);
+//                  $('#top').text(top);
+//              });
+//              //初始化缩放手势（不需要就注释掉）
+//              cat.touchjs.scale($('#targetObj'), function (scale) {
+//                  $('#scale').text(scale);
+//              });
+//          })
+//          //保存并刷新
+//          function save() {
+//              var data = {
+//                  left: cat.touchjs.left,
+//                  top: cat.touchjs.top,
+//                  scale: cat.touchjs.scaleVal,
+//                  rotate: cat.touchjs.rotateVal
+//              };
+//              //本地存储
+//              window.localStorage.cat_touchjs_data = JSON.stringify(data);
+//              window.location = window.location;
+//              alert(JSON.stringify(data));
+//          };
+//          //重置
+//          function reset() {
+//              var data = {
+//                  left: 0,
+//                  top: 0,
+//                  scale: 1,
+//                  rotate: 0
+//              };
+//              //本地存储
+//              window.localStorage.cat_touchjs_data = JSON.stringify(data);
+//              window.location = window.location;
+//              
+//          };
+        </script>
+    </body>
+</html>

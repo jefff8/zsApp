@@ -40,7 +40,7 @@
 		"Payment": {},
 		"Contacts": {},
 		"Statistic": {},
-		"Messaging": {}
+		"Messaging": {},"Webview":{},"NativeUI":{},"Navigator":{}
 	},
 	"plus": {
 		"splashscreen": {
@@ -282,7 +282,10 @@
 				],
 				"refer": [
 					"my_project/project_list.html",
-					"statistics.html"
+					"statistics.html",
+					"my_plus/todo.html",
+					"my_plus/statistics.html",
+					"my_plus/my_setting.html"
 				],
 				"priority": 0
 			},
@@ -314,11 +317,16 @@
 				"priority": 0
 			},
 			"my_project/project_form_list.html": {
-				"resources": [],
+				"resources": [
+					"my_project/pro-form-list-1.html"
+				],
 				"refer": [
 					"my_project/project_index.html",
 					"my_project/detail/form_list.html",
-					"my_project/project_form_select.html"
+					"my_project/project_form_select.html",
+					"my_project/detail/seal.html",
+					"my_project/detail/index.html",
+					"my_project/detail/form_signIn.html"
 				],
 				"priority": 0
 			},
@@ -336,7 +344,8 @@
 					"excel_demo/moban.htm",
 					"excel_demo/moban.html",
 					"excel_demo/formtest.html",
-					"my_project/detail/SignView.html"
+					"my_project/detail/SignView.html",
+					"excel_form/formtest.html"
 				],
 				"refer": [
 					"my_project/detail/form_list.html",
@@ -344,7 +353,11 @@
 					"my_project/detail/form_mes.html",
 					"my_project/detail/form_blowUp.html",
 					"my_project/detail/tabbar-with-submenus.html",
-					"my_project/detail/signature.html"
+					"my_project/detail/signature.html",
+					"my_project/detail/pic_show.html",
+					"my_project/project_form_list.html",
+					"my_project/project_document_list.html",
+					"my_project/project_form_select.html"
 				],
 				"priority": 0
 			},
@@ -363,7 +376,8 @@
 					"my_project/detail/form_sel04.html",
 					"my_project/pro-form-subpage-3.html",
 					"my_project/pro-form-subpage-2.html",
-					"my_project/pro-form-subpage-4.html"
+					"my_project/pro-form-subpage-4.html",
+					"my_project/detail/form_signIn.html"
 				],
 				"priority": 0
 			},
@@ -379,10 +393,12 @@
 				"resources": [
 					"my_project/detail/form_mesa.html",
 					"excel_demo/moban.htm",
-					"excel_demo/formtest.html"
+					"excel_demo/formtest.html",
+					"excel_form/formtest.html"
 				],
 				"refer": [
-					"my_project/detail/form_mesb.html"
+					"my_project/detail/form_mesb.html",
+					"my_project/detail/signMes.html"
 				],
 				"priority": 0
 			},
@@ -400,7 +416,9 @@
 					"my_project/project_index.html",
 					"my_project/detail/form_list.html",
 					"my_project/detail/doc_list.html",
-					"my_project/detail/doc_mes.html"
+					"my_project/detail/doc_mes.html",
+					"my_project/detail/form_signIn.html",
+					"my_project/detail/doc_signIn.html"
 				],
 				"priority": 0
 			},
@@ -454,11 +472,49 @@
 			},
 			"my_project/detail/doc_signIn.html": {
 				"resources": [
-					"my_project/detail/SignView.html"
+					"my_project/detail/SignView.html",
+					"excel_form/formtest.html"
 				],
 				"refer": [
 					"my_project/detail/form_mes.html",
-					"my_project/detail/doc_mes.html"
+					"my_project/detail/doc_mes.html",
+					"my_project/project_document_list.html"
+				],
+				"priority": 0
+			},
+			"excel_form/formtest.html": {
+				"resources": [
+					"excel_form/（GD-C5-7111）素土、灰土地基检验批质量验收记录1-5_files/img_03.svg",
+					"excel_form/（GD-C5-7111）素土、灰土地基检验批质量验收记录1-5_files/style.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"my_project/detail/SignView.html": {
+				"resources": [],
+				"refer": [
+					"my_project/detail/signPlace.html"
+				],
+				"priority": 0
+			},
+			"my_plus/my_setting.html": {
+				"resources": [],
+				"refer": [
+					"my_plus/my_mesage.html"
+				],
+				"priority": 0
+			},
+			"my_plus/my_mesage.html": {
+				"resources": [],
+				"refer": [
+					"my_plus/my_setting.html"
+				],
+				"priority": 0
+			},
+			"my_project/pro-form-subpage-2.html": {
+				"resources": [],
+				"refer": [
+					"my_project/detail/form_list.html"
 				],
 				"priority": 0
 			}

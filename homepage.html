@@ -10,79 +10,48 @@
 
 	<body>
 		<div class="mui-content"> 
-		    <!--图片轮播--> 
-		    <div id="slider" class="mui-slider">
-                <div class="mui-slider-group mui-slider-loop">
-                    <!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
-                    <div class="mui-slider-item mui-slider-item-duplicate">
-                        <a href="#">
-                            <img src="images/yuantiao.jpg">
-                            <p class="mui-slider-title">通知四</p>
-                        </a>
-                    </div>
-                    <div class="mui-slider-item">
-                        <a href="#">
-                            <img src="images/shuijiao.jpg">
-                            <p class="mui-slider-title">通知一</p>
-                        </a>
-                    </div>
-                    <div class="mui-slider-item">
-                        <a href="#">
-                            <img src="images/muwu.jpg">
-                            <p class="mui-slider-title">通知二</p>
-                        </a>
-                    </div>
-                    <div class="mui-slider-item">
-                        <a href="#">
-                            <img src="images/cbd.jpg">
-                            <p class="mui-slider-title">通知三</p>
-                        </a>
-                    </div>
-                    <div class="mui-slider-item">
-                        <a href="#">
-                            <img src="images/yuantiao.jpg">
-                            <p class="mui-slider-title">通知四</p>
-                        </a>
-                    </div>
-                    <!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
-                    <div class="mui-slider-item mui-slider-item-duplicate">
-                        <a href="#">
-                            <img src="images/shuijiao.jpg">
-                            <p class="mui-slider-title">通知一</p>
-                        </a>
-                    </div>
-                </div>
-                <div class="mui-slider-indicator mui-text-right">
-                    <div class="mui-indicator mui-active"></div>
-                    <div class="mui-indicator"></div>
-                    <div class="mui-indicator"></div>
-                    <div class="mui-indicator"></div>
-                </div>
-            </div>
-            <hr />
-            <!--选项卡-->
 		    <ul class="mui-table-view mui-table-view-chevron my_list">
 		    	<li class="mui-table-view-cell mui-media" >
 		    		<a id="pj_list" class="mui-navigate-right" open-type="common" href="my_project/project_list.html">
 		    			<img src="images/pj.png" class="mui-media-object mui-pull-left" />
 			    		<div class="mui-media-body">
-			    			我的工程
+			    			<span>我的工程</span>
 			    			<p class='mui-ellipsis'>正在加载...</p>
 			    		</div>
 		    		</a>
 		    	</li>
 		    </ul>
-		    <ul class="mui-table-view mui-table-view-chevron my_list" style="margin-top: 5px;">
-		    	<li class="mui-table-view-cell mui-media">
-		    		<a class="mui-navigate-right" open-type="common" href="statistics.html">
-		    			<img src="images/count.png" class="mui-media-object mui-pull-left" />
-			    		<div class="mui-media-body">
-			    			统计分析
-			    			<p class='mui-ellipsis'>汇总统计文档数量</p>
-			    		</div>
-		    		</a>
-		    	</li>
-		    </ul>
+		    <ul class="mui-table-view mui-table-view-chevron my_list" style="margin-top: 20px;">
+                <li  class="mui-table-view-cell mui-media">                 
+                    <a class="mui-navigate-right" open-type="common" href="my_plus/statistics.html">
+                        <img src="images/count.png" class="mui-media-object mui-pull-left" />
+                        <div class="mui-media-body">
+                            <span>统计分析</span>
+                            <p class='mui-ellipsis'>统计分析</p>
+                        </div>
+                    </a>
+                </li>
+                <li class="mui-table-view-cell mui-media">                  
+                    <a class="mui-navigate-right" open-type="common" href="my_plus/todo.html">
+                        <img src="images/paper.png" class="mui-media-object mui-pull-left" />
+                        <div class="mui-media-body">
+                            <span>待办事务</span>
+                            <p class='mui-ellipsis'>待办文件</p>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+            <ul class="mui-table-view mui-table-view-chevron my_list" style="margin-top: 20px;">
+                <li class="mui-table-view-cell mui-media" >
+                    <a id="" class="mui-navigate-right" open-type="common" href="my_plus/my_setting.html">
+                        <img src="images/gdsz.png" class="mui-media-object mui-pull-left" />
+                        <div class="mui-media-body">
+                            <span>更多设置</span>
+                            <p class='mui-ellipsis'>正在加载...</p>
+                        </div>
+                    </a>
+                </li>
+            </ul>
 		</div>
 		<script src="js/mui.min.js"></script>
 		<script src="js/my_js_nextpage.js"></script>

@@ -23,10 +23,13 @@
 	"homepage.html": {
 		"refer": [
 			"my_project/project_list.html",
-			"statistics.html"
+			"statistics.html",
+			"my_plus/todo.html",
+			"my_plus/statistics.html",
+			"my_plus/my_setting.html"
 		],
 		"resources": [
-			"images/商业建筑.png"
+			"images/F\u001a�Q.png"
 		]
 	},
 	"todo.html": {
@@ -54,7 +57,14 @@
 		"refer": [
 			"my_project/project_index.html",
 			"my_project/detail/form_list.html",
-			"my_project/project_form_select.html"
+			"my_project/project_form_select.html",
+			"my_project/detail/seal.html",
+			"my_project/detail/index.html",
+			"my_project/detail/form_signIn.html",
+			"my_project/pro-form-list-1.html"
+		],
+		"resources": [
+			"my_project/pro-form-list-1.html"
 		]
 	},
 	"my_project/detail/form_list.html": {
@@ -83,7 +93,11 @@
 			"my_project/detail/SignView.html",
 			"my_project/detail/tabbar-with-submenus.html",
 			"my_project/detail/signature.html",
-			"excel_form/formtest.html"
+			"excel_form/formtest.html",
+			"my_project/detail/pic_show.html",
+			"my_project/project_form_list.html",
+			"my_project/project_document_list.html",
+			"my_project/project_form_select.html"
 		]
 	},
 	"my_project/project_form_select.html": {
@@ -99,7 +113,8 @@
 			"my_project/pro-form-subpage-1.html",
 			"my_project/pro-form-subpage-3.html",
 			"my_project/pro-form-subpage-2.html",
-			"my_project/pro-form-subpage-4.html"
+			"my_project/pro-form-subpage-4.html",
+			"my_project/detail/form_signIn.html"
 		],
 		"resources": [
 			"my_project/detail/form_sel01.html",
@@ -124,7 +139,8 @@
 			"my_project/detail/form_mesb.html",
 			"excel_demo/moban.htm",
 			"excel_demo/formtest.html",
-			"excel_form/formtest.html"
+			"excel_form/formtest.html",
+			"my_project/detail/signMes.html"
 		]
 	},
 	"my_project/detail/form_blowUp.html": {
@@ -141,7 +157,9 @@
 			"my_project/project_index.html",
 			"my_project/detail/form_list.html",
 			"my_project/detail/doc_list.html",
-			"my_project/detail/doc_mes.html"
+			"my_project/detail/doc_mes.html",
+			"my_project/detail/form_signIn.html",
+			"my_project/detail/doc_signIn.html"
 		]
 	},
 	"my_project/project_document_select.html": {
@@ -199,12 +217,35 @@
 			"my_project/detail/SignView.html",
 			"my_project/detail/form_mes.html",
 			"my_project/detail/doc_mes.html",
-			"excel_form/formtest.html"
+			"excel_form/formtest.html",
+			"my_project/project_document_list.html"
 		]
 	},
 	"my_project/detail/SignView.html": {
 		"refer": [
-			"my_project/detail/form_signIn.html"
+			"my_project/detail/form_signIn.html",
+			"my_project/detail/signPlace.html"
+		]
+	},
+	"excel_form/formtest.html": {
+		"resources": [
+			"excel_form/\bGD-C5-7111\t \u001f\u0001p\u001f0���y(ό6�U1-5_files/img_03.svg",
+			"excel_form/\bGD-C5-7111\t \u001f\u0001p\u001f0���y(ό6�U1-5_files/style.css"
+		]
+	},
+	"my_plus/my_setting.html": {
+		"refer": [
+			"my_plus/my_mesage.html"
+		]
+	},
+	"my_plus/my_mesage.html": {
+		"refer": [
+			"my_plus/my_setting.html"
+		]
+	},
+	"my_project/pro-form-subpage-2.html": {
+		"refer": [
+			"my_project/detail/form_list.html"
 		]
 	}
 }

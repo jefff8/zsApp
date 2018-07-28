@@ -24,7 +24,7 @@
         </header>
         
         <nav class="mui-bar mui-bar-tab">
-            <a id="defaultTab" class="mui-tab-item mui-active" href="../../excel_form/formtest.html">
+            <a id="defaultTab" class="mui-tab-item mui-active" href="signMes.html">
                 <span class="mui-icon mui-icon-compose"></span>
                 <span class="mui-tab-label">签名预览</span>
             </a>
@@ -37,7 +37,7 @@
         <script type="text/javascript" charset="utf-8">
              //mui初始化
             mui.init();
-            var subpages = ['../../excel_form/formtest.html', 'form_mesa.html'];
+            var subpages = ['signMes.html', 'form_mesa.html'];
             var aniShow = {};
             
              //创建子页面，首个选项卡页面显示，其它均隐藏；
@@ -49,14 +49,14 @@
                         var subpage_style = {
                             top: '45px',
                             bottom: '51px',
-                            width: '143%',
+//                          width: '143%',
                             scalable:true
                         };
                     }else{
                         var subpage_style = {
                             top: '45px',
                             bottom: '51px',
-                            width: '140%',
+//                          width: '140%',
                         };
                     }
                     var sub = plus.webview.create(subpages[i], subpages[i], subpage_style);

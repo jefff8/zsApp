@@ -35,6 +35,18 @@
                 -webkit-touch-callout: none;
                 -webkit-user-select: none;
             }
+            .chart {
+                height: 200px;
+                margin: 0px;
+                padding: 0px;
+            }
+            h5 {
+                margin-top: 30px;
+                font-weight: bold;
+            }
+            h5:first-child {
+                margin-top: 15px;
+            }
         </style>
     </head>
     <body>
@@ -45,61 +57,27 @@
         <div class="mui-content">
             <div class="mui-content-padded">
                 <div class="mui-input-row">
-                    <label>签批开始时间</label>
-                    <input class="TimeBgn" type="text" placeholder="点击按钮选择时间" readonly="readonly">
+                    <label>提交时间</label>
+                    <input class="TimeBgn" type="text" placeholder="未选择提交时间" readonly="readonly">
                 </div>
-                <button data-options='{"type":"date"}' class="btn mui-btn mui-btn-block" id="TimeBgn">选择签批开始时间</button>
+                <button data-options='{"type":"date"}' class="btn mui-btn mui-btn-block" id="TimeBgn">选择提交时间</button>
+                
                 <div class="mui-input-row">
-                    <label>签批结束时间</label>
-                    <input class="TimeEnd" type="text" placeholder="点击按钮选择时间" readonly="readonly">
+                    <label>截止时间</label>
+                    <input class="TimeEnd" type="text" placeholder="未选择截止时间" readonly="readonly">
                 </div>
-                <button data-options='{"type":"date"}' class="btn mui-btn mui-btn-block" id="TimeEnd">选择签批结束时间</button>
+                <button data-options='{"type":"date"}' class="btn mui-btn mui-btn-block" id="TimeEnd">选择截止时间</button>
                 <div style="float: right;"><button>统计</button></div>
             </div>
             <br /><br />
-            <div>
-                <div class="mui-card">
-                    <div class="mui-card-header">归档状态统计</div>
-                    <div class="mui-card-content">
-                        <div class="mui-card-content-inner">
-                            <div class="mui-input-row">
-                                <label><button>查看待办文件</button></label>
-                                <input type="text" value="待办文件：57份" readonly="readonly">
-                            </div>
-                            <div class="mui-input-row">
-                                <label><button>查看逾期文件</button></label>
-                                <input type="text" value="逾期文件：1份" readonly="readonly">
-                            </div>
-                            <div class="mui-input-row">
-                                <label><button>查看废止文件</button></label>
-                                <input type="text" value="废止文件：13份" readonly="readonly">
-                            </div>
-                            <div class="mui-input-row">
-                                <label><button>查看归档文件</button></label>
-                                <input type="text" value="归档文件：51份" readonly="readonly">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="mui-card">
-                    <div class="mui-card-header">管理状态统计</div>
-                    <div class="mui-card-content">
-                        <div class="mui-card-content-inner">
-                            <div class="mui-input-row">
-                                <label><button>查看重要文件</button></label>
-                                <input type="text" value="重要文件：57份" readonly="readonly">
-                            </div>
-                            <div class="mui-input-row">
-                                <label><button>查看紧急文件</button></label>
-                                <input type="text" value="紧急文件：1份" readonly="readonly">
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="mui-content-padded">
+                <div class="chart" id="pieChart"></div>
             </div>
         </div>
         <script src="../js/mui.min.js"></script>
         <script src="../js/mui.picker.min.js"></script><!--日期选择-->
+        <!--<script src="../libs/echarts-all.js"></script><!--饼状图-->
+        <script src="../js/echarts.js"></script>
         <script type="text/javascript">
             (function($) {
                 $.init();
@@ -119,6 +97,69 @@
                     }, false);
                 });
             })(mui);
+        </script>
+        <!--这是mui集成百度ECharts的图表示例，ECharts的详细用法及 API 请参考其官方网站: http://echarts.baidu.com-->
+        <script>
+            pieChart(9,8,3,5);
+            //饼图生成
+            function pieChart(sign,reject,dateOut,pack){
+                 // 基于准备好的dom，初始化echarts实例
+                var pieChart = echarts.init(document.getElementById('pieChart'));
+                //饼图
+                option = {
+                    title : {
+                        text: '',
+                        subtext: '',
+                        x:'center'
+                    },
+                    tooltip : {
+                        trigger: 'item',
+                        formatter: "{a} <br/>{b} : {c} ({d}%)"
+                    },
+                     color:['#0CAF2D','#FF0000','orange','blue'],
+                    legend: {
+                        orient: 'vertical',
+                        left: 'left',
+                        data: [
+                        {value:sign, name:'待签发'},
+                        {value:reject, name:'废止'},
+                        {value:dateOut, name:'逾期'},
+                        {value:pack, name:'归档'},],
+                    },
+                    series : [
+                        {
+                            name: '访问来源',
+                            type: 'pie',
+                            radius : '55%',
+                            center: ['50%', '60%'],
+                            data:[
+                                {value:sign, name:'待签发'},
+                                {value:reject, name:'废止'},
+                                {value:dateOut, name:'逾期'},
+                                {value:pack, name:'归档'},
+                            ],
+                            itemStyle: {
+                                emphasis: {
+                                    shadowBlur: 10,
+                                    shadowOffsetX: 0,
+                                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+                                }
+                            }
+                        }
+                    ],
+//                  pieselected : {
+//                      type: 'pieselectchanged',
+//                      // 系列 ID，可以在 option 中传入
+//                      seriesId: string
+//                      // 数据名称
+//                      name: name,
+//                      // 所有数据的选中状态表。
+//                      selected: Object
+//                  }
+                };
+                // 使用刚指定的配置项和数据显示图表。
+                pieChart.setOption(option);
+            }
         </script>
     </body>
 </html>

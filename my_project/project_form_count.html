@@ -57,45 +57,27 @@
         <div class="mui-content">
             <div class="mui-content-padded">
                 <div class="mui-input-row">
-                    <label>签批开始时间</label>
-                    <input class="TimeBgn" type="text" placeholder="点击按钮选择时间" readonly="readonly">
+                    <label>提交时间</label>
+                    <input class="TimeBgn" type="text" placeholder="未选择提交时间" readonly="readonly">
                 </div>
-                <button data-options='{"type":"date"}' class="btn mui-btn mui-btn-block" id="TimeBgn">选择签批开始时间</button>
+                <button data-options='{"type":"date"}' class="btn mui-btn mui-btn-block" id="TimeBgn">选择提交时间</button>
+                
                 <div class="mui-input-row">
-                    <label>签批结束时间</label>
-                    <input class="TimeEnd" type="text" placeholder="点击按钮选择时间" readonly="readonly">
+                    <label>截止时间</label>
+                    <input class="TimeEnd" type="text" placeholder="未选择截止时间" readonly="readonly">
                 </div>
-                <button data-options='{"type":"date"}' class="btn mui-btn mui-btn-block" id="TimeEnd">选择签批结束时间</button>
+                <button data-options='{"type":"date"}' class="btn mui-btn mui-btn-block" id="TimeEnd">选择截止时间</button>
                 <div style="float: right;"><button>统计</button></div>
             </div>
             <br /><br />
             <div class="mui-content-padded">
                 <div class="chart" id="pieChart"></div>
             </div>
-            <br />
-            <hr />
-            <div>
-                <div class="mui-input-row">
-                    <label><button>查看签批表单</button></label>
-                    <input type="text" value="签批表单：57份" readonly="readonly">
-                </div>
-                <div class="mui-input-row">
-                    <label><button>查看驳回表单</button></label>
-                    <input type="text" value="驳回表单：1份" readonly="readonly">
-                </div>
-                <div class="mui-input-row">
-                    <label><button>查看逾期表单</button></label>
-                    <input type="text" value="逾期表单：13份" readonly="readonly">
-                </div>
-                <div class="mui-input-row">
-                    <label><button>查看归集表单</button></label>
-                    <input type="text" value="归集表单：51份" readonly="readonly">
-                </div>
-            </div>
         </div>
 		<script src="../js/mui.min.js"></script>
 		<script src="../js/mui.picker.min.js"></script><!--日期选择-->
-		<script src="../libs/echarts-all.js"></script><!--饼状图-->
+		<!--<script src="../libs/echarts-all.js"></script><!--饼状图-->
+		<script src="../js/echarts.js"></script>
 		<script type="text/javascript">
 			(function($) {
                 $.init();
@@ -118,36 +100,66 @@
 		</script>
 		<!--这是mui集成百度ECharts的图表示例，ECharts的详细用法及 API 请参考其官方网站: http://echarts.baidu.com-->
 		<script>
-            var getOption = function(chartType) {
-                var chartOption =  {
-                    calculable: false,
-                    series: [{
-                        name: '访问来源',
-                        type: 'pie',
-                        radius: '65%',
-                        center: ['50%', '50%'],
-                        data: [{
-                            value: 335,
-                            name: '驳回'
-                        }, {
-                            value: 310,
-                            name: '逾期'
-                        }, {
-                            value: 234,
-                            name: '归集'
-                        },{
-                            value: 1548,
-                            name: '签批'
-                        }]
-                    }]
-                } ;
-                return chartOption;
-            };
-            var byId = function(id) {
-                return document.getElementById(id);
-            };
-            var pieChart = echarts.init(byId('pieChart'));
-            pieChart.setOption(getOption('pie'));
+		    pieChart(9,8,3,5);
+            //饼图生成
+            function pieChart(sign,reject,dateOut,pack){
+                 // 基于准备好的dom，初始化echarts实例
+                var pieChart = echarts.init(document.getElementById('pieChart'));
+                //饼图
+                option = {
+                    title : {
+                        text: '',
+                        subtext: '',
+                        x:'center'
+                    },
+                    tooltip : {
+                        trigger: 'item',
+                        formatter: "{a} <br/>{b} : {c} ({d}%)"
+                    },
+                     color:['#0CAF2D','#FF0000','orange','blue'],
+                    legend: {
+                        orient: 'vertical',
+                        left: 'left',
+                        data: [
+                        {value:sign, name:'待签批'},
+                        {value:reject, name:'驳回'},
+                        {value:dateOut, name:'逾期'},
+                        {value:pack, name:'归集'},],
+                    },
+                    series : [
+                        {
+                            name: '访问来源',
+                            type: 'pie',
+                            radius : '55%',
+                            center: ['50%', '60%'],
+                            data:[
+                                {value:sign, name:'待签批'},
+                                {value:reject, name:'驳回'},
+                                {value:dateOut, name:'逾期'},
+                                {value:pack, name:'归集'},
+                            ],
+                            itemStyle: {
+                                emphasis: {
+                                    shadowBlur: 10,
+                                    shadowOffsetX: 0,
+                                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+                                }
+                            }
+                        }
+                    ],
+//                  pieselected : {
+//                      type: 'pieselectchanged',
+//                      // 系列 ID，可以在 option 中传入
+//                      seriesId: string
+//                      // 数据名称
+//                      name: name,
+//                      // 所有数据的选中状态表。
+//                      selected: Object
+//                  }
+                };
+                // 使用刚指定的配置项和数据显示图表。
+                pieChart.setOption(option);
+            }
         </script>
 	</body>
 </html>
