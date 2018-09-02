@@ -8,204 +8,93 @@
 		
 		<link href="../css/mui.min.css" rel="stylesheet" />
 		<link rel="stylesheet" href="../css/my_css.css">
-		<style>
-		    .margintop10px{
-                margin-top: 10px;
-            }
-            .paddingleft34px{
-                padding-left: 34px;
-            }
-            
-            #cdbzPopover{
-                min-width: 282px;               
-                top:15% !important;
-                margin-top: 0px;
-                left: 50% !important;
-                margin-left: -141px;
-                position: fixed;
-            }
-		</style>
 	</head>
 
 	<body>
 		<header class="mui-bar mui-bar-nav">
-		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left "></a>
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left " href="../index.html"></a>
 		    <h1 class="mui-title" id="refresh">我的工程</h1>
 		</header>
-		<div class="mui-content">
-		    <div id="gongcheng" class="mui-content"></div>
-		</div>
+		<div  class="mui-scroll-wrapper">
+    	    <div class="mui-content mui-scroll rwdiv">
+    	        
+    	    </div>
+    	</div>
 		<script src="../js/mui.min.js"></script>
+		<script src="../js/service.js"></script>
+		<script src="../js/self/creat_card.js"></script>
+		<script src="../js/jquery-1.11.0.min.js"></script>
 		<script type="text/javascript">
+			mui('.mui-scroll-wrapper').scroll({
+                deceleration: 0.0005, //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
+			});
 			mui.init({
                 gestureConfig:{
-                        doubletap: true
-                    }
+                    doubletap: true
+                }
             });
+            //page refresh
             var refresh = document.getElementById("refresh");
-                //监听标题栏的双击事件(刷新页面)
-                refresh.addEventListener('doubletap',function () {
-                    window.location.reload();
+            refresh.addEventListener('doubletap',function () {
+                window.location.reload();
             });
             mui.plusReady(function(){
-                //创建工程卡片
-                
-                
-                AddProjectList('xmid','同欣科技大厦A区项目','江门市','0010201','200','19','甲','乙','project_index.html');
-                AddProjectList('xmid','测试01','中山','00000001','200','19','甲','乙','#');
-                AddProjectList('xmid','测试01','中山','00000001','200','19','甲','乙','#');
-                AddProjectList('xmid','测试01','中山','00000001','200','19','甲','乙','#');
-                AddProjectList('xmid','测试01','中山','00000001','200','19','甲','乙','#');
-                
-                //动态创建函数
-                function AddProjectList(xmid,xmmc,xmdq,xmlb,fgNormal,fgSame,sgdw,kldw,aimLoc) {
-                    var xmmc=xmmc;
-                    //汉字编码，为了get传值
-                    var Name=encodeURI(encodeURI(xmmc));
-                    var CityName=encodeURI(encodeURI(xmdq));
-                    var dq=xmdq;
-                    var xmdq='地区：'+xmdq+'-----';
-                    var xmlb='工程代码：'+xmlb;
-                    var jtrq='包含表单：共'+fgNormal+'件';
-                    var yhrq='包含文档：共'+fgSame+'件';
-                    var sg='施工单位：'+sgdw;
-                    var jl='监理单位：'+kldw;
-                    var an1='进入工程';
-                    var an2='查看详情';
-                    
-                    var muicontent=document.getElementsByClassName('mui-content');
-                    var div=document.createElement('div');
-                    div.className='mui-card margintop10px';         
-                    muicontent[0].appendChild(div);
-                    var ul=document.createElement('ul');
-                    ul.className='mui-table-view ';
-                    div.appendChild(ul);
-                    var li=document.createElement('li');
-                    li.className='mui-table-view-cell mui-media my_backgroundcolor_blue my_color_white';
-                    ul.appendChild(li);
-                    var a=document.createElement('a');          
-                    a.href=aimLoc;
-                    li.appendChild(a);
-                    var img=document.createElement('img');
-                    img.className='mui-media-object mui-pull-right';
-                    img.src='../images/xmmc.png';
-                    a.appendChild(img);
-                    var div2=document.createElement('div');
-                    div2.className='mui-media-body';            
-                    a.appendChild(div2);
-                    var txt=document.createTextNode(xmmc);
-                    div2.appendChild(txt);
-                    var p=document.createElement('p');
-                    p.className='mui-ellipsis my_color_white';
-                    div2.appendChild(p);
-                    var txt2=document.createTextNode(xmdq+xmlb);
-                    p.appendChild(txt2);
-                    var p2=document.createElement('p');
-                    p2.className='mui-ellipsis my_underline my_color_white';
-                    div2.appendChild(p2);
-//                  var txt3=document.createTextNode(an3);
-//                  p2.appendChild(txt3);
-                    
-                    var li2=document.createElement('li');
-                    li2.className='mui-table-view-cell mui-media';
-                    ul.appendChild(li2);
-                    var a2=document.createElement('a');
-                    li2.appendChild(a2);
-                    var div3=document.createElement('div');
-                    div3.className='mui-media-body';
-                    a2.appendChild(div3);
-                    var span=document.createElement('span');
-                    span.className='mui-icon mui-icon-spinner-cycle mui-pull-left';
-                    div3.appendChild(span);
-                    var button=document.createElement('a');
-                    button.className='mui-btn mui-btn-warning mui-pull-right';
-                    button.type='button';
-                    button.href = aimLoc;
-                    div3.appendChild(button);
-                    var txt4=document.createTextNode(an1);
-                    button.appendChild(txt4);
-                    var p3=document.createElement('p');
-                    p3.className='mui-ellipsis my_fontsize my_paddingleft';
-                    div3.appendChild(p3);
-                    var txt5=document.createTextNode(jtrq);
-                    p3.appendChild(txt5);
-                    var p4=document.createElement('p');
-                    p4.className='mui-ellipsis my_fontsize my_paddingleft';
-                    div3.appendChild(p4);
-                    var txt6=document.createTextNode(yhrq);
-                    p4.appendChild(txt6);
-                    var p5=document.createElement('p');
-                    p5.className='mui-ellipsis my_fontsize my_color_blue paddingleft34px';
-                    div3.appendChild(p5);
-                    
-                    var li3=document.createElement('li');
-                    li3.className='mui-table-view-cell mui-media';
-                    ul.appendChild(li3);
-                    var a3=document.createElement('a');
-                    li3.appendChild(a3);
-                    var div4=document.createElement('div');
-                    div4.className='mui-media-body';
-                    a3.appendChild(div4);
-                    var span2=document.createElement('span');
-                    span2.className='mui-icon mui-icon-info mui-pull-left';
-                    div4.appendChild(span2);
-                    var button2=document.createElement('button');
-                    button2.className='mui-btn mui-btn-warning mui-pull-right';
-                    button2.type='button';
-                    div4.appendChild(button2);
-                    var txt8=document.createTextNode(an2);
-                    button2.appendChild(txt8);
-                    var p6=document.createElement('p');
-                    p6.className='mui-ellipsis my_fontsize my_paddingleft';
-                    div4.appendChild(p6);
-                    var txt9=document.createTextNode(sg);
-                    p6.appendChild(txt9);
-                    var p8=document.createElement('p');
-                    p8.className='mui-ellipsis my_fontsize my_paddingleft';
-                    div4.appendChild(p8);
-                    var txt10=document.createTextNode(jl);
-                    p8.appendChild(txt10);
-                    var p7=document.createElement('p');
-                    p7.className='mui-ellipsis my_fontsize my_color_blue my_paddingleft';
-                    div4.appendChild(p7);
-//                  var txt9=document.createTextNode(sjjh);
-//                  p7.appendChild(txt9);
-                    
-                    button.addEventListener('tap',function(){
-//                      //累计温度表单初始化
-//                      ksrq.value='';
-//                      jsrq.value='';
-//                      wdh.value='';
-//                      diqu.value=dq;
-//                      mui("#cdbzPopover").popover("toggle");
-                    });
-                    button2.addEventListener('tap',function(){
-                        alert('工程详情');
-//                      mui.openWindow({
-//                          url: 'my_project_bzsjjh.html',
-//                          id: this.href,
-//                          styles: {
-//                                  hardwareAccelerated:false
-//                          },
-//                          extras:{
-//                              xmid:xmid,
-//                              xmmc:xmmc
-//                          },                  
-//                          waiting: {
-//                              autoShow: false
-//                          }
-//                      });
-//                      return;
-                    });
-                    
-                };
+                $.ajax({
+                	type:"get",
+                	url:urlAPI+"TongXinweb/project/AllPro",
+                	async:true,
+                	dataType:'json',
+                	success:function(data){
+                	    if(data['success'])
+                	    {
+                	        for (var i=0;i<data['data'].length;i++) {
+                                var ProId = data['data'][i]['projectId'];
+                                var ProName = data['data'][i]['projectName'];
+                                var ProCTm = data['data'][i]['createTime'];
+                                var ProSTm = data['data'][i]['startDate'];
+                                var ProUTm = data['data'][i]['uploadTime'];
+                                var ProSupunits = data['data'][i]['supUnits'];
+                                var ProBuild = data['data'][i]['builder'];
+                                var ProMobile = data['data'][i]['mobile'];
+                                var ProCCode = data['data'][i]['prjNo'];
+                                var ProCName = data['data'][i]['cityName'];
+                                var Phone = data['data'][i]['mobile'];
+                                var DateBegin = data['data'][i]['startDate'];
+                                ListShow_Project(ProId,ProName,ProCName,ProCCode,DateBegin,Phone,ProBuild,ProSupunits);
+                    	    }
+                	        return 0;
+                	    }
+                	    alert('出现错误，请及时联系管理员【错误码：PL002】');
+                	},
+                	error:function(s,e,t){
+                	    alert('出现错误，请及时联系管理员【错误码：PL001】');
+                	}
+                });
             });
-            //返回父页面刷新
-            function back(){
-                var target=plus.webview.getWebviewById('homepage.html');
-                target.reload(true);
-                mui.back();
-            }
+//          function GetCountResult(type,ProId){
+//              $.ajax({
+//                  type:"post",
+//                  url:url+'action_ins/ProCount.php',
+//                  async:false,
+//                  dataType:'json',
+//                  data:{
+//                      ProId:ProId,
+//                      type:type
+//                  },
+//                  success:function(data){
+//                      if(data['statua']){
+//                          return data['row'];
+//                      }else{
+//                          alert('出现错误，请及时联系管理员【错误码：PL004】')
+//                      }
+//                  },
+//                  error:function(s,e,t){
+//                      alert('出现错误，请及时联系管理员【错误码：PL003】')
+//                  }
+//              });
+//          }
+            
+//          ListShow_Project('xmid','xmmc','xmdq','xmlb','fgNormal','fgSame','sgdw','kldw');
 		</script>
 	</body>
 

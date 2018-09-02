@@ -9,6 +9,7 @@ footer {
     overflow: hidden;
     padding: 0px 50px;
     background-color: #fafafa;
+    z-index: -1 !important;
 }
 .footer-left {
     position: absolute;
@@ -240,4 +241,7 @@ p img {
     -moz-user-drag: none;
     -ms-user-drag: none;
     user-drag: none;
+}
+.pinch-zoom{
+    z-index: 9 !important;
 }

@@ -7,7 +7,9 @@
 	"login.html": {
 		"refer": [
 			"main.html",
-			"index.html"
+			"index.html",
+			"reg.html",
+			"forget_password.html"
 		]
 	},
 	"index.html": {
@@ -39,7 +41,8 @@
 	},
 	"my_project/project_list.html": {
 		"refer": [
-			"my_project/project_index.html"
+			"my_project/project_index.html",
+			"my_project/project_mes.html"
 		]
 	},
 	"my_project/project_index.html": {
@@ -50,7 +53,10 @@
 			"my_project/project_form_count.html",
 			"my_project/project_document_list.html",
 			"my_project/project_document_count.html",
-			"my_project/project_document_select.html"
+			"my_project/project_document_select.html",
+			"my_project/project_form_list_test.html",
+			"my_project/project_type.html",
+			"my_project/test.html"
 		]
 	},
 	"my_project/project_form_list.html": {
@@ -61,7 +67,8 @@
 			"my_project/detail/seal.html",
 			"my_project/detail/index.html",
 			"my_project/detail/form_signIn.html",
-			"my_project/pro-form-list-1.html"
+			"my_project/pro-form-list-1.html",
+			"my_project/project_type.html"
 		],
 		"resources": [
 			"my_project/pro-form-list-1.html"
@@ -80,7 +87,17 @@
 			"excel_demo/moban.html",
 			"excel_demo/formtest.html",
 			"my_project/detail/SignView.html",
-			"excel_form/formtest.html"
+			"excel_form/formtest.html",
+			"images/SignIn.png",
+			"js/service.js",
+			"js/mui.min.js",
+			"js/pinchzoom.js",
+			"fonts/mui.ttf",
+			"css/mui.min.css",
+			"js/jquery-1.11.0.min.js",
+			"css/icons-extra.css",
+			"images/CheckOut.png",
+			"css/PageSignIn.css"
 		],
 		"refer": [
 			"excel_demo/moban.htm",
@@ -114,7 +131,8 @@
 			"my_project/pro-form-subpage-3.html",
 			"my_project/pro-form-subpage-2.html",
 			"my_project/pro-form-subpage-4.html",
-			"my_project/detail/form_signIn.html"
+			"my_project/detail/form_signIn.html",
+			"my_project/project_type.html"
 		],
 		"resources": [
 			"my_project/detail/form_sel01.html",
@@ -132,7 +150,8 @@
 			"my_project/detail/form_mesa.html",
 			"excel_demo/moban.htm",
 			"excel_demo/formtest.html",
-			"excel_form/formtest.html"
+			"excel_form/formtest.html",
+			"my_project/detail/signMes.html"
 		],
 		"refer": [
 			"my_project/detail/form_mesa.html",
@@ -140,7 +159,8 @@
 			"excel_demo/moban.htm",
 			"excel_demo/formtest.html",
 			"excel_form/formtest.html",
-			"my_project/detail/signMes.html"
+			"my_project/detail/signMes.html",
+			"my_project/detail/form_mesa01.html"
 		]
 	},
 	"my_project/detail/form_blowUp.html": {
@@ -246,6 +266,41 @@
 	"my_project/pro-form-subpage-2.html": {
 		"refer": [
 			"my_project/detail/form_list.html"
+		]
+	},
+	"my_project/project_form_list_test.html": {
+		"refer": [
+			"my_project/project_index.html"
+		]
+	},
+	"my_project/project_type.html": {
+		"refer": [
+			"my_project/project_form_select.html",
+			"my_project/project_form_list.html",
+			"my_project/project_type_list.html",
+			"my_project/project_index.html"
+		]
+	},
+	"my_project/project_type_list.html": {
+		"refer": [
+			"my_project/project_type.html",
+			"my_project/detail/form_signIn.html",
+			"my_project/test.html",
+			"my_project/tab-with-segmented-control-vertical.html"
+		]
+	},
+	"my_project/test.html": {
+		"refer": [
+			"my_project/project_type_list.html",
+			"my_project/project_index.html"
+		],
+		"resources": [
+			"my_project/project_index.html"
+		]
+	},
+	"my_project/tab-with-segmented-control-vertical.html": {
+		"refer": [
+			"my_project/project_type_list.html"
 		]
 	}
 }

@@ -9,76 +9,83 @@
         <meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<!--css-->
         <link rel="stylesheet" href="../css/mui.min.css">
-        
-        <script src="../js/mui.min.js"></script>
-        <script src="../js/jquery-1.11.0.min.js"></script>
 	</head>
 
 	<body>
 		<header class="mui-bar mui-bar-nav">
             <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left "></a>
-            <h1 class="mui-title">同欣科技大厦A区项目</h1>
+            <h1 class="mui-title"><span id="ProNam"></span></h1>
         </header>
 		<div class="mui-content">
 	        <ul class="mui-table-view mui-grid-view mui-grid-9">
 	            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-	            	<a href="project_form_list.html">
+	            	<a href="project_type.html">
 	                    <span class="mui-icon mui-icon-location"></span>
 	                    <div class="mui-media-body">表单签收</div>
+	                    <span class="href" hidden="hidden">project_type.html</span>
 	            	</a>
 	            </li>
 	            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-	            	<a id="form_select" href="project_form_select.html">
+	            	<a href="project_form_select.html">
+	            	<!--<a href="project_form_select.html">-->
 	                    <span class="mui-icon mui-icon-search"></span>
 	                    <div class="mui-media-body">表单查询</div>
+	                    <span class="href" hidden="hidden">project_form_select.html</span>
 	            	</a>
 	            </li>
 	            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
 	            	<a href="project_form_count.html">
 	                    <span class="mui-icon mui-icon-phone"></span>
 	                    <div class="mui-media-body">表单统计</div>
+	                    <span class="href" hidden="hidden">project_form_count.html</span>
 	            	</a>
 	            </li>
 	            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
 	            	<a href="project_document_list.html">
 	                    <span class="mui-icon mui-icon-home"></span>
 	                    <div class="mui-media-body">文档答复</div>
+	                    <span class="href" hidden="hidden">project_document_list.html</span>
 	            	</a>
 	            </li>
 	            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-	            	<a id="document_select" href="project_document_select.html">
+	            	<a href="project_document_select.html">
 	                    <span class="mui-icon mui-icon-email"></span><!--<span class="mui-badge">5</span>-->
 	                    <div class="mui-media-body">文档查询</div>
+	                    <span class="href" hidden="hidden">project_document_select.html</span>
 	            	</a>
 	            </li>
 	            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
 	            	<a href="project_document_count.html">
 	                    <span class="mui-icon mui-icon-chatbubble"></span>
 	                    <div class="mui-media-body">文档记录</div>
+	                    <span class="href" hidden="hidden">project_document_count.html</span>
 	            	</a>
 	            </li>
 	        </ul>
 		</div>
-		
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/service.js"></script>
+		<script src="../js/jquery-1.11.0.min.js"></script>
 		<script type="text/javascript">
-			    mui.init();
-			    mui.plusReady(function() {
-//			        var form_select = document.getElementById("form_select");
-////			        //点击打开表单查询页面
-//                  form_select.addEventListener('tap',function() {
-//                      mui.openWindow({
-//                          url:'project_form_select.html',
-//                          id:'project_form_select.html'
-//                      })
-//                  })
-//                  var document_select = document.getElementById("document_select");
-//                  document_select.addEventListener('tap',function() {
-//                      mui.openWindow({
-//                          url:'project_document_select.html',
-//                          id:'project_document_select.html'
-//                      })
-//                  })
-			    })
+		    mui.init();
+		    mui.plusReady(function() {
+		        //get pro Mes
+		        var projectId = localStorage.getItem('projectId');
+		        var projectName = localStorage.getItem('projectName');
+		        $('#ProNam').text(projectName);
+		        
+//		        $('.mui-media').on('tap',function(){
+//  			    var PageUrl = $(this).find('.href').text();
+//  			    var PageId = PageUrl.split('.');
+//  //			    alert(PageUrl)
+//  //			    alert(PageId[0])
+//  			    mui.openWindow({
+//  			        url:PageUrl,
+//  			        id:PageId['0'],
+//  			    })
+//  			})
+		    })
+		    
 			
 		</script>
 	</body>

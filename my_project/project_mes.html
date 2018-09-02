@@ -1,0 +1,136 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>建筑文件流转系统-工程列表</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../css/my_css.css">
+		<style>
+		    .margintop10px{
+                margin-top: 10px;
+            }
+            .paddingleft34px{
+                padding-left: 34px;
+            }
+            
+            #cdbzPopover{
+                min-width: 282px;               
+                top:15% !important;
+                margin-top: 0px;
+                left: 50% !important;
+                margin-left: -141px;
+                position: fixed;
+            }
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left "></a>
+		    <h1 class="mui-title" id="refresh">工程详情</h1>
+		</header>
+		<div class="mui-content">
+            <form class="mui-input-group">
+                <div class="mui-input-row">
+                    <label>工程代码</label>
+                    <input type="text" readonly="readonly" id="ProCode">
+                </div>
+                <div class="mui-input-row">
+                    <label>工程名称</label>
+                    <input type="text" readonly="readonly" id="ProName">
+                </div>
+                <div class="mui-input-row">
+                    <label>手机号码</label>
+                    <input type="text" readonly="readonly" id="ProMobile">
+                </div>
+                <div class="mui-input-row">
+                    <label>施工单位</label>
+                    <input type="text" readonly="readonly" id="ProBuild">
+                </div>
+                <div class="mui-input-row">
+                    <label>监理单位</label>
+                    <input type="text" readonly="readonly" id="ProSupunits">
+                </div>
+                <div class="mui-input-row">
+                    <label>城市编号</label>
+                    <input type="text" readonly="readonly" id="ProCCode">
+                </div>
+                <div class="mui-input-row">
+                    <label>城市名称</label>
+                    <input type="text" readonly="readonly" id="ProCName">
+                </div>
+                <div class="mui-input-row">
+                    <label>创建日期</label>
+                    <input type="text" readonly="readonly" id="ProCTm">
+                </div>
+                <div class="mui-input-row">
+                    <label>开始日期</label>
+                    <input type="text" readonly="readonly" id="ProSTm">
+                </div>
+                <div class="mui-input-row">
+                    <label>上传日期</label>
+                    <input type="text" readonly="readonly" id="ProUTm">
+                </div>
+            </form>
+            
+        </div>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/service.js"></script>
+		<script src="../js/creat_card.js"></script>
+		<script src="../js/jquery-1.11.0.min.js"></script>
+		<script type="text/javascript">
+			mui.init({
+                gestureConfig:{
+                    doubletap: true
+                }
+            });
+            //page refresh
+            var refresh = document.getElementById("refresh");
+            refresh.addEventListener('doubletap',function () {
+                window.location.reload();
+            });
+            mui.plusReady(function(){
+                $.ajax({
+                    type:"get",
+                    url:urlAPI+"TongXinweb/project/GetProById",
+                    async:true,
+                    dataType:'json',
+                    data:{
+                        "projectId":localStorage.getItem('projectId')
+                    },
+                    success:function(data){
+                        if(data['success'])
+                        {
+                            
+                            $('#ProCode').attr('value','ProCode');
+                            $('#ProName').attr('value',data['data']['projectName']);
+                            $('#ProCTm').attr('value',data['data']['projectName']);
+                            $('#ProSTm').attr('value',data['data']['createTime']);
+                            $('#ProUTm').attr('value',data['data']['startDate']);
+                            $('#ProSupunits').attr('value',data['data']['supUnits']);
+                            $('#ProBuild').attr('value',data['data']['builder']);
+                            $('#ProMobile').attr('value',data['data']['mobile']);
+                            $('#ProCCode').attr('value',data['data']['mobile']);
+                            $('#ProCName').attr('value',data['data']['cityName']);
+                            return 0;
+                        }
+                        alert('出现错误，请及时联系管理员【错误码：P002】');
+                    },
+                    error:function(s,e,t){
+                        alert('出现错误，请及时联系管理员【错误码：P001】');
+                    }
+                });
+            });
+            //返回父页面刷新
+            function back(){
+                var target = plus.webview.getWebviewById('homepage.html');
+                target.reload(true);
+                mui.back();
+            }
+		</script>
+	</body>
+
+</html>

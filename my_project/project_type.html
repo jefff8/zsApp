@@ -1,0 +1,86 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>建筑文件流转系统-类型列表</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<!--css-->
+        <link rel="stylesheet" href="../css/mui.min.css">
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+            <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left " href="project_index.html"></a>
+            <h1 class="mui-title"><span id="ProNam"></span></h1>
+        </header>
+        
+		<div class="mui-content">
+		    <div class="mui-scroll-wrapper" style="top: 55px;">
+    	        <ul class="mui-table-view mui-grid-view mui-grid-9 mui-scroll"></ul>
+    		</div>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/service.js"></script>
+		<script src="../js/jquery-1.11.0.min.js"></script>
+		<script src="../js/self/creat_card.js"></script>
+		<script type="text/javascript">
+		    mui('.mui-scroll-wrapper').scroll({
+                deceleration: 0.0005, //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
+            });
+		    mui.init();
+		    mui.plusReady(function() {
+		        /*
+		         * GET&SHOW pro Mes
+		         */
+		        var projectId = localStorage.getItem('projectId');
+		        var projectName = localStorage.getItem('projectName');
+		        
+		        $('#ProNam').text(projectName);
+		        /*
+		         * show Type mes
+		         */
+		        $.ajax({
+                    type:"post",
+                    url:url+'action_ins/ListShow.php',
+                    async:true,
+                    dataType:'json',
+                    data:{
+                        falg:'listMesType',
+                        type:'tab',
+                        projectId:projectId
+                    },
+                    success:function(data){
+//                      console.log(data['data'][0]['id'])
+                        for (var i=0;i<data['data'].length;i++) {
+                            var TypeName = data['data'][i]['TypNam']
+                            var Id = data['data'][i]['id']
+                            var Num = data['data'][i]['Num']
+                        	ListShow_Type(TypeName,'#',Id,Num)
+                        }
+                        $('.mui-table-view-cell').on('tap',function(){
+                            localStorage.setItem('TypeName',$(this).find('div').text())
+                        })
+                        $('.mycard').on('tap',function(){
+                            plus.storage.setItem("TypeId",'');
+                            localStorage.setItem('CId',$(this).find('.CId').text());
+                            localStorage.setItem('PageSta','0');
+                            plus.storage.setItem("TypeId",$(this).find('.TypeId').text());
+                            mui.openWindow({
+                                url:'project_type_list.html',
+                                id:'project_type_list',
+                            })
+                        })
+                    },
+                    error:function(s,e,t){
+                        alert('出现错误，请及时联系管理员【错误码：PT001】');
+                    }
+                });
+                
+		    })
+		</script>
+	</body>
+
+</html>

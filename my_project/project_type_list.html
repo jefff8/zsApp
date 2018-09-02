@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>建筑文件流转系统-类型明细</title>
+        <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+        <!--标准mui.css-->
+        <link rel="stylesheet" href="../css/myplus.css" />
+        <link rel="stylesheet" href="../css/my_css.css">
+    </head>
+    
+    <body>
+        <header class="mui-bar mui-bar-nav">
+            <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left " href="project_type.html"></a>
+            <h1 class="mui-title"><span id="TypeName"></span></h1>
+        </header>
+        
+        <div class="mui-content">
+            <div  class="mui-scroll-wrapper" style="top: 55px;">
+                <!--<div style="padding-bottom: 10px;">
+                    <div class="mui-segmented-control">
+                        <div class="mui-slider">
+                            <div class="mui-slider-group mui-slider-loop">
+                                <div class="mui-slider-item">
+                                    <a class="mui-control-item" href="#">
+                                        
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+                </div>-->
+                <div class="mui-control-content-body"></div>
+            </div>
+        </div>
+        
+        <script src="../js/mui.min.js"></script>
+        <script src="../js/jquery-1.11.0.min.js"></script>
+        <script src="../js/service.js"></script>
+        <script src="../js/self/creat_card.js"></script>
+        <script type="text/javascript">
+            mui('.mui-scroll-wrapper').scroll({
+                deceleration: 0.0005, //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
+            });
+            mui.init();
+            mui.plusReady(function(){
+                //get pro Mes
+                var projectId = localStorage.getItem('projectId');
+                var projectName = localStorage.getItem('projectName');
+                var TypeName = localStorage.getItem('TypeName');
+                var TypeId = plus.storage.getItem("TypeId")
+//              var TypeId = getQueryString('TypeId')
+                $('#TypeName').text(TypeName);
+                localStorage.setItem('PageSta','0');
+                
+                //show type mes
+                $.ajax({
+                    type:"post",
+                    url:url+'action_ins/ListShow.php',
+                    async:true,
+                    dataType:'json',
+                    data:{
+                        falg:'listMesType_detail',
+                        TypeId:TypeId,
+                        projectId:projectId,
+                        account : plus.storage.getItem("account"),
+                        password : plus.storage.getItem("password"),
+                    },
+                    success:function(data){
+                        if(data['status'] == 'success'){
+                            if(data['row'] == 0)
+                            {
+                                alert('无相关数据')
+                            }
+                            for (var i=0;i<data['row'];i++) {
+                            	var CId = data['data'][i]['id'];
+                            	var CType = 0;
+                            	var CUrl = '#';
+//                          	var CUrl = 'detail/form_list.html';
+                            	var CName = data['data'][i]['TabNam'];
+                            	var CSUTm = data['data'][i]['TabCTm'];
+                            	var CSSta = '待签';
+                            	var CSDLine = data['data'][i]['TabDTm'];
+                            	ListShow(CId,CType,CUrl,CName,CSUTm,CSSta,CSDLine);
+                            }
+                            $('.mui-card').on('tap',function(){
+                                localStorage.setItem('CId',$(this).find('.CId').text());
+                                localStorage.setItem('PageSta','0');
+                                mui.openWindow({
+                                    url:'detail/form_signIn.html',
+                                    id:'detail/form_signIn',
+                                })
+                            })
+                        }
+                        else
+                        {
+                            alert('无相关数据')
+                        }
+                    },
+                    error:function(s,e,t){
+                        alert('出现错误，请及时联系管理员【错误码：PTL001】');
+                    }
+                });
+                //返回父页面刷新
+//              var old_back = mui.back;   
+//              mui.back = function() {   
+//                  var target = plus.webview.getWebviewById("project_type");
+//                  target.reload(true);
+//                  old_back()
+//              }
+            })
+//          ListShow('CId','CType','test.html','CName','CSUTm','CSSta','CSDLine');
+        </script>
+    </body>
+</html>

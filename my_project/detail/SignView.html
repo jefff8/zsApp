@@ -11,7 +11,11 @@
 		<link rel="stylesheet" href="../../css/bootstrap.min.css">
 		<!--self-->
         <link href="../../css/PageSignIn.css" rel="stylesheet" />
-        
+        <style>
+            .mui-popover{
+                width: 100px;
+            }
+        </style>
 	</head>
 	<body>
 	    <header class="mui-bar mui-bar-nav">
@@ -47,10 +51,10 @@
             <div class="mui-popover-arrow"></div>
             <ul class="mui-table-view">
                 <form id="group">
-                    <li class="mui-table-view-cell mui-active" data-line-color="#000000"><a href="#"><div><label>黑</label><div style="float: right;background-color: #000000;width: 20px;height: 20px;"></div></div></a></li>
-                    <li class="mui-table-view-cell" data-line-color="#FF0000"><a href="#"><div><label>红</label><div style="float: right;background-color: #FF0000;width: 20px;height: 20px;"></div></div></a></li>
-                    <li class="mui-table-view-cell" data-line-color="#0000FF"><a href="#"><div><label>蓝</label><div style="float: right;background-color: #0000FF;width: 20px;height: 20px;"></div></div></a></li>
-                    <li class="mui-table-view-cell" data-line-color="#00FF00"><a href="#"><div><label>绿</label><div style="float: right;background-color: #00FF00;width: 20px;height: 20px;"></div></div></a></li>
+                    <li class="mui-table-view-cell mui-active" data-line-color="#000000"><div><label>黑</label><div style="float: right;background-color: #000000;width: 20px;height: 20px;"></div></div></li>
+                    <li class="mui-table-view-cell" data-line-color="#FF0000"><div><label>红</label><div style="float: right;background-color: #FF0000;width: 20px;height: 20px;"></div></div></li>
+                    <li class="mui-table-view-cell" data-line-color="#0000FF"><div><label>蓝</label><div style="float: right;background-color: #0000FF;width: 20px;height: 20px;"></div></div></li>
+                    <li class="mui-table-view-cell" data-line-color="#00FF00"><div><label>绿</label><div style="float: right;background-color: #00FF00;width: 20px;height: 20px;"></div></div></li>
                 </form>
             </ul>
         </div>
@@ -59,17 +63,16 @@
             <div class="mui-popover-arrow"></div>
             <ul class="mui-table-view">
                 <form id="group1">
-                    <li class="mui-table-view-cell mui-active" data-line-width="1"><a href="#"><div><label>1</label><div class="signIn-width" style="float: right;"></div></div></a></li>
-                    <li class="mui-table-view-cell" data-line-width="3"><a href="#"><div><label>3</label><div class="signIn-width" style="float: right;"></div></div></a></li>
-                    <li class="mui-table-view-cell" data-line-width="5"><a href="#"><div><label>5</label><div class="signIn-width" style="float: right;"></div></div></a></li>
-                    <li class="mui-table-view-cell" data-line-width="7"><a href="#"><div><label>7</label><div class="signIn-width" style="float: right;"></div></div></a></li>
-                    <li class="mui-table-view-cell" data-line-width="9"><a href="#"><div><label>9</label><div class="signIn-width" style="float: right;"></div></div></a></li>
+                    <li class="mui-table-view-cell" data-line-width="5" style="width: 100%;"><a href="#"><div><label>5</label></div></a></li><!--<div class="signIn-width" style="float: right;"></div>-->
+                    <li class="mui-table-view-cell mui-active" data-line-width="7" style="width: 100%;"><a href="#"><div><label>7</label></div></a></li><!--<div class="signIn-width" style="float: right;"></div>-->
+                    <li class="mui-table-view-cell" data-line-width="9" style="width: 100%;"><a href="#"><div><label>9</label></div></a></li><!--<div class="signIn-width" style="float: right;"></div>-->
+                    <li class="mui-table-view-cell" data-line-width="11" style="width: 100%;"><a href="#"><div><label>11</label></div></a></li><!--<div class="signIn-width" style="float: right;"></div>-->
                 </form>
             </ul>
         </div>
 	</body>
 	<script src="../../js/mui.min.js"></script>
-	<script src="../../js/signature/jquery-1.11.0.min.js"></script>
+	<script src="../../js/jquery-1.11.0.min.js"></script>
 	<script src="../../js/signature/jq-signature.min.js"></script>
 	<script type="text/javascript">
 		mui.init({
@@ -143,31 +146,16 @@
             
 			//提交签名
             $('#Popover_4').on('tap',function() {
-                //页面变化
-                var dataUrl = $('.js-signature').eq(0).jqSignature('getDataURL');
+                //clesr old sign
+                localStorage.setItem('SignPic','');
                 //返回值
                 var dataUrl = $('.js-signature').eq(0).jqSignature('getDataURL');
+                //set new sign
                 localStorage.setItem('SignPic',dataUrl);
                 mui.openWindow({
                     url:'signPlace.html',
                     id:'signPlace.html',
-                    extras: {
-                        fatherPage : 'form_signIn.html'
-                    }
                 });
-//              
-//              var view=plus.webview.getWebviewById(fatherPage);//注意id是上个页面的ID
-//              mui.fire(view,'doit',{
-//                  imgData:dataUrl//返回值【签名数据流】
-//              });
-//              $('#signature').html('<p><em>签名正在保存，请稍后</em></p>');
-//              $('#signature').html($('<p>').text('您的签名已经成功提交'));
-//              //解决返回问题
-//              var win = plus.webview.getWebviewById('SignView.html'); 
-//              win.hide('auto');
-//              var target=plus.webview.getWebviewById(fatherPage);
-//              target.reload(true);
-//              mui.back();
             })
 			
 			if ($('.js-signature').length) {

@@ -18,15 +18,32 @@
 		if (loginInfo.password.length < 6) {
 			return callback('密码最短为 6 个字符');
 		}
-		var users = JSON.parse(localStorage.getItem('$users') || '[]');
-		var authed = users.some(function(user) {
-			return loginInfo.account == user.account && loginInfo.password == user.password;
-		});
-		if (authed) {
-			return owner.createState(loginInfo.account, callback);
-		} else {
-			return callback('用户名或密码错误');
-		}
+		//判断帐号密码的正确
+        mui.ajax(url+'login.php',{
+            data:{
+                account:loginInfo.account,
+                password:loginInfo.password
+            },
+            dataType:'json',
+            type:'post',
+            timeout:10000,
+            success:function(data){
+                if (data['status']=='success') {
+                    localStorage.setItem('AccId',data['data']['id'])
+                    localStorage.setItem('AccNa',data['data']['Name'])
+                    localStorage.setItem('AccPh',data['data']['phone'])
+                    localStorage.setItem('AccPt',data['data']['RolName'])
+                    localStorage.setItem('RolId',data['data']['RolIdS'])
+                    return callback();
+                } else{
+                    return callback('用户名/密码错误,或账号未通过');
+                }
+            },
+            error:function(xhr,type,errorThrown){
+                //异常处理；
+                return callback('ajax错误'+type+errorThrown);
+            }
+        });
 	};
 
 	owner.createState = function(name, callback) {

@@ -1,0 +1,176 @@
+<!doctype html>
+<html>
+
+    <head>
+        <meta charset="UTF-8">
+        <title></title>
+        <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+        <link href="../../css/mui.min.css" rel="stylesheet" />
+        <style>
+            li{list-style: none;}
+            
+            .my-remind {
+                text-align:center;
+            }
+            
+            .mui-card .mui-input-row label{
+                word-break: keep-all;
+            }
+            
+            .cir-pass {
+                background-color: limegreen;
+            }
+            .cir-reject {
+                background-color: red;
+            }
+            .cir-outdate {
+                background-color: blue;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="mui-content">
+            <p class="my-remind"><span>绿色表示已签收,红色表示已驳回,蓝色表示已逾期</span></p>
+            <div class="mui-card">
+                <ul class="mui-table-view mui-table-view-chevron">
+                    <li class="mui-table-view-cell mui-collapse cir-pass">
+                        <a class="mui-navigate-right" href="#">项目部</a>
+                        <ul class="mui-table-view mui-table-view-chevron">
+                            <li class="mui-table-view-cell">
+                                <div class="mui-input-row">
+                                    <label>审批意见</label>
+                                    <textarea type="text" readonly="readonly">测试测试测试测试测试测试测试测试</textarea>
+                                </div>
+                                <div class="mui-input-row">
+                                    <label>操作人</label>
+                                    <input type="text" value="发哥" readonly="readonly">
+                                </div>
+                                <div class="mui-input-row">
+                                    <label>操作时间</label>
+                                    <input type="text" value="2018-7-27 14:41:56" readonly="readonly">
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="mui-table-view-cell mui-collapse cir-reject">
+                        <a class="mui-navigate-right" href="#">工程部</a>
+                        <ul class="mui-table-view mui-table-view-chevron">
+                            <li class="mui-table-view-cell">
+                                <div class="mui-input-row">
+                                    <label>审批意见</label>
+                                    <textarea readonly="readonly"></textarea>
+                                </div>
+                                <div class="mui-input-row">
+                                    <label>操作人</label>
+                                    <input type="text" value="泰哥" readonly="readonly">
+                                </div>
+                                <div class="mui-input-row">
+                                    <label>操作时间</label>
+                                    <input type="text" value="2018-7-27 14:43:50" readonly="readonly">
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="mui-table-view-cell mui-collapse cir-outdate">
+                        <a class="mui-navigate-right" href="#">工程部经理</a>
+                        <ul class="mui-table-view mui-table-view-chevron">
+                            <li class="mui-table-view-cell">
+                                <div class="mui-input-row">
+                                    <label>审批意见</label>
+                                    <input type="text" value="" readonly="">
+                                </div>
+                                <div class="mui-input-row">
+                                    <label>操作人</label>
+                                    <input type="text" value="" readonly="">
+                                </div>
+                                <div class="mui-input-row">
+                                    <label>操作时间</label>
+                                    <input type="text" value="" readonly="">
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="mui-table-view-cell mui-collapse">
+                        <a class="mui-navigate-right" href="#">总经理</a>
+                        <ul class="mui-table-view mui-table-view-chevron">
+                            <li class="mui-table-view-cell">
+                                <div class="mui-input-row">
+                                    <label>审批意见</label>
+                                    <input type="text" value="" readonly="">
+                                </div>
+                                <div class="mui-input-row">
+                                    <label>操作人</label>
+                                    <input type="text" value="" readonly="">
+                                </div>
+                                <div class="mui-input-row">
+                                    <label>操作时间</label>
+                                    <input type="text" value="" readonly="">
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!--<div class="mui-card" style="width: 67%;">
+            <div class="mui-card-header">
+                <span style="font-size: 16px;">项目部</span>
+                <span class="mui-icon mui-icon-arrowthinright"></span>
+                <span style="font-size: 16px;">工程部</span>
+                <span class="mui-icon mui-icon-arrowthinright"></span>
+                <span style="font-size: 16px;">工程部经理</span>
+                <span class="mui-icon mui-icon-arrowthinright"></span>
+                <span style="font-size: 16px;color: red;">总经理</span>
+            </div>
+            <div class="mui-card-content">
+                <div class="mui-card-content-inner">
+                    <p>
+                        <div class="mui-input-row">
+                            <label>审批状态</label>
+                            <label>待审批</label>
+                        </div>
+                    </p>
+                    <p>
+                        <div class="mui-input-row">
+                            <label>审批意见</label>
+                            <label></label>
+                        </div>
+                    </p>
+                    <p>
+                        <div class="mui-input-row">
+                            <label>操作人</label>
+                            <label>发哥</label>
+                        </div>
+                    </p>
+                    <p>
+                        <div class="mui-input-row">
+                            <label>接收时间</label>
+                            <label>2018-4-21 15:31:30</label>
+                        </div>
+                    </p>
+                    <p>
+                        <div class="mui-input-row">
+                            <label>操作时间</label>
+                            <label>2018-4-21 15:31:30</label>
+                        </div>
+                    </p>
+                    <p>
+                        <div class="mui-input-row">
+                            <label>流程状态</label>
+                            <label>2018-4-21 15:31:30</label>
+                        </div>
+                    </p>
+                    <p>
+                </div>
+            </div>
+        </div>-->
+        <script src="../../js/mui.min.js"></script>
+        <script type="text/javascript">
+            mui.init({
+                swipeBack:true //启用右滑关闭功能
+            });
+        </script>
+    </body>
+
+</html>
