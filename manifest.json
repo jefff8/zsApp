@@ -558,7 +558,8 @@
 					"my_project/project_type.html",
 					"my_project/detail/form_signIn.html",
 					"my_project/test.html",
-					"my_project/tab-with-segmented-control-vertical.html"
+					"my_project/tab-with-segmented-control-vertical.html",
+					"my_project/detail/form_signInPC.html"
 				],
 				"priority": 0
 			},

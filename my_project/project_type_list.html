@@ -16,7 +16,7 @@
         </header>
         
         <div class="mui-content">
-            <div  class="mui-scroll-wrapper" style="top: 55px;">
+            <div class="mui-scroll-wrapper" style="top: 55px;">
                 <!--<div style="padding-bottom: 10px;">
                     <div class="mui-segmented-control">
                         <div class="mui-slider">
@@ -52,7 +52,7 @@
 //              var TypeId = getQueryString('TypeId')
                 $('#TypeName').text(TypeName);
                 localStorage.setItem('PageSta','0');
-                
+//              console.log(projectId)
                 //show type mes
                 $.ajax({
                     type:"post",
@@ -63,10 +63,9 @@
                         falg:'listMesType_detail',
                         TypeId:TypeId,
                         projectId:projectId,
-                        account : plus.storage.getItem("account"),
-                        password : plus.storage.getItem("password"),
                     },
                     success:function(data){
+//                      console.log(data)
                         if(data['status'] == 'success'){
                             if(data['row'] == 0)
                             {
@@ -98,7 +97,7 @@
                         }
                     },
                     error:function(s,e,t){
-                        alert('出现错误，请及时联系管理员【错误码：PTL001】');
+                        alert('出现错误，错误类型：'+e);
                     }
                 });
                 //返回父页面刷新

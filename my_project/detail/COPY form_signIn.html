@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../css/icons-extra.css" rel="stylesheet" type="text/css" />
+		<!--self-->
+		<link href="../../css/PageSignIn.css" rel="stylesheet" />
+	</head>
+
+	<body>
+	    <header class="mui-bar mui-bar-nav">
+            <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left " id='back' href="#"></a>
+            <a class="mui-icon mui-icon-bars mui-pull-right" href="#ShowList"></a>
+            <h1 class="mui-title"><span id="CName"></span></h1>
+        </header>
+        <div class="mui-content">
+            <div class="page" style="display:block;">
+                <div class="mui-scroll-wrapper" style="top: 55px;bottom: 45px;">
+                    <div class="pinch-zoom" id="pic" >
+                        <!--<img id="PicShow" src="" />-->
+                    </div>
+                </div>
+            </div>
+            <!--驳回原因输入块-->
+            <div id="ShowList" class="mui-popover mui-popover-action mui-popover-bottom">
+                <ul class="mui-table-view">
+                    <li class="mui-table-view-cell">
+                        <a href="#" style="color: #FF3B30;">驳回</a>
+                    </li>
+                    <li class="mui-table-view-cell">
+                        <a href="#" style="color: #FF3B30;">提交</a>
+                    </li>
+                </ul>
+                <ul class="mui-table-view">
+                    <li class="mui-table-view-cell">
+                        <a href="#delete"><b>取消</b></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <footer>
+            <!--手写输入切换-->
+            <div class="footer-left">
+            	<!--<a href="../../excel_form/formtest.html" class="mui-tab-item mui-active" ><img src="../../images/keyboard.png" width="20px" height="20px" style="display: none;"/></a>-->
+                <img src="../../images/SignIn.png" width="20px" height="20px" id="SignIn" />
+                
+            </div>
+            <!--输入框-->
+            <div class="footer-center">
+                <input id='msg-text' type="text" class='input-text' list='SignElse'>
+                <datalist id="SignElse">
+                    <option>备注1</option>
+                    <option>备注2</option>
+                    <option>备注3</option>
+                    <option>备注4</option>
+                </datalist>
+            </div>
+            <!--查看/发送-->
+            <label for="" class="footer-right">
+                <!--<a><span class="mui-icon mui-icon-paperclip"></span></a>-->
+                <img id="msg-check" class="footer-right-page" src="../../images/CheckOut.png" width="10px" height="10px" />
+                <button type="button" class="mui-btn mui-btn-success footer-right-post" id="postMes" style="display: none;">提交</button>
+            </label>
+        </footer>
+        <!--script-->
+        <script src="../../js/mui.min.js"></script>
+        <script src="../../js/jquery-1.11.0.min.js"></script>
+        <script src="../../js/service.js"></script>
+		<script src="../../js/pinchzoom.js"></script>
+		<script type="text/javascript">
+		    mui('.mui-scroll-wrapper').scroll({
+                deceleration: 0.0005, //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
+            });
+		    /*
+		     * get pro Mes
+		     */
+		    var projectId = localStorage.getItem('projectId');
+            var projectName = localStorage.getItem('projectName');
+            var TypeName = localStorage.getItem('TypeName');
+            var CId = localStorage.getItem('CId');
+            
+            /*
+             * load form mes
+             */
+            $.ajax({
+            	type:"post",
+            	url:url+"action_sign/MesShow_tab.php",
+            	async:true,
+            	dataType:'json',
+            	data:{
+            	    CId:CId
+            	},
+            	success:function(data){
+            	    $('#CName').text(data['data']['TabNam']);
+            	    
+            	    localStorage.setItem('page',data['data']['page']);
+            	    showTab(data['data']['imgurl'],data['data']['page']);
+            	    /*
+                     * check status
+                     */
+                    if(localStorage.getItem('CIdFinal') == localStorage.getItem('CId')){
+                        var ImgChangePage = localStorage.getItem('PageFinal')-1
+                        $('.pinch-zoom').find('img').eq(ImgChangePage).attr('src',localStorage.getItem('SignFinal'))
+                    }
+            	},
+            	error:function(s,e,t){
+            	    alert('出现错误，请及时联系管理员【错误码：FSI001】');
+            	}
+            });
+            mui.init({
+                swipeBack:false,
+                statusBarBackground: '#f7f7f7',
+            });
+            mui('body').on('tap', '.mui-popover-action li>a', function() {
+                var a = this,parent;
+                //根据点击按钮，反推当前是哪个actionsheet
+                for (parent = a.parentNode; parent != document.body; parent = parent.parentNode) {
+                    if (parent.classList.contains('mui-popover-action')) {
+                        break;
+                    }
+                }
+                //关闭actionsheet
+                mui('#' + parent.id).popover('toggle');
+                //驳回
+                if(a.innerHTML == '驳回'){
+                    var btnArray = ['取消', '确定'];
+                    mui.prompt('请输入审批意见：', '或驳回原因', '建筑文件审批系统', btnArray, function(e) {
+                        if (e.index == 1) {
+                            alert('审批意见:' + e.value);
+                        }
+                    });
+                };
+                //提交
+                if(a.innerHTML == '提交'){
+                    var account = plus.storage.getItem("account");
+                    var password = plus.storage.getItem("password");
+                    $.ajax({
+                        type:"post",
+                        url:url+"action_sign/MesSave_Img.php",
+                        async:true,
+                        dataType:'json',
+                        data:{
+//                          imgData:localStorage.getItem('SignFinal'),
+//                          imgUrl:localStorage.getItem('imgUrl'),
+//                          page:localStorage.getItem('PageFinal')
+                            useName:account,
+                            password:password,
+                            formId:CId
+                        },
+                        success:function(data){
+//                          console.log(data)
+                            if(data['status'] == 'success'){
+                                alert('提交成功')
+                                //返回父页面刷新
+                                var target = plus.webview.getWebviewById("project_type_list");
+                                target.reload(true);
+                                mui.back();
+                            }else{
+                                alert('提交失败,请及时联系管理员【错误码：FSI003】');
+                            }
+                        },
+                        error:function(s,e,t){
+                            alert('出现错误，请及时联系管理员【错误码：FSI002】');
+                        }
+                    })
+                }
+            })
+            mui.plusReady(function(){
+                var val='';
+                //检测，显示提交按钮【键盘输入】
+                $('#msg-text').on('input',function() {
+                    document.getElementById("postMes").style.display = 'block';
+                    document.getElementById("msg-check").style.display = 'none';
+                })
+                //提交信息之后【键盘输入】
+                $('#postMes').on('tap',function() {
+                    alert('你刚输入了:'+$('#msg-text').val());
+                    document.getElementById("postMes").style.display = 'none';
+                    document.getElementById("msg-check").style.display = 'block';
+                    $('#msg-text').val('');
+                })
+                //显示键盘
+                var showKeyboard = function() {
+                    if (mui.os.ios) {
+                        var webView = plus.webview.currentWebview().nativeInstanceObject();
+                        webView.plusCallMethod({
+                            "setKeyboardDisplayRequiresUserAction": false
+                        });
+                    } else {
+                        var Context = plus.android.importClass("android.content.Context");
+                        var InputMethodManager = plus.android.importClass("android.view.inputmethod.InputMethodManager");
+                        var main = plus.android.runtimeMainActivity();
+                        var imm = main.getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.toggleSoftInput(0, InputMethodManager.SHOW_FORCED);
+                        imm.showSoftInput(main.getWindow().getDecorView(), InputMethodManager.SHOW_IMPLICIT);
+                    }
+                };
+                //打开详情
+                $('#msg-check').on('tap',function() {
+                    localStorage.setItem('PageStaMes','1');
+                    mui.openWindow({
+                        url: 'form_mes.html',
+                        id: 'form_mes.html',
+                        extras: {
+                            imgData : val
+                        }
+                    });
+                });
+                //打开签名页面
+                $('#SignIn').on('tap',function() {
+                    mui.openWindow({
+                        url:'SignView.html',
+                        id:'SignView.html',
+                        extras: {
+                            fatherPage : 'form_signIn.html'
+                        }
+                    })
+                })
+            });
+            //show tab
+            function showTab(filePic,page) {
+                $('div.pinch-zoom').each(function () {
+                    new RTP.PinchZoom($(this), {});
+                });
+                page ++;
+                for (var i=1;i<page;i++) {
+//                  filePic = filePic.substr(0,filePic.length-4);
+                    var filePicArr = filePic.split('(')
+                    var imgDataText = urlAPI + filePicArr[0]+'('+i+')'+'.png';
+                    localStorage.setItem('imgUrl',imgDataText);
+                	var imgText = "<img class='PicShow' src='"+imgDataText+"' />";
+                	$('div.pinch-zoom').append(imgText);
+                }
+                PageSta = localStorage.getItem('PageSta')
+                if(PageSta=='0'){
+                    localStorage.setItem('PageSta','1');
+                    location.reload()
+                }
+            }
+        </script>
+            
+	</body>
+
+</html>

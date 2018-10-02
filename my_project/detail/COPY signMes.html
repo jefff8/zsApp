@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        <link rel="stylesheet" href="../../css/mui.min.css">
+        <!--self-->
+        <link href="../../css/PageSignIn.css" rel="stylesheet" />
+        
+    </head>
+
+    <body>
+        <div class="mui-content">
+            <div class="page" style="display:block;">
+                <div class="mui-scroll-wrapper" style="height: 200%;">
+                    <div class="pinch-zoom">
+                        <!--<img id="PicShow" src="" />-->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="../../js/mui.min.js"></script>
+        <script src="../../js/jquery-1.11.0.min.js"></script>
+        <script src="../../js/service.js"></script>
+        <script src="../../js/pinchzoom.js"></script>
+        <script type="text/javascript" charset="utf-8">
+            mui('.mui-scroll-wrapper').scroll({
+                deceleration: 0.0005, //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
+            });
+            mui.init({
+                swipeBack:false,
+                statusBarBackground: '#f7f7f7',
+            });
+            showTab(localStorage.getItem('imgUrl'),localStorage.getItem('page'))
+            mui.plusReady(function(){
+                /*
+                 * check status
+                 */
+                if(localStorage.getItem('CIdFinal') == localStorage.getItem('CId')){
+                    var ImgChangePage = localStorage.getItem('PageFinal')-1
+                    $('.pinch-zoom').find('img').eq(ImgChangePage).attr('src',localStorage.getItem('SignFinal'))
+                }
+            })
+            //show tab
+            function showTab(filePic,page) {
+                $('div.pinch-zoom').each(function () {
+                    new RTP.PinchZoom($(this), {});
+                });
+                page ++;
+                for (var i=1;i<page;i++) {
+//                  filePic = filePic.substr(0,filePic.length-4);
+                    var filePicArr = filePic.split('(')
+                    var imgDataText = filePicArr[0]+'('+i+')'+'.png';
+                    var imgText = "<img class='PicShow' src='"+imgDataText+"' />";
+                    $('div.pinch-zoom').append(imgText);
+                }
+                PageSta = localStorage.getItem('PageStaMes')
+                if(PageSta=='0'){
+                    localStorage.setItem('PageSta','1');
+                    location.reload()
+                }
+            }
+        </script>
+    </body>
+</html>

@@ -117,10 +117,10 @@
                             $('#ProCName').attr('value',data['data']['cityName']);
                             return 0;
                         }
-                        alert('出现错误，请及时联系管理员【错误码：P002】');
+                        alert('出现错误，错误类型：'+e);
                     },
                     error:function(s,e,t){
-                        alert('出现错误，请及时联系管理员【错误码：P001】');
+                        alert('出现错误，错误类型：'+e);
                     }
                 });
             });

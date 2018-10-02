@@ -37,9 +37,8 @@
 				</div>
 				<img id="imgPlace" src="" hidden="hidden"/>
                 <div>
-                    <canvas id="wrapped_canvas" width="500" height="300" style="display:none"></canvas>
-                    <div class="row" id="svg" hidden="hidden">
-                        
+                    <div class="row" id="svg">
+                        <canvas id="wrapped_canvas" width="500" height="300" style="display:none"></canvas>
                     </div>
                 </div>
 			</div>
@@ -80,7 +79,6 @@
 	</body>
 	<script src="../../js/mui.min.js"></script>
 	<script src="../../js/jquery-1.11.0.min.js"></script>
-	<script src="../../js/service.js"></script>
 	<script src="../../js/signature/jq-signature.min.js"></script>
 	<script src="../../js/signature/canvas2svg.js"></script>
 	<script type="text/javascript">
@@ -91,15 +89,12 @@
 		//区域滚动,需手动初始化scroll控件
 		mui('.mui-scroll-wrapper').scroll({
 			deceleration: 0.0005 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
-		});
+		});		
 		//设置线条属性
         lineColor = $('#Popover_0 .mui-active').data('line-color');
         lineWidth = $('#Popover_1 .mui-active').data('line-width');
         //定义图片变量
     	var imgData = [0,1];
-        //获取表单id【非接口id】
-//      var CId = localStorage.getItem('CId');
-        var CId = '55'
         
 		mui.plusReady(function() {
 		    var self = plus.webview.currentWebview();
@@ -159,6 +154,7 @@
             
 			//提交签名
 			$('#Popover_4').on('click',function() {
+                
                 //返回值
                 var dataUrl = $('.js-signature').eq(0).jqSignature('getDataURL');
                 //clesr old sign
@@ -182,39 +178,14 @@
                 var c2s = new C2S({ctx:wrappedCtx, width:500, height:300});
                 
                 drawFunction(c2s);
-                svg.innerHTML = '';
-                svg.appendChild(c2s.getSvg());
-                //保存签名svg
-                $.ajax({
-                    url:url+'action_sign/MesSave_Svg.php',
-                    async:true,
-                    type:'post',
-                    dataType:'json',
-                    data:{
-                        flag:'SaveSvgFile',
-                        svgElement:svg.innerHTML,
-                        formId :CId
-                    },
-                    success:function(data){
-                        if(data['status'] == 'success')
-                        {
-                            var signUrl = data['path']
-                            //将地址存进本地存储
-                            localStorage.setItem('SignUrl',UrlImage+signUrl)
-//                          $('#test').attr('src',url+signUrl)
-                            //进入放置签名页面
-                            mui.openWindow({
-                                url:'signPlace.html',
-                                id:'signPlace.html',
-                            })
-                            return;
-                        }
-                        alert('保存签名时出现错误，请及时联系管理员');
-//                      console.log(data)
-                    },
-                    error:function(s,e,t){
-                        alert('出现错误，错误类型：'+e)
-                    }
+                //console.log(c2s.getSvg())
+                //显示svg
+                //svg.appendChild(c2s.getSvg())
+                localStorage.setItem('SignSvg',c2s.getSvg())
+                
+                mui.openWindow({
+                    url:'signPlace.html',
+                    id:'signPlace.html',
                 })
             })
 			
@@ -232,7 +203,7 @@
             imgData[0] = imgData[1];
             imgData[1] = context.getImageData(0, 0, width, height);
         }
-        //将图像在画布呈现
+        //将土巷仔画布呈现
         var i=1;
         function canvas_paste(){
             var c = document.getElementsByTagName("canvas");

@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="UTF-8">
+        <title></title>
+        <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+        <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
+        <link href="../../css/mui.min.css" rel="stylesheet" />
+        <link href="../../css/icons-extra.css" rel="stylesheet" type="text/css" />
+        <!--self-->
+        <link href="../../css/PageSignIn.css" rel="stylesheet" />
+        <style>
+            .mui-scroll-wrapper {
+                top: 45px;
+                bottom: 50px;
+                left: 1px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <header class="mui-bar mui-bar-nav">
+            <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left " id='back' href="#"></a>
+            <a class="mui-icon mui-icon-bars mui-pull-right" href="#ShowList"></a>
+            <h1 class="mui-title"><span id="CName"></span></h1>
+        </header>
+        <div class="mui-content">
+            <canvas id="PicShowView"></canvas>
+            <!--驳回原因输入块-->
+            <div id="ShowList" class="mui-popover mui-popover-action mui-popover-bottom">
+                <ul class="mui-table-view">
+                    <li class="mui-table-view-cell">
+                        <a href="#" style="color: #FF3B30;">驳回</a>
+                    </li>
+                    <li class="mui-table-view-cell">
+                        <a href="#" style="color: #FF3B30;">提交</a>
+                    </li>
+                </ul>
+                <ul class="mui-table-view">
+                    <li class="mui-table-view-cell">
+                        <a href="#delete"><b>取消</b></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <footer>
+            <!--手写输入切换-->
+            <div class="footer-left">
+                <!--<a href="../../excel_form/formtest.html" class="mui-tab-item mui-active" ><img src="../../images/keyboard.png" width="20px" height="20px" style="display: none;"/></a>-->
+                <img src="../../images/SignIn.png" width="20px" height="20px" id="SignIn" />
+            </div>
+            <!--输入框-->
+            <div class="footer-center">
+                <input id='msg-text' type="text" class='input-text' list='SignElse'>
+                <datalist id="SignElse">
+                    <option>备注1</option>
+                    <option>备注2</option>
+                    <option>备注3</option>
+                    <option>备注4</option>
+                </datalist>
+            </div>
+            <!--查看/发送-->
+            <label for="" class="footer-right">
+                <!--<a><span class="mui-icon mui-icon-paperclip"></span></a>-->
+                <img id="msg-check" class="footer-right-page" src="../../images/CheckOut.png" width="10px" height="10px" />
+                <button type="button" class="mui-btn mui-btn-success footer-right-post" id="postMes" style="display: none;">提交</button>
+            </label>
+        </footer>
+        <!--script-->
+        <!--<script src="../../js/mui.min.js"></script>-->
+        <script src="../../js/jquery-1.11.0.min.js"></script>
+        <script src="../../js/service.js"></script>
+        <script src="../../js/signature/hammer.js"></script>
+        <script type="text/javascript">
+            //get pro Mes
+//          var projectId = localStorage.getItem('projectId');
+//          var projectName = localStorage.getItem('projectName');
+//          var TypeName = localStorage.getItem('TypeName');
+//          var CId = localStorage.getItem('CId');
+            var CId = '55'
+            //定义cancas
+            var canvas = document.getElementById("PicShowView")
+            
+            //load form mes
+            $.ajax({
+                type:"post",
+                url:url+"action_sign/MesShow_form.php",
+                async:true,
+                dataType:'json',
+                data:{
+                    CId:CId
+                },
+                success:function(data){
+                    //获取url
+                    $('#CName').text(data['data']['TabNam']);
+                    localStorage.setItem('page',data['data']['page']);
+                    localStorage.setItem('imgUrl',data['data']['imgurl']);
+                    //在canvas中显示表单
+                    ShowForm(data['data']['imgurl'],data['data']['page']);
+                },
+                error:function(s,e,t){
+                    alert('出现错误，错误类型：'+e);
+                }
+            });
+//          mui.init({
+//              swipeBack:false,
+//              statusBarBackground: '#f7f7f7',
+//          });
+//          mui('body').on('tap', '.mui-popover-action li>a', function() {
+//              var a = this,parent;
+//              //根据点击按钮，反推当前是哪个actionsheet
+//              for (parent = a.parentNode; parent != document.body; parent = parent.parentNode) {
+//                  if (parent.classList.contains('mui-popover-action')) {
+//                      break;
+//                  }
+//              }
+//              //关闭actionsheet
+//              mui('#' + parent.id).popover('toggle');
+//              //驳回
+//              if(a.innerHTML == '驳回'){
+//                  var btnArray = ['取消', '确定'];
+//                  mui.prompt('请输入审批意见：', '或驳回原因', '建筑文件审批系统', btnArray, function(e) {
+//                      if (e.index == 1) {
+//                          alert('审批意见:' + e.value);
+//                      }
+//                  });
+//              };
+//              //提交
+//              if(a.innerHTML == '提交'){
+//                  var account = plus.storage.getItem("account");
+//                  var password = plus.storage.getItem("password");
+//                  $.ajax({
+//                      type:"post",
+//                      url:url+"action_sign/MesSave_Img.php",
+//                      async:true,
+//                      dataType:'json',
+//                      data:{
+////                          imgData:localStorage.getItem('SignFinal'),
+////                          imgUrl:localStorage.getItem('imgUrl'),
+////                          page:localStorage.getItem('PageFinal')
+//                          useName:account,
+//                          password:password,
+//                          formId:CId
+//                      },
+//                      success:function(data){
+////                          console.log(data)
+//                          if(data['status'] == 'success'){
+//                              alert('提交成功')
+//                              //返回父页面刷新
+//                              var target = plus.webview.getWebviewById("project_type_list");
+//                              target.reload(true);
+//                              mui.back();
+//                          }else{
+//                              alert('出现错误，错误类型：'+e+'位置：success');
+//                          }
+//                      },
+//                      error:function(s,e,t){
+//                          alert('出现错误，错误类型：'+e);
+//                      }
+//                  })
+//              }
+//          })
+//          mui.plusReady(function(){
+//              var val='';
+//              //检测，显示提交按钮【键盘输入】
+//              $('#msg-text').on('input',function() {
+//                  document.getElementById("postMes").style.display = 'block';
+//                  document.getElementById("msg-check").style.display = 'none';
+//              })
+//              //提交信息之后【键盘输入】
+//              $('#postMes').on('tap',function() {
+//                  alert('你刚输入了:'+$('#msg-text').val());
+//                  document.getElementById("postMes").style.display = 'none';
+//                  document.getElementById("msg-check").style.display = 'block';
+//                  $('#msg-text').val('');
+//              })
+//              //显示键盘
+//              var showKeyboard = function() {
+//                  if (mui.os.ios) {
+//                      var webView = plus.webview.currentWebview().nativeInstanceObject();
+//                      webView.plusCallMethod({
+//                          "setKeyboardDisplayRequiresUserAction": false
+//                      });
+//                  } else {
+//                      var Context = plus.android.importClass("android.content.Context");
+//                      var InputMethodManager = plus.android.importClass("android.view.inputmethod.InputMethodManager");
+//                      var main = plus.android.runtimeMainActivity();
+//                      var imm = main.getSystemService(Context.INPUT_METHOD_SERVICE);
+//                      imm.toggleSoftInput(0, InputMethodManager.SHOW_FORCED);
+//                      imm.showSoftInput(main.getWindow().getDecorView(), InputMethodManager.SHOW_IMPLICIT);
+//                  }
+//              };
+//              //打开详情
+//              $('#msg-check').on('tap',function() {
+//                  localStorage.setItem('PageStaMes','1');
+//                  mui.openWindow({
+//                      url: 'form_mes.html',
+//                      id: 'form_mes.html',
+//                      extras: {
+//                          imgData : val
+//                      }
+//                  });
+//              });
+//              //打开签名页面
+//              $('#SignIn').on('tap',function() {
+//                  mui.openWindow({
+//                      url:'SignView.html',
+//                      id:'SignView.html',
+//                      extras: {
+//                          fatherPage : 'form_signIn.html'
+//                      }
+//                  })
+//              })
+//          });
+            //显示表单
+            function ShowForm(filePic,page){
+                //获取表单地址
+                var filePicArr = filePic.split('(');
+                var imgDataText = urlAPI + filePicArr[0]+'(1)'+'.png';
+                var img = new Image();
+                img.src = imgDataText;
+                //设定canvas的宽高
+                var canvasWidth = Math.min(img.width , $(window).width()-10 )
+                var canvasHeight = Math.min(img.height , $(window).height()-10 )
+                canvas.style.width = canvasWidth
+                canvas.style.height = canvasHeight
+                canvas.width = canvasWidth*PIXEL_RATIO*2
+                canvas.height = canvasHeight*PIXEL_RATIO*2
+                //获取图片及其加载
+                page++;
+                for(var i=0;i<page;i++){
+                    //获取图片
+                    img.src = imgDataText;
+                    //图片加载完成后
+                    img.onload = function()
+                    {
+                        
+//                      //计算缩放比
+//                      var scale = canvasWidth/imgWidth;
+//                      //var canvasHeight = Math.min(imgHeight*scale , $(window).height()-155 );
+//                      canvasHeight = imgHeight*scale;
+                    }
+                }
+            }
+            //获取设备像素比
+            var PIXEL_RATIO = (function () {
+                var ctx = document.createElement('canvas').getContext('2d'),
+                    dpr = window.devicePixelRatio || 1,
+                    bsr = ctx.webkitBackingStorePixelRatio ||
+                    ctx.mozBackingStorePixelRatio ||
+                    ctx.msBackingStorePixelRatio ||
+                    ctx.oBackingStorePixelRatio ||
+                    ctx.backingStorePixelRatio || 1;
+                return dpr / bsr;
+            })();
+        </script>
+            
+    </body>
+
+</html>

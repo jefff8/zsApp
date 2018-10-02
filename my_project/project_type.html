@@ -50,7 +50,8 @@
                     data:{
                         falg:'listMesType',
                         type:'tab',
-                        projectId:projectId
+                        projectId:projectId,
+                        RolId:localStorage.getItem('RolId')
                     },
                     success:function(data){
 //                      console.log(data['data'][0]['id'])
@@ -59,10 +60,13 @@
                             var Id = data['data'][i]['id']
                             var Num = data['data'][i]['Num']
                         	ListShow_Type(TypeName,'#',Id,Num)
+//                      	console.log(Num)
                         }
+                        
                         $('.mui-table-view-cell').on('tap',function(){
                             localStorage.setItem('TypeName',$(this).find('div').text())
                         })
+                        
                         $('.mycard').on('tap',function(){
                             plus.storage.setItem("TypeId",'');
                             localStorage.setItem('CId',$(this).find('.CId').text());
@@ -75,7 +79,7 @@
                         })
                     },
                     error:function(s,e,t){
-                        alert('出现错误，请及时联系管理员【错误码：PT001】');
+                        alert('出现错误，错误类型：'+e);
                     }
                 });
                 

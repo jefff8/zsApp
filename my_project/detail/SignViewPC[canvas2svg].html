@@ -36,12 +36,11 @@
 					</div>
 				</div>
 				<img id="imgPlace" src="" hidden="hidden"/>
-                <div>
-                    <canvas id="wrapped_canvas" width="500" height="300" style="display:none"></canvas>
-                    <div class="row" id="svg" hidden="hidden">
-                        
-                    </div>
-                </div>
+				<div>
+				    <div class="row" id="svg">
+                        <canvas id="wrapped_canvas" width="200" height="100" style="display:none"></canvas>
+				    </div>
+				</div>
 			</div>
 		</div>
 		<!--底部-->
@@ -78,78 +77,30 @@
             </ul>
         </div>
 	</body>
-	<script src="../../js/mui.min.js"></script>
+	<!--<script src="../../js/mui.min.js"></script>-->
 	<script src="../../js/jquery-1.11.0.min.js"></script>
-	<script src="../../js/service.js"></script>
 	<script src="../../js/signature/jq-signature.min.js"></script>
 	<script src="../../js/signature/canvas2svg.js"></script>
 	<script type="text/javascript">
-	    
-		mui.init({
-		    release:true//默认为false，不监听
-		});
-		//区域滚动,需手动初始化scroll控件
-		mui('.mui-scroll-wrapper').scroll({
-			deceleration: 0.0005 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
-		});
+//		mui.init({
+//		    release:true//默认为false，不监听
+//		});
+//		//区域滚动,需手动初始化scroll控件
+//		mui('.mui-scroll-wrapper').scroll({
+//			deceleration: 0.0005 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
+//		});		
 		//设置线条属性
         lineColor = $('#Popover_0 .mui-active').data('line-color');
         lineWidth = $('#Popover_1 .mui-active').data('line-width');
         //定义图片变量
     	var imgData = [0,1];
-        //获取表单id【非接口id】
-//      var CId = localStorage.getItem('CId');
-        var CId = '55'
-        
-		mui.plusReady(function() {
-		    var self = plus.webview.currentWebview();
+//		mui.plusReady(function() {
+//		    var self = plus.webview.currentWebview();
 		    var fatherPage = self.fatherPage;
 		    //点击键盘输入，返回上个页面
-		    $('#Popover').on('tap',function() {
-		        mui.back();
-		    })
-            //签名保存
-            $('#signIng').on('change',function(){
-                alert('ok');
-            });
-            //选择画笔颜色
-            $('#Popover_0 .mui-table-view-cell').on('tap',function(e) {
-                $('#Popover_0 .mui-active').removeClass("mui-active");
-                $(this).addClass("mui-active");
-                lineColor = $('#Popover_0 .mui-active').data('line-color');
-                saveStu();
-                mui("#Popover_0").popover("toggle"); 
-            });
-            //选择画笔粗细
-            $('#Popover_1 .mui-table-view-cell').on('tap',function(e) {
-                $('#Popover_1 .mui-active').removeClass("mui-active");
-                $(this).addClass("mui-active");
-                lineWidth = $('#Popover_1 .mui-active').data('line-width');
-                saveStu();
-                mui("#Popover_1").popover("toggle");
-            })
-            //保存已存在
-            function saveStu(){
-                var c = document.getElementsByTagName("canvas");
-                var context = c[0].getContext('2d');
-                var width = context.canvas.width;
-                var height = context.canvas.height;
-                imgMes = context.getImageData(0, 0, width, height);
-                $('.js-signature').eq(0).jqSignature('clearCanvas');
-                context.putImageData(imgMes,0,0);
-            }
-            
-            //点击撤销
-                //检测画布改变
-            $('.js-signature').eq(0).on('jq.signature.changed', function() {
-                canvas_copy();
-            });
-                //点击撤销按钮
-            $('#Popover_2').on('tap',function (){
-//              alert('ok');
-                canvas_paste();
-                $('#signature').html($('<p>').text('撤销成功'));
-            });
+//		    $('#Popover').on('tap',function() {
+//		        mui.back();
+//		    })
             
             //执行清屏
             $('#Popover_3').on('tap',function (){
@@ -158,13 +109,15 @@
             });
             
 			//提交签名
-			$('#Popover_4').on('click',function() {
+//          $('#Popover_4').on('tap',function() {
+            $('#Popover_4').on('click',function() {
+                
+                //clesr old sign
+                localStorage.setItem('SignPic','');
                 //返回值
                 var dataUrl = $('.js-signature').eq(0).jqSignature('getDataURL');
-                //clesr old sign
-                //localStorage.setItem('SignPic','');
                 //set new sign
-                //localStorage.setItem('SignPic',dataUrl);
+                localStorage.setItem('SignPic',dataUrl);
                 
                 //创建svg格式文件，并上传到服务器，创建历史数据
                 document.getElementById("imgPlace").src = dataUrl
@@ -182,47 +135,16 @@
                 var c2s = new C2S({ctx:wrappedCtx, width:500, height:300});
                 
                 drawFunction(c2s);
-                svg.innerHTML = '';
+                console.log(c2s.getSvg())
                 svg.appendChild(c2s.getSvg());
-                //保存签名svg
-                $.ajax({
-                    url:url+'action_sign/MesSave_Svg.php',
-                    async:true,
-                    type:'post',
-                    dataType:'json',
-                    data:{
-                        flag:'SaveSvgFile',
-                        svgElement:svg.innerHTML,
-                        formId :CId
-                    },
-                    success:function(data){
-                        if(data['status'] == 'success')
-                        {
-                            var signUrl = data['path']
-                            //将地址存进本地存储
-                            localStorage.setItem('SignUrl',UrlImage+signUrl)
-//                          $('#test').attr('src',url+signUrl)
-                            //进入放置签名页面
-                            mui.openWindow({
-                                url:'signPlace.html',
-                                id:'signPlace.html',
-                            })
-                            return;
-                        }
-                        alert('保存签名时出现错误，请及时联系管理员');
-//                      console.log(data)
-                    },
-                    error:function(s,e,t){
-                        alert('出现错误，错误类型：'+e)
-                    }
-                })
+                
             })
 			
 			if ($('.js-signature').length) {
 				$('.js-signature').jqSignature();
 			}
 			
-		});
+//		});
     	//保存上一步图像
         function canvas_copy(){
             var c = document.getElementsByTagName("canvas");
@@ -232,7 +154,7 @@
             imgData[0] = imgData[1];
             imgData[1] = context.getImageData(0, 0, width, height);
         }
-        //将图像在画布呈现
+        //将土巷仔画布呈现
         var i=1;
         function canvas_paste(){
             var c = document.getElementsByTagName("canvas");

@@ -39,35 +39,51 @@
                 window.location.reload();
             });
             mui.plusReady(function(){
+                var dataPho = localStorage.getItem('AccPh')
                 $.ajax({
                 	type:"get",
                 	url:urlAPI+"TongXinweb/project/AllPro",
                 	async:true,
                 	dataType:'json',
                 	success:function(data){
+                	    //check status
                 	    if(data['success'])
                 	    {
-                	        for (var i=0;i<data['data'].length;i++) {
-                                var ProId = data['data'][i]['projectId'];
-                                var ProName = data['data'][i]['projectName'];
-                                var ProCTm = data['data'][i]['createTime'];
-                                var ProSTm = data['data'][i]['startDate'];
-                                var ProUTm = data['data'][i]['uploadTime'];
-                                var ProSupunits = data['data'][i]['supUnits'];
-                                var ProBuild = data['data'][i]['builder'];
-                                var ProMobile = data['data'][i]['mobile'];
-                                var ProCCode = data['data'][i]['prjNo'];
-                                var ProCName = data['data'][i]['cityName'];
-                                var Phone = data['data'][i]['mobile'];
-                                var DateBegin = data['data'][i]['startDate'];
+                	        //check UsePhone
+                	        var Mes  = '['
+                            for (var i=0;i<data['data'].length;i++) {
+                                if(data['data'][i]['mobile'] == dataPho)
+                                {
+                                    Mes += JSON.stringify(data['data'][i])
+                                    Mes += ','
+                                }
+                            }
+                            Mes = Mes.substr(0,Mes.length-1)
+                            Mes += ']'
+                            var MesObj = eval('(' + Mes + ')');
+
+                            //show Card
+                	        for (var i=0;i<MesObj.length;i++) {
+                                var ProId = MesObj[i]['projectId'];
+                                var ProName = MesObj[i]['projectName'];
+                                var ProCTm = MesObj[i]['createTime'];
+                                var ProSTm = MesObj[i]['startDate'];
+                                var ProUTm = MesObj[i]['uploadTime'];
+                                var ProSupunits = MesObj[i]['supUnits'];
+                                var ProBuild = MesObj[i]['builder'];
+                                var ProMobile = MesObj[i]['mobile'];
+                                var ProCCode = MesObj[i]['prjNo'];
+                                var ProCName = MesObj[i]['cityName'];
+                                var Phone = MesObj[i]['mobile'];
+                                var DateBegin = MesObj[i]['startDate'];
                                 ListShow_Project(ProId,ProName,ProCName,ProCCode,DateBegin,Phone,ProBuild,ProSupunits);
                     	    }
                 	        return 0;
                 	    }
-                	    alert('出现错误，请及时联系管理员【错误码：PL002】');
+                	    alert('出现错误，错误类型：'+e+'位置：success');
                 	},
                 	error:function(s,e,t){
-                	    alert('出现错误，请及时联系管理员【错误码：PL001】');
+                	    alert('出现错误，错误类型：'+e);
                 	}
                 });
             });
@@ -85,11 +101,11 @@
 //                      if(data['statua']){
 //                          return data['row'];
 //                      }else{
-//                          alert('出现错误，请及时联系管理员【错误码：PL004】')
+//                          alert('出现错误，错误类型：'+e);
 //                      }
 //                  },
 //                  error:function(s,e,t){
-//                      alert('出现错误，请及时联系管理员【错误码：PL003】')
+//                      alert('出现错误，错误类型：'+e);
 //                  }
 //              });
 //          }
